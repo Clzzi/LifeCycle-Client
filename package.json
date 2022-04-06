@@ -12,8 +12,7 @@
   },
   "lint-staged": {
     "**/*.{tsx,ts,jsx,js}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint --fix"
     ]
   },
   "dependencies": {
@@ -21,7 +20,6 @@
     "notion-client": "^6.7.0-alpha.1",
     "notion-types": "^6.7.0-alpha.0",
     "notion-utils": "^6.7.0-alpha.1",
-    "prettier": "^2.6.2",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-is": "^18.0.0",
@@ -33,7 +31,6 @@
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
     "@types/node": "17.0.23",
-    "@types/prettier": "^2",
     "@types/react": "17.0.43",
     "@types/react-dom": "17.0.14",
     "@types/react-pdf": "^5.0.9",
