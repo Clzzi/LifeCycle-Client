@@ -2224,6 +2224,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/prettier@npm:^2":
+  version: 2.4.4
+  resolution: "@types/prettier@npm:2.4.4"
+  checksum: 2c2cc57efd49c7d8907415a72f96c84a6dd8696dd3bf8aa4ca3a667427bebf71cbfbc912673624bdfc935d272d1c008c639cf155f6449315990a4dc110f0d216
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:*":
   version: 15.7.4
   resolution: "@types/prop-types@npm:15.7.4"
@@ -4448,6 +4455,7 @@ __metadata:
   dependencies:
     "@svgr/webpack": ^6.2.1
     "@types/node": 17.0.23
+    "@types/prettier": ^2
     "@types/react": 17.0.43
     "@types/react-dom": 17.0.14
     "@types/react-pdf": ^5.0.9
@@ -4461,6 +4469,7 @@ __metadata:
     notion-client: ^6.7.0-alpha.1
     notion-types: ^6.7.0-alpha.0
     notion-utils: ^6.7.0-alpha.1
+    prettier: ^2.6.2
     react: 18.0.0
     react-dom: 18.0.0
     react-is: ^18.0.0
@@ -5281,6 +5290,15 @@ __metadata:
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
   checksum: cd192ec0d0a8e4c6da3bb80e4f62afe336df3f76271ac6deb0e6a36187133b6073a19e9727a1ff108cd8b9982e4768850d413baa71214dd80c7979617dca827a
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^2.6.2":
+  version: 2.6.2
+  resolution: "prettier@npm:2.6.2"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 48d08dde8e9fb1f5bccdd205baa7f192e9fc8bc98f86e1b97d919de804e28c806b0e6cc685e4a88211aa7987fa9668f30baae19580d87ced3ed0f2ec6572106f
   languageName: node
   linkType: hard
 
