@@ -1,6 +1,4 @@
-import { DefaultTheme } from 'styled-components';
-
-export const colors: DefaultTheme = {
+export const colors = {
   Gray900: '#444444',
   Gray800: 'rgba(51,52,54,0.7)',
   Gray700: '#84868D',
