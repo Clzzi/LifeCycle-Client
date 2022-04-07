@@ -4468,6 +4468,7 @@ __metadata:
     react-pdf: ^5.7.2
     react-query: ^3.34.19
     styled-components: ^5.3.5
+    styled-reset: ^4.3.4
     typescript: ^4.6.3
   languageName: unknown
   linkType: soft
@@ -6188,6 +6189,15 @@ __metadata:
     babel-plugin-macros:
       optional: true
   checksum: b85eb03da76b566065b10911a24396659b45a34efa16eef87ed8ff2ce3ea7b9b6a9c0c92c3b2113f92cbca9ab12496690d72329cb9932759ea98d0386acb38a9
+  languageName: node
+  linkType: hard
+
+"styled-reset@npm:^4.3.4":
+  version: 4.3.4
+  resolution: "styled-reset@npm:4.3.4"
+  peerDependencies:
+    styled-components: ">=4.0.0 || >=5.0.0"
+  checksum: 2a652f1d0276badcf779315589dd1fd5bb3744d619b8caa068c4fd42ab1dd725c59a3e594d62575b6ad8b8e59cf2c155a9036fe473688641d0f583983bc9a6af
   languageName: node
   linkType: hard
 
