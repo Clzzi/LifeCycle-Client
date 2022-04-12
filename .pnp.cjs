@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-pdf", "npm:5.0.9"],\
             ["@types/styled-components", "npm:5.1.24"],\
             ["babel-plugin-styled-components", "virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:2.0.6"],\
+            ["dayjs", "npm:1.11.0"],\
             ["eslint", "npm:8.12.0"],\
             ["eslint-config-next", "virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:12.1.4"],\
             ["husky", "npm:7.0.4"],\
@@ -4830,6 +4831,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["dayjs", [\
+        ["npm:1.11.0", {\
+          "packageLocation": "./.yarn/cache/dayjs-npm-1.11.0-592daa78a5-2d36f6d713.zip/node_modules/dayjs/",\
+          "packageDependencies": [\
+            ["dayjs", "npm:1.11.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["debug", [\
         ["npm:2.6.9", {\
           "packageLocation": "./.yarn/cache/debug-npm-2.6.9-7d4cb597dc-d2f51589ca.zip/node_modules/debug/",\
@@ -6576,6 +6586,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-pdf", "npm:5.0.9"],\
             ["@types/styled-components", "npm:5.1.24"],\
             ["babel-plugin-styled-components", "virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:2.0.6"],\
+            ["dayjs", "npm:1.11.0"],\
             ["eslint", "npm:8.12.0"],\
             ["eslint-config-next", "virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:12.1.4"],\
             ["husky", "npm:7.0.4"],\

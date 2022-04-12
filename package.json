@@ -36,6 +36,7 @@
     "@types/react-pdf": "^5.0.9",
     "@types/styled-components": "^5",
     "babel-plugin-styled-components": "^2.0.6",
+    "dayjs": "^1.11.0",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.4",
     "husky": "^7.0.0",
