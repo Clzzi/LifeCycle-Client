@@ -40,4 +40,8 @@ export const GlobalStyle = createGlobalStyle`
     :link {
       text-decoration: none;
     }
+
+    body {
+      background-color: #28292A;
+    }
 `;
