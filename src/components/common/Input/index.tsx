@@ -80,4 +80,11 @@ export const Input = ({
 const InputContent = styled.input`
   border: none;
   margin-bottom: 4px;
+  transition: 0.3s ease-in-out;
+  &::placeholder {
+    font-size: 0.875rem;
+  }
+  &:focus {
+    outline: 1.75px solid ${({ theme }) => theme.colors.Main1};
+  }
 `;

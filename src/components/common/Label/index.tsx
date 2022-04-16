@@ -24,7 +24,7 @@ const Container = styled.div`
 const StyledText = styled.span<{ fontSize: string }>`
   text-align: start;
   font-size: ${(props) => props.fontSize};
-  color: ${({ theme }) => theme.colors.Main1};
+  color: ${({ theme }) => theme.colors.Main2};
   font-weight: 400;
   &::before {
     content: '*';

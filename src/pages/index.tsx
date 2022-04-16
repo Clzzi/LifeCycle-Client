@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent } from 'react';
+import { Button } from 'src/components/common/Button';
 import { Input } from 'src/components/common/Input';
-import { Header } from 'src/components/common/Layout/Header';
 import { Title } from 'src/components/common/Title';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import styled, { useTheme } from 'styled-components';
@@ -85,6 +85,23 @@ const Login: NextPage = () => {
             height="56px"
           />
         </InputContainer>
+        <ButtonContainer>
+          <Button
+            width="488px"
+            height="56px"
+            content="로그인"
+            fontSize="20px"
+            color={theme.colors.White900}
+            borderRadius="999px"
+            backgroundColor={theme.colors.Main1}
+            handleClick={() => {
+              console.log('123');
+            }}
+          />
+        </ButtonContainer>
+        <GoToSignUp>
+          <a>혹시 계정이 없으신가요?</a>
+        </GoToSignUp>
       </Container>
     </Wrapper>
   );
@@ -116,6 +133,34 @@ const InputContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
+const GoToSignUp = styled.button`
+  width: fit-content;
+  text-align: start;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 40px;
+  & > a {
+    font-size: 14px;
+    color: ${({ theme }) => theme.colors.Gray500};
+    text-decoration: underline;
+    text-underline-position: under;
+    &:hover {
+      color: ${({ theme }) => theme.colors.Gray500};
+      text-decoration: underline;
+      text-underline-position: under;
+    }
+  }
 `;
 
 export default Login;
