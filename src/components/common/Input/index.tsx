@@ -82,7 +82,7 @@ const InputContent = styled.input`
   margin-bottom: 4px;
   transition: 0.3s ease-in-out;
   &::placeholder {
-    font-size: 0.875rem;
+    font-size: ${({ theme }) => theme.fonts.font14};
   }
   &:focus {
     outline: 1.75px solid ${({ theme }) => theme.colors.Main1};

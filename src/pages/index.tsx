@@ -38,8 +38,8 @@ const Login: NextPage = () => {
     <Wrapper>
       <Container>
         <Title
-          mainSize="28px"
-          subSize="16px"
+          mainSize={theme.fonts.font28}
+          subSize={theme.fonts.font16}
           width="488px"
           height="76px"
           mainColor={theme.colors.White900}
@@ -55,9 +55,9 @@ const Login: NextPage = () => {
             type="text"
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
-            fontSize="16px"
+            fontSize={theme.fonts.font16}
             isAutoFocus
-            errorFontSize="14px"
+            errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="id"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -73,9 +73,9 @@ const Login: NextPage = () => {
             type="password"
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
-            fontSize="16px"
+            fontSize={theme.fonts.font16}
             isAutoFocus
-            errorFontSize="14px"
+            errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="pw"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +90,7 @@ const Login: NextPage = () => {
             width="488px"
             height="56px"
             content="로그인"
-            fontSize="20px"
+            fontSize={theme.fonts.font20}
             color={theme.colors.White900}
             borderRadius="999px"
             backgroundColor={theme.colors.Main1}
@@ -151,7 +151,7 @@ const GoToSignUp = styled.button`
   cursor: pointer;
   margin-top: 40px;
   & > a {
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.fonts.font14};
     color: ${({ theme }) => theme.colors.Gray500};
     text-decoration: underline;
     text-underline-position: under;
