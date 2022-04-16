@@ -18,11 +18,14 @@ export const Label = ({ children, message, fontSize }: Props) => {
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 const StyledText = styled.span<{ fontSize: string }>`
+  text-align: start;
   font-size: ${(props) => props.fontSize};
+  color: ${({ theme }) => theme.colors.Main1};
+  font-weight: 400;
   &::before {
     content: '*';
     vertical-align: text-top;

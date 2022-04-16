@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Label } from '../Label';
 
 interface Props {
-  value: string;
+  value: string | undefined;
   errorMessage: string;
   placeholder?: string;
   min?: number;
@@ -17,11 +17,12 @@ interface Props {
   margin?: string;
   padding?: string;
   width?: string;
+  name: string;
   isAutoFocus?: boolean;
   customStyle?: CSSProperties;
   errorFontSize?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleKeyPress: (e: KeyboardEvent<HTMLInputElement>) => void;
+  handleKeyPress?: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export const Input = ({
@@ -40,6 +41,7 @@ export const Input = ({
   margin,
   max,
   min,
+  name,
   padding,
   placeholder,
   width = '480px',
@@ -69,9 +71,13 @@ export const Input = ({
         autoFocus={isAutoFocus}
         placeholder={placeholder}
         style={style}
+        name={name}
       />
     </Label>
   );
 };
 
-const InputContent = styled.input``;
+const InputContent = styled.input`
+  border: none;
+  margin-bottom: 4px;
+`;
