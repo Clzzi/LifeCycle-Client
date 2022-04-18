@@ -6,5 +6,3 @@ export const mediaSizes = {
   smallDesktop: 1044,
   desktop: 1284,
 };
-
-

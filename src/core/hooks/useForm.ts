@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, MouseEvent, useEffect, useState } from 'react';
 
 export type Error<T> = { [P in keyof T]?: string };
 
@@ -8,7 +8,7 @@ interface Options<T> {
   validate(values: T): Error<T>;
 }
 
-export const useForm = <T, H extends HTMLElement = HTMLFormElement>({
+export const useForm = <T, H extends HTMLElement = HTMLButtonElement>({
   initialValue,
   onSubmit,
   validate,
@@ -20,9 +20,9 @@ export const useForm = <T, H extends HTMLElement = HTMLFormElement>({
   useEffect(() => {
     const newError: Error<T> = validate(values);
     setErrors(newError);
-  }, [validate, values]);
+  }, [values]);
 
-  const handleSubmit = async (e: FormEvent<H>): Promise<void> => {
+  const handleSubmit = async (e: MouseEvent<H>): Promise<void> => {
     setIsLoading(true);
     e.preventDefault();
     const newErrors: Error<T> | {} = validate ? validate(values) : {};
