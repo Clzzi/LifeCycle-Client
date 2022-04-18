@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 import { ChangeEvent } from 'react';
 import { Button } from 'src/components/common/Button';
@@ -10,9 +9,11 @@ import styled, { DefaultTheme, useTheme } from 'styled-components';
 interface Values {
   id: string | undefined;
   pw: string | undefined;
+  name: string | undefined;
+  generation: number | undefined;
 }
 
-const Login: NextPage = () => {
+const Register = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { values, errors, isLoading, setValues, handleSubmit } =
@@ -20,22 +21,29 @@ const Login: NextPage = () => {
       initialValue: {
         id: undefined,
         pw: undefined,
+        name: undefined,
+        generation: undefined,
       },
       onSubmit: () => {
         // TODO
       },
-      validate: ({ id, pw }) => {
-        const errors: Error<Values> = {};
+      validate: ({ id, pw, name, generation }) => {
+        const errors: Error<Values> = new Object();
         if (id !== undefined && id.length === 0) {
           errors.id = 'ID를 입력해주세요';
         }
         if (pw !== undefined && pw.length === 0) {
           errors.pw = 'PW를 입력해주세요';
         }
+        if (name !== undefined && name.length === 0) {
+          errors.name = '이름을 입력해주세요';
+        }
+        if (generation !== undefined && generation < 7) {
+          errors.generation = '기수를 입력해주세요';
+        }
         return errors;
       },
     });
-
   return (
     <Wrapper>
       <Container>
@@ -43,11 +51,11 @@ const Login: NextPage = () => {
           mainSize={theme.fonts.font28}
           subSize={theme.fonts.font16}
           width="488px"
-          height="76px"
+          height="78px"
           mainColor={theme.colors.White900}
           subColor={theme.colors.Gray500}
-          mainText="로그인"
-          subText="로그인하여 더 자세한 정보를 찾아봐요!"
+          mainText="회원가입"
+          subText="LifeCycle에서 여러분의 이력서를 공유해보세요!"
         />
         <InputContainer>
           <Input
@@ -62,9 +70,9 @@ const Login: NextPage = () => {
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="id"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
-            }}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setValues({ ...values, [e.target.name]: e.target.value })
+            }
             width="100%"
             height="56px"
           />
@@ -72,25 +80,61 @@ const Login: NextPage = () => {
             value={values.pw}
             errorMessage={errors.pw ? errors.pw : ''}
             placeholder="PW"
-            type="password"
+            type="text"
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="pw"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
-            }}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setValues({ ...values, [e.target.name]: e.target.value })
+            }
             width="100%"
             height="56px"
+          />
+          <Input
+            value={values.name}
+            errorMessage={errors.name ? errors.name : ''}
+            placeholder="이름"
+            type="text"
+            backgroundColor={theme.colors.White400}
+            borderRadius="5px"
+            fontSize={theme.fonts.font16}
+            errorFontSize={theme.fonts.font14}
+            padding="6px 12px"
+            name="name"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setValues({ ...values, [e.target.name]: e.target.value })
+            }
+            width="100%"
+            height="56px"
+          />
+          <Input
+            value={values.generation}
+            errorMessage={errors.generation ? errors.generation : ''}
+            placeholder="기수"
+            type="number"
+            backgroundColor={theme.colors.White400}
+            borderRadius="5px"
+            fontSize={theme.fonts.font16}
+            errorFontSize={theme.fonts.font14}
+            padding="6px 12px"
+            name="generation"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setValues({ ...values, [e.target.name]: e.target.value })
+            }
+            width="100%"
+            height="56px"
+            max={7}
+            min={1}
           />
         </InputContainer>
         <ButtonContainer>
           <Button
             width="488px"
             height="56px"
-            content="로그인"
+            content="회원가입"
             fontSize={theme.fonts.font20}
             color={theme.colors.White900}
             borderRadius="999px"
@@ -100,13 +144,15 @@ const Login: NextPage = () => {
             }}
           />
         </ButtonContainer>
-        <GoToSignUp onClick={() => router.push('/register')}>
-          <a>혹시 계정이 없으신가요?</a>
-        </GoToSignUp>
+        <GoToLogin onClick={() => router.push('/')}>
+          <a>이미 계정이 있나요?</a>
+        </GoToLogin>
       </Container>
     </Wrapper>
   );
 };
+
+export default Register;
 
 const Wrapper = styled.section`
   width: 100%;
@@ -119,7 +165,7 @@ const Wrapper = styled.section`
 
 const Container = styled.article`
   width: 560px;
-  height: 560px;
+  height: 720px;
   padding: 36px;
   display: flex;
   flex-direction: column;
@@ -129,8 +175,8 @@ const Container = styled.article`
 
 const InputContainer = styled.section`
   width: 100%;
-  height: 160px;
-  margin: 48px 0px;
+  height: 336px;
+  margin: 48px 0px 26px 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -144,7 +190,7 @@ const ButtonContainer = styled.div`
   text-align: center;
 `;
 
-const GoToSignUp = styled.button`
+const GoToLogin = styled.button`
   width: fit-content;
   text-align: start;
   background-color: transparent;
@@ -163,5 +209,3 @@ const GoToSignUp = styled.button`
     }
   }
 `;
-
-export default Login;
