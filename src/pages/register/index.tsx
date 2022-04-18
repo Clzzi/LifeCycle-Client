@@ -1,10 +1,11 @@
 import { NextRouter, useRouter } from 'next/router';
 import { ChangeEvent, useState } from 'react';
 import { Button } from 'src/components/common/Button';
+import { CheckBox } from 'src/components/common/CheckBox';
 import { Input } from 'src/components/common/Input';
-import { RadioButton } from 'src/components/common/RadioButton';
 import { Title } from 'src/components/common/Title';
 import { Error, useForm } from 'src/core/hooks/useForm';
+import { UnderLineText } from 'src/core/styles/shareStyle';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 
 interface Values {
@@ -17,7 +18,7 @@ interface Values {
 const Register = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
-  const [isTermsCheck, setIsTermsCheck] = useState<string>("check");
+  const [isTermsCheck, setIsTermsCheck] = useState<boolean>(false);
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({
       initialValue: {
@@ -82,7 +83,7 @@ const Register = () => {
             value={values.pw}
             errorMessage={errors.pw ? errors.pw : ''}
             placeholder="PW"
-            type="text"
+            type="password"
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
@@ -132,7 +133,16 @@ const Register = () => {
             min={1}
           />
         </InputContainer>
-        
+        <CheckBoxContainer>
+          <CheckBox
+            className="test"
+            checked={isTermsCheck}
+            onClick={() => setIsTermsCheck(!isTermsCheck)}
+          />
+          <TermMessage>
+            <a>약관동의</a>
+          </TermMessage>
+        </CheckBoxContainer>
         <ButtonContainer>
           <Button
             width="488px"
@@ -179,7 +189,7 @@ const Container = styled.article`
 const InputContainer = styled.section`
   width: 100%;
   height: 336px;
-  margin: 48px 0px 26px 0px;
+  margin: 48px 0px 0px 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -191,24 +201,24 @@ const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin-top: 12px;
 `;
 
-const GoToLogin = styled.button`
-  width: fit-content;
-  text-align: start;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+const CheckBoxContainer = styled.div`
+  width: 100%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  text-align: center;
+  align-items: center;
+  margin-left: 4px;
+`;
+
+const TermMessage = styled(UnderLineText)`
+  margin-left: 6px;
+`;
+
+const GoToLogin = styled(UnderLineText)`
   margin-top: 40px;
-  & > a {
-    font-size: ${({ theme }) => theme.fonts.font14};
-    color: ${({ theme }) => theme.colors.Gray500};
-    text-decoration: underline;
-    text-underline-position: under;
-    &:hover {
-      color: ${({ theme }) => theme.colors.Gray500};
-      text-decoration: underline;
-      text-underline-position: under;
-    }
-  }
 `;
