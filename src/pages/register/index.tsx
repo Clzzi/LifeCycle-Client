@@ -1,7 +1,8 @@
 import { NextRouter, useRouter } from 'next/router';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Button } from 'src/components/common/Button';
 import { Input } from 'src/components/common/Input';
+import { RadioButton } from 'src/components/common/RadioButton';
 import { Title } from 'src/components/common/Title';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
@@ -16,6 +17,7 @@ interface Values {
 const Register = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
+  const [isTermsCheck, setIsTermsCheck] = useState<string>("check");
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({
       initialValue: {
@@ -38,7 +40,7 @@ const Register = () => {
         if (name !== undefined && name.length === 0) {
           errors.name = '이름을 입력해주세요';
         }
-        if (generation !== undefined && generation < 7) {
+        if (generation !== undefined && generation > 7) {
           errors.generation = '기수를 입력해주세요';
         }
         return errors;
@@ -130,6 +132,7 @@ const Register = () => {
             min={1}
           />
         </InputContainer>
+        
         <ButtonContainer>
           <Button
             width="488px"
