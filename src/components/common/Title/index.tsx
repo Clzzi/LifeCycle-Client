@@ -10,7 +10,8 @@ interface Props {
   mainColor?: string;
   subColor?: string;
   mainText: string;
-  subText: string;
+  subText?: string;
+  customStyle?: CSSProperties;
 }
 
 export const Title = ({
@@ -22,6 +23,7 @@ export const Title = ({
   width = '488px',
   mainText,
   subText,
+  customStyle,
 }: Props) => {
   const mainStyle: CSSProperties = {
     color: mainColor,
@@ -32,6 +34,7 @@ export const Title = ({
     fontSize: subSize,
   };
   const wrappperStyle: CSSProperties = {
+    ...customStyle,
     width,
     height,
   };
@@ -40,7 +43,7 @@ export const Title = ({
     <Wrapper style={wrappperStyle}>
       <MainText style={mainStyle}>{mainText}</MainText>
       <Line />
-      <SubText style={subStyle}>{subText}</SubText>
+      {subText && <SubText style={subStyle}>{subText}</SubText>}
     </Wrapper>
   );
 };

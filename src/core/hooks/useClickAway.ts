@@ -2,6 +2,7 @@ import { MutableRefObject, RefObject, useEffect, useRef } from 'react';
 
 export const useClickAway = <T extends HTMLElement>(
   handler: (e: Event) => void,
+  deps?: boolean,
 ) => {
   const ref: RefObject<T> = useRef<T>(null);
   const savedHandler: MutableRefObject<(e: Event) => void> = useRef(handler);
@@ -9,9 +10,9 @@ export const useClickAway = <T extends HTMLElement>(
   useEffect(() => {
     savedHandler.current = handler;
   }, [handler]);
-
   useEffect(() => {
-    const el: T | null = ref.current;
+    const el = ref.current;
+    console.log(el);
     const handleEvent = (e: Event): void => {
       if (el && !el.contains(e.target as Node)) savedHandler.current(e);
     };
@@ -23,7 +24,7 @@ export const useClickAway = <T extends HTMLElement>(
       document.removeEventListener('touchstart', handleEvent);
       document.removeEventListener('mousedown', handleEvent);
     };
-  }, [ref]);
+  }, [ref, deps]);
 
   return ref;
 };

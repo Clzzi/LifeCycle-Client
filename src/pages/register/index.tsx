@@ -5,6 +5,7 @@ import { CheckBox } from 'src/components/common/CheckBox';
 import { Input } from 'src/components/common/Input';
 import { Modal } from 'src/components/common/Modal';
 import { Title } from 'src/components/common/Title';
+import { TERM_MESSAGE } from 'src/core/constants/register.constants';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { UnderLineText } from 'src/core/styles/shareStyle';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
@@ -19,7 +20,7 @@ interface Values {
 const Register = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
-  const [isVisibleModal, setIsVisibleModal] = useState<boolean>(true);
+  const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
   const [isTermsCheck, setIsTermsCheck] = useState<boolean>(false);
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({
@@ -49,6 +50,7 @@ const Register = () => {
         return errors;
       },
     });
+
   return (
     <Wrapper>
       <Container>
@@ -141,7 +143,7 @@ const Register = () => {
             checked={isTermsCheck}
             onClick={() => setIsTermsCheck(!isTermsCheck)}
           />
-          <TermMessage>
+          <TermMessage onClick={() => setIsVisibleModal(true)}>
             <a>약관동의</a>
           </TermMessage>
         </CheckBoxContainer>
@@ -163,12 +165,23 @@ const Register = () => {
           <a>이미 계정이 있나요?</a>
         </GoToLogin>
       </Container>
-      <Modal
-        visible={isVisibleModal}
-        onClose={() => setIsVisibleModal(false)}
-        width="510px"
-        height="500px">
-        <div style={{ color: 'red' }}>test</div>
+      <Modal visible={isVisibleModal} onClose={() => setIsVisibleModal(false)}>
+        <Title
+          mainSize={theme.fonts.font28}
+          width="100%"
+          height="48px"
+          mainColor={theme.colors.Black900}
+          mainText="이용약관"
+          customStyle={{ marginBottom: '16px' }}
+        />
+        {TERM_MESSAGE.map((term) => {
+          return (
+            <TermMsg key={term.title}>
+              <span>{term.title}</span>
+              <p>{term.content}</p>
+            </TermMsg>
+          );
+        })}
       </Modal>
     </Wrapper>
   );
@@ -230,4 +243,24 @@ const TermMessage = styled(UnderLineText)`
 
 const GoToLogin = styled(UnderLineText)`
   margin-top: 40px;
+`;
+
+const TermMsg = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: center;
+  margin-bottom: 22px;
+  font-size: ${({ theme }) => theme.fonts.font16};
+  line-height: 1.3;
+  & > p {
+    text-align: start;
+    word-break: keep-all;
+  }
+
+  & > span {
+    text-align: start;
+    font-weight: bold;
+  }
 `;

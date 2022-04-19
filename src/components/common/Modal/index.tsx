@@ -18,8 +18,8 @@ export const Modal = ({
   onClose,
   visible,
   children,
-  height = '500px',
   width = '510px',
+  height = '500px',
   borderRadius = '12px',
   backgroundColor,
   onYes,
@@ -27,7 +27,7 @@ export const Modal = ({
 }: Props) => {
   const ref: RefObject<HTMLDivElement> = useClickAway<HTMLDivElement>(() => {
     onClose();
-  });
+  }, visible);
 
   const style: CSSProperties = useMemo(() => {
     return { ...customStyle, width, height, borderRadius, backgroundColor };
