@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from 'react';
 import { Button } from 'src/components/common/Button';
 import { CheckBox } from 'src/components/common/CheckBox';
 import { Input } from 'src/components/common/Input';
+import { Modal } from 'src/components/common/Modal';
 import { Title } from 'src/components/common/Title';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { UnderLineText } from 'src/core/styles/shareStyle';
@@ -18,6 +19,7 @@ interface Values {
 const Register = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
+  const [isVisibleModal, setIsVisibleModal] = useState<boolean>(true);
   const [isTermsCheck, setIsTermsCheck] = useState<boolean>(false);
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({
@@ -161,6 +163,13 @@ const Register = () => {
           <a>이미 계정이 있나요?</a>
         </GoToLogin>
       </Container>
+      <Modal
+        visible={isVisibleModal}
+        onClose={() => setIsVisibleModal(false)}
+        width="510px"
+        height="500px">
+        <div style={{ color: 'red' }}>test</div>
+      </Modal>
     </Wrapper>
   );
 };
