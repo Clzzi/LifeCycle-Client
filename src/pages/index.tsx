@@ -1,10 +1,11 @@
 import type { NextPage } from 'next';
+import { NextRouter, useRouter } from 'next/router';
 import { ChangeEvent } from 'react';
 import { Button } from 'src/components/common/Button';
 import { Input } from 'src/components/common/Input';
 import { Title } from 'src/components/common/Title';
 import { Error, useForm } from 'src/core/hooks/useForm';
-import styled, { useTheme } from 'styled-components';
+import styled, { DefaultTheme, useTheme } from 'styled-components';
 
 interface Values {
   id: string | undefined;
@@ -12,7 +13,8 @@ interface Values {
 }
 
 const Login: NextPage = () => {
-  const theme = useTheme();
+  const router: NextRouter = useRouter();
+  const theme: DefaultTheme = useTheme();
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({
       initialValue: {
@@ -74,7 +76,6 @@ const Login: NextPage = () => {
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
-            isAutoFocus
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="pw"
@@ -95,11 +96,11 @@ const Login: NextPage = () => {
             borderRadius="999px"
             backgroundColor={theme.colors.Main1}
             handleClick={() => {
-              console.log('123');
+              // TODO
             }}
           />
         </ButtonContainer>
-        <GoToSignUp>
+        <GoToSignUp onClick={() => router.push('/register')}>
           <a>혹시 계정이 없으신가요?</a>
         </GoToSignUp>
       </Container>
@@ -117,7 +118,7 @@ const Wrapper = styled.section`
 `;
 
 const Container = styled.article`
-  width: 580px;
+  width: 560px;
   height: 560px;
   padding: 36px;
   display: flex;
