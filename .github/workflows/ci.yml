@@ -15,7 +15,7 @@ jobs:
           node-version: 14.x
 
       - name: Install dependencies
-        run: yarn install --immutable --immutable-cache --check-cache
+        run: yarn install
 
       - name: Check End To End TEST
         uses: cypress-io/github-action@v2
