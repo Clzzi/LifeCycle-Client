@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useThrottle } from './useThrottle';
 import {
-  defaultOptions,
+  DefaultOptions,
   THROTTLE_WAIT,
 } from '../constants/hooks/infiniteScroll.constants';
 
@@ -11,7 +11,7 @@ export const useInfiniteScroll = <
 >({
   fetchCallback,
   targetElement,
-  options = defaultOptions,
+  options = DefaultOptions,
 }: {
   fetchCallback: (...args: T) => void;
   targetElement: E;
