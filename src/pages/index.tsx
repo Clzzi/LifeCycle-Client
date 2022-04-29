@@ -1,97 +1,23 @@
 import type { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
-import { ChangeEvent } from 'react';
 import { Button } from 'src/components/common/Button';
-import { Input } from 'src/components/common/Input';
-import { Title } from 'src/components/common/Title';
-import { Error, useForm } from 'src/core/hooks/useForm';
+import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 
-interface Values {
-  id: string | undefined;
-  pw: string | undefined;
-}
-
-const Login: NextPage = () => {
+const Main: NextPage = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
-  const { values, errors, isLoading, setValues, handleSubmit } =
-    useForm<Values>({
-      initialValue: {
-        id: undefined,
-        pw: undefined,
-      },
-      onSubmit: () => {
-        // TODO
-      },
-      validate: ({ id, pw }) => {
-        const errors: Error<Values> = {};
-        if (id !== undefined && id.length === 0) {
-          errors.id = ' ID를 입력해주세요';
-        }
-        if (pw !== undefined && pw.length === 0) {
-          errors.pw = ' PW를 입력해주세요';
-        }
-        return errors;
-      },
-    });
 
   return (
-    <Wrapper>
+    <>
+      <Banner />
       <Container>
-        <Title
-          mainSize={theme.fonts.font28}
-          subSize={theme.fonts.font16}
-          width="488px"
-          height="76px"
-          mainColor={theme.colors.White900}
-          subColor={theme.colors.Gray500}
-          mainText="로그인"
-          subText="로그인하여 더 자세한 정보를 찾아봐요!"
-        />
-        <InputContainer>
-          <Input
-            value={values.id}
-            errorMessage={errors.id ? errors.id : ''}
-            placeholder="ID"
-            type="text"
-            backgroundColor={theme.colors.White400}
-            borderRadius="5px"
-            fontSize={theme.fonts.font16}
-            isAutoFocus
-            errorFontSize={theme.fonts.font14}
-            padding="6px 12px"
-            name="id"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
-            }}
-            width="100%"
-            height="56px"
-          />
-          <Input
-            value={values.pw}
-            errorMessage={errors.pw ? errors.pw : ''}
-            placeholder="PW"
-            type="password"
-            backgroundColor={theme.colors.White400}
-            borderRadius="5px"
-            fontSize={theme.fonts.font16}
-            errorFontSize={theme.fonts.font14}
-            padding="6px 12px"
-            name="pw"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
-            }}
-            width="100%"
-            height="56px"
-          />
-        </InputContainer>
-        <ButtonContainer>
+        <TopWrapper>
           <Button
-            width="488px"
-            height="56px"
-            content="로그인"
-            fontSize={theme.fonts.font20}
+            width="126px"
+            height="38px"
+            content="이력서 등록하기"
+            fontSize={theme.fonts.font14}
             color={theme.colors.White900}
             borderRadius="999px"
             backgroundColor={theme.colors.Main1}
@@ -99,69 +25,99 @@ const Login: NextPage = () => {
               // TODO
             }}
           />
-        </ButtonContainer>
-        <GoToSignUp onClick={() => router.push('/register')}>
-          <a>혹시 계정이 없으신가요?</a>
-        </GoToSignUp>
+          <SelectBoxes>
+            <SelectBox
+              content={[
+                { name: '모든분야', value: '1' },
+                { name: '프론트엔드', value: '2' },
+                { name: '백엔드', value: '3' },
+                { name: '안드로이드', value: '4' },
+                { name: 'IOS', value: '5' },
+                { name: 'AI', value: '6' },
+                { name: '임베디드', value: '7' },
+              ]}
+              defaultValue="1"
+              width="126px"
+              height="38px"
+              backgroundColor="transparent"
+              border={`2px solid ${theme.colors.Main1}`}
+              borderRadius="999px"
+              color={theme.colors.White900}
+              fontSize={theme.fonts.font14}
+            />
+            <SelectBox
+              content={[
+                { name: '모든플랫폼', value: '1' },
+                { name: '노션', value: '2' },
+                { name: 'PDF', value: '3' },
+              ]}
+              defaultValue="1"
+              width="126px"
+              height="38px"
+              backgroundColor="transparent"
+              border={`2px solid ${theme.colors.Main1}`}
+              borderRadius="999px"
+              color={theme.colors.White900}
+              fontSize={theme.fonts.font14}
+            />
+            <SelectBox
+              content={[
+                { name: '전체기수', value: '전체기수' },
+                { name: '1기', value: '1기' },
+                { name: '2기', value: '2기' },
+                { name: '3기', value: '3기' },
+                { name: '4기', value: '4기' },
+                { name: '5기', value: '5기' },
+                { name: '6기', value: '6기' },
+                { name: '7기', value: '7기' },
+              ]}
+              defaultValue="1"
+              width="126px"
+              height="38px"
+              backgroundColor="transparent"
+              border={`2px solid ${theme.colors.Main1}`}
+              borderRadius="999px"
+              color={theme.colors.White900}
+              fontSize={theme.fonts.font14}
+            />
+          </SelectBoxes>
+        </TopWrapper>
       </Container>
-    </Wrapper>
+    </>
   );
 };
 
-const Wrapper = styled.section`
-  width: 100%;
-  height: calc(100vh - 56px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
+export default Main;
 
-const Container = styled.article`
-  width: 560px;
-  height: 560px;
-  padding: 36px;
-  display: flex;
-  flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.Black900};
-  border-radius: 12px;
-`;
-
-const InputContainer = styled.section`
-  width: 100%;
-  height: 160px;
-  margin: 48px 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
-
-const GoToSignUp = styled.button`
-  width: fit-content;
-  text-align: start;
-  background-color: transparent;
-  border: none;
+const Banner = styled.article`
+  width: 1920px;
+  height: 256px;
+  background-image: url('/assets/Banner.svg');
+  background-repeat: no-repeat;
   cursor: pointer;
-  margin-top: 40px;
-  & > a {
-    font-size: ${({ theme }) => theme.fonts.font14};
-    color: ${({ theme }) => theme.colors.Gray500};
-    text-decoration: underline;
-    text-underline-position: under;
-    &:hover {
-      color: ${({ theme }) => theme.colors.Gray500};
-      text-decoration: underline;
-      text-underline-position: under;
-    }
-  }
+  margin: -4px 0px 32px 0px;
 `;
 
-export default Login;
+const Container = styled.section`
+  width: 100%;
+  max-width: 1920px;
+  padding: 0px 215px;
+`;
+
+const TopWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+`;
+
+const SelectBoxes = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+`;
