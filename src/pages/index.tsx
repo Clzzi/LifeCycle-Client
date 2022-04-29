@@ -22,7 +22,7 @@ const Login: NextPage = () => {
         pw: undefined,
       },
       onSubmit: () => {
-        // TODO
+        // T O D O
       },
       validate: ({ id, pw }) => {
         const errors: Error<Values> = {};
