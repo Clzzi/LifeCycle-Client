@@ -27,10 +27,10 @@ const Login: NextPage = () => {
       validate: ({ id, pw }) => {
         const errors: Error<Values> = {};
         if (id !== undefined && id.length === 0) {
-          errors.id = 'ID를 입력해주세요';
+          errors.id = ' ID를 입력해주세요';
         }
         if (pw !== undefined && pw.length === 0) {
-          errors.pw = 'PW를 입력해주세요';
+          errors.pw = ' PW를 입력해주세요';
         }
         return errors;
       },
