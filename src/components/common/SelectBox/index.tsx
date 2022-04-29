@@ -1,4 +1,5 @@
-import { CSSProperties } from 'react';
+import { ChangeEvent, CSSProperties } from 'react';
+import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
 
 interface Options {
@@ -16,22 +17,20 @@ interface Props {
   borderRadius?: string;
   backgroundColor?: string;
   customStyle?: CSSProperties;
-  defaultValue: string | number;
-  onChange?: () => void | Promise<void>;
+  onChange?: (e: ChangeEvent<HTMLSelectElement>) => void | Promise<void>;
 }
 
 export const SelectBox = ({
   content,
-  backgroundColor,
-  border,
-  borderRadius,
-  color,
+  backgroundColor = 'transparent',
+  border = `2px solid ${theme.colors.Main1}`,
+  borderRadius = '999px',
+  color = theme.colors.White900,
   customStyle,
-  fontSize,
-  height,
+  fontSize = theme.fonts.font14,
+  height = '38px',
   onChange,
-  width,
-  defaultValue,
+  width = '126px',
 }: Props) => {
   const style: CSSProperties = {
     ...customStyle,
@@ -46,12 +45,9 @@ export const SelectBox = ({
 
   return (
     <Wrapper>
-      <select style={style}>
+      <select style={style} onChange={onChange}>
         {content.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-            defaultChecked={defaultValue === option.value}>
+          <option key={option.value} value={option.value}>
             {option.name}
           </option>
         ))}

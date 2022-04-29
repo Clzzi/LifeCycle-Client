@@ -1,7 +1,13 @@
 import type { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 import { Button } from 'src/components/common/Button';
+import { Card } from 'src/components/common/Card';
 import { SelectBox } from 'src/components/common/SelectBox';
+import {
+  FLATFORM_LIST,
+  GENERATION_LIST,
+  STACK_LIST,
+} from 'src/core/constants/filter.constants';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 
 const Main: NextPage = () => {
@@ -27,61 +33,36 @@ const Main: NextPage = () => {
           />
           <SelectBoxes>
             <SelectBox
-              content={[
-                { name: '모든분야', value: '1' },
-                { name: '프론트엔드', value: '2' },
-                { name: '백엔드', value: '3' },
-                { name: '안드로이드', value: '4' },
-                { name: 'IOS', value: '5' },
-                { name: 'AI', value: '6' },
-                { name: '임베디드', value: '7' },
-              ]}
-              defaultValue="1"
+              content={STACK_LIST}
               width="126px"
               height="38px"
-              backgroundColor="transparent"
               border={`2px solid ${theme.colors.Main1}`}
-              borderRadius="999px"
-              color={theme.colors.White900}
-              fontSize={theme.fonts.font14}
             />
             <SelectBox
-              content={[
-                { name: '모든플랫폼', value: '1' },
-                { name: '노션', value: '2' },
-                { name: 'PDF', value: '3' },
-              ]}
-              defaultValue="1"
+              content={FLATFORM_LIST}
               width="126px"
               height="38px"
-              backgroundColor="transparent"
               border={`2px solid ${theme.colors.Main1}`}
-              borderRadius="999px"
-              color={theme.colors.White900}
-              fontSize={theme.fonts.font14}
             />
             <SelectBox
-              content={[
-                { name: '전체기수', value: '전체기수' },
-                { name: '1기', value: '1기' },
-                { name: '2기', value: '2기' },
-                { name: '3기', value: '3기' },
-                { name: '4기', value: '4기' },
-                { name: '5기', value: '5기' },
-                { name: '6기', value: '6기' },
-                { name: '7기', value: '7기' },
-              ]}
-              defaultValue="1"
+              content={GENERATION_LIST}
               width="126px"
               height="38px"
-              backgroundColor="transparent"
               border={`2px solid ${theme.colors.Main1}`}
-              borderRadius="999px"
-              color={theme.colors.White900}
-              fontSize={theme.fonts.font14}
             />
           </SelectBoxes>
         </TopWrapper>
+        <Contents>
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+        </Contents>
       </Container>
     </>
   );
@@ -111,6 +92,7 @@ const TopWrapper = styled.div`
   flex-direction: row;
   text-align: center;
   align-items: center;
+  margin-bottom: 40px;
 `;
 
 const SelectBoxes = styled.div`
@@ -121,3 +103,5 @@ const SelectBoxes = styled.div`
   align-items: center;
   text-align: center;
 `;
+
+const Contents = styled.div``;
