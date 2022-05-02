@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { Button } from 'src/components/common/Button';
 import { Card } from 'src/components/common/Card';
+import { ScrollTop } from 'src/components/common/ScrollTop';
 import { SelectBox } from 'src/components/common/SelectBox';
 import {
   FLATFORM_LIST,
@@ -15,14 +15,11 @@ import styled, { DefaultTheme, useTheme } from 'styled-components';
 const Main: NextPage = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
-  const [showScrollVisible, onClickScrollTop] = useScrollTop();
-
-  useEffect(() => {
-    console.log(showScrollVisible);
-  }, [showScrollVisible]);
+  const { showScrollVisible, onClickScrollTop } = useScrollTop();
 
   return (
     <>
+      <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
       <Banner />
       <Container>
         <TopWrapper>

@@ -8,7 +8,6 @@ export const useScrollTop = () => {
   const [showScrollVisible, setShowScrollVisible] = useState<boolean>(false);
 
   const handleScroll = useCallback(() => {
-    console.log('123213', scrollY);
     if (scrollY > 500) setShowScrollVisible(true);
     else setShowScrollVisible(false);
   }, [scrollY]);
@@ -18,10 +17,10 @@ export const useScrollTop = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', debounce(handleScroll, 50));
+    window.addEventListener('scroll', debounce(handleScroll, 30));
     return () =>
-      window.removeEventListener('scroll', debounce(handleScroll, 50));
+      window.removeEventListener('scroll', debounce(handleScroll, 30));
   }, [debounce, handleScroll]);
 
-  return [showScrollVisible, onClickScrollTop];
+  return { showScrollVisible, onClickScrollTop };
 };
