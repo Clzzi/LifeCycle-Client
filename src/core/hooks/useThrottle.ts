@@ -1,19 +1,23 @@
-import { MutableRefObject, useRef } from 'react';
+import { MutableRefObject, useCallback, useRef } from 'react';
 
-export const useThrottle = <T extends any[]>(
-  callback: (...params: T) => void,
-  time: number,
-) => {
+export const useThrottle = () => {
   const timer: MutableRefObject<NodeJS.Timeout | null> = useRef<ReturnType<
     typeof setTimeout
   > | null>(null);
 
-  return (...params: T) => {
-    if (!timer.current) {
-      timer.current = setTimeout(() => {
-        callback(...params);
-        timer.current = null;
-      }, time);
-    }
-  };
+  const throttle = useCallback(
+    <T extends any[]>(callback: (...params: T) => void, time: number) => {
+      return (...params: T) => {
+        if (!timer.current) {
+          timer.current = setTimeout(() => {
+            callback(...params);
+            timer.current = null;
+          }, time);
+        }
+      };
+    },
+    [],
+  );
+
+  return [throttle];
 };

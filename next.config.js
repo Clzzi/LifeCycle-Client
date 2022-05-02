@@ -8,18 +8,6 @@ const nextConfig = {
       use: [
         {
           loader: '@svgr/webpack',
-          options: {
-            svgoConfig: {
-              plugins: [
-                {
-                  removeRasterImages: false,
-                  removeStyleElement: false,
-                  removeUnknownsAndDefaults: false,
-                  removeViewBox: false,
-                },
-              ],
-            },
-          },
         },
       ],
     });

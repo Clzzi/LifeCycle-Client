@@ -1,97 +1,33 @@
 import type { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
-import { ChangeEvent } from 'react';
 import { Button } from 'src/components/common/Button';
-import { Input } from 'src/components/common/Input';
-import { Title } from 'src/components/common/Title';
-import { Error, useForm } from 'src/core/hooks/useForm';
+import { Card } from 'src/components/common/Card';
+import { ScrollTop } from 'src/components/common/ScrollTop';
+import { SelectBox } from 'src/components/common/SelectBox';
+import {
+  FLATFORM_LIST,
+  GENERATION_LIST,
+  STACK_LIST,
+} from 'src/core/constants/filter.constants';
+import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 
-interface Values {
-  id: string | undefined;
-  pw: string | undefined;
-}
-
-const Login: NextPage = () => {
+const Main: NextPage = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
-  const { values, errors, isLoading, setValues, handleSubmit } =
-    useForm<Values>({
-      initialValue: {
-        id: undefined,
-        pw: undefined,
-      },
-      onSubmit: () => {
-        // TODO
-      },
-      validate: ({ id, pw }) => {
-        const errors: Error<Values> = {};
-        if (id !== undefined && id.length === 0) {
-          errors.id = ' ID를 입력해주세요';
-        }
-        if (pw !== undefined && pw.length === 0) {
-          errors.pw = ' PW를 입력해주세요';
-        }
-        return errors;
-      },
-    });
+  const { showScrollVisible, onClickScrollTop } = useScrollTop();
 
   return (
-    <Wrapper>
+    <>
+      <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
+      <Banner />
       <Container>
-        <Title
-          mainSize={theme.fonts.font28}
-          subSize={theme.fonts.font16}
-          width="488px"
-          height="76px"
-          mainColor={theme.colors.White900}
-          subColor={theme.colors.Gray500}
-          mainText="로그인"
-          subText="로그인하여 더 자세한 정보를 찾아봐요!"
-        />
-        <InputContainer>
-          <Input
-            value={values.id}
-            errorMessage={errors.id ? errors.id : ''}
-            placeholder="ID"
-            type="text"
-            backgroundColor={theme.colors.White400}
-            borderRadius="5px"
-            fontSize={theme.fonts.font16}
-            isAutoFocus
-            errorFontSize={theme.fonts.font14}
-            padding="6px 12px"
-            name="id"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
-            }}
-            width="100%"
-            height="56px"
-          />
-          <Input
-            value={values.pw}
-            errorMessage={errors.pw ? errors.pw : ''}
-            placeholder="PW"
-            type="password"
-            backgroundColor={theme.colors.White400}
-            borderRadius="5px"
-            fontSize={theme.fonts.font16}
-            errorFontSize={theme.fonts.font14}
-            padding="6px 12px"
-            name="pw"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
-            }}
-            width="100%"
-            height="56px"
-          />
-        </InputContainer>
-        <ButtonContainer>
+        <TopWrapper>
           <Button
-            width="488px"
-            height="56px"
-            content="로그인"
-            fontSize={theme.fonts.font20}
+            width="126px"
+            height="38px"
+            content="이력서 등록하기"
+            fontSize={theme.fonts.font14}
             color={theme.colors.White900}
             borderRadius="999px"
             backgroundColor={theme.colors.Main1}
@@ -99,69 +35,163 @@ const Login: NextPage = () => {
               // TODO
             }}
           />
-        </ButtonContainer>
-        <GoToSignUp onClick={() => router.push('/register')}>
-          <a>혹시 계정이 없으신가요?</a>
-        </GoToSignUp>
+          <SelectBoxes>
+            <SelectBox
+              content={STACK_LIST}
+              width="126px"
+              height="38px"
+              border={`2px solid ${theme.colors.Main1}`}
+            />
+            <SelectBox
+              content={FLATFORM_LIST}
+              width="126px"
+              height="38px"
+              border={`2px solid ${theme.colors.Main1}`}
+            />
+            <SelectBox
+              content={GENERATION_LIST}
+              width="126px"
+              height="38px"
+              border={`2px solid ${theme.colors.Main1}`}
+            />
+          </SelectBoxes>
+        </TopWrapper>
+        <Contents>
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+        </Contents>
       </Container>
-    </Wrapper>
+    </>
   );
 };
 
-const Wrapper = styled.section`
-  width: 100%;
-  height: calc(100vh - 56px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
+export default Main;
 
-const Container = styled.article`
-  width: 560px;
-  height: 560px;
-  padding: 36px;
-  display: flex;
-  flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.Black900};
-  border-radius: 12px;
-`;
-
-const InputContainer = styled.section`
-  width: 100%;
-  height: 160px;
-  margin: 48px 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
-
-const GoToSignUp = styled.button`
-  width: fit-content;
-  text-align: start;
-  background-color: transparent;
-  border: none;
+const Banner = styled.article`
+  width: 1920px;
+  height: 256px;
+  background-image: url('/assets/Banner.svg');
+  background-repeat: no-repeat;
   cursor: pointer;
-  margin-top: 40px;
-  & > a {
-    font-size: ${({ theme }) => theme.fonts.font14};
-    color: ${({ theme }) => theme.colors.Gray500};
-    text-decoration: underline;
-    text-underline-position: under;
-    &:hover {
-      color: ${({ theme }) => theme.colors.Gray500};
-      text-decoration: underline;
-      text-underline-position: under;
-    }
-  }
+  margin: -4px 0px 32px 0px;
 `;
 
-export default Login;
+const Container = styled.section`
+  width: 100%;
+  max-width: 1920px;
+  padding: 0px 215px;
+`;
+
+const TopWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 40px;
+`;
+
+const SelectBoxes = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+`;
+
+const Contents = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 4fr));
+  grid-row-gap: 50px;
+  grid-column-gap: 30px;
+`;
