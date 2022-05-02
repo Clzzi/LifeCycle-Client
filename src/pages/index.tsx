@@ -55,7 +55,88 @@ const Main: NextPage = () => {
         <Contents>
           <Card
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="FLO 합격한 제정민 포트폴리오"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
+            company="FLO"
+            platform="PDF"
+            stack="백엔드"
+            generation={4}
+            name="제정민"
+          />
+          <Card
+            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
+            title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
             platform="PDF"
             stack="백엔드"
@@ -104,4 +185,9 @@ const SelectBoxes = styled.div`
   text-align: center;
 `;
 
-const Contents = styled.div``;
+const Contents = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 4fr));
+  grid-row-gap: 50px;
+  grid-column-gap: 30px;
+`;

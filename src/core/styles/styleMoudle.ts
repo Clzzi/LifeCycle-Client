@@ -1,4 +1,4 @@
-import { keyframes } from 'styled-components';
+import { css, FlattenSimpleInterpolation, keyframes } from 'styled-components';
 
 export const fadeIn = keyframes`
   0% {
@@ -18,4 +18,15 @@ export const ShowLeftToRight = keyframes`
   100% {
     width: 100%;
   }
+`;
+
+export const ellipsisLine = (line: number): FlattenSimpleInterpolation => css`
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -ms-word-break: break-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: ${line};
 `;
