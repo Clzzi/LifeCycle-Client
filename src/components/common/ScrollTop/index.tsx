@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { fadeIn } from 'src/core/styles/styleMoudle';
+import { useKeyDown } from 'src/core/hooks/useKeyDown';
 import styled from 'styled-components';
 
 interface Props {
@@ -8,9 +7,10 @@ interface Props {
 }
 
 export const ScrollTop = ({ visible, onClick }: Props) => {
+  useKeyDown('Enter', onClick);
   if (!visible) return null;
   return (
-    <ScrollBtn onClick={onClick}>
+    <ScrollBtn onClick={onClick} tabIndex={1}>
       <div />
     </ScrollBtn>
   );
@@ -30,6 +30,9 @@ const ScrollBtn = styled.div`
   text-align: center;
   margin: 0 215px 40px 0;
   cursor: pointer;
+  &:focus {
+    outline: 1.5px solid ${({ theme }) => theme.colors.White900};
+  }
   & > div {
     width: 24px;
     height: 24px;
