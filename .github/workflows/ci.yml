@@ -16,9 +16,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-      
-      - name: Next Build TSET
-        run: yarn build
 
       - name: Check End To End TEST
         uses: cypress-io/github-action@v2
