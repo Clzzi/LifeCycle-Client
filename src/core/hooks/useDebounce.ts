@@ -1,20 +1,25 @@
-import { MutableRefObject, useRef } from 'react';
+import { MutableRefObject, useCallback, useRef } from 'react';
 
-export const useDebounce = <T extends any[]>(
+export const useDebounce = () =>
   // any[] 참조로 callback함수 타입추론
-  callback: (...params: T) => void,
-  time: number,
-) => {
-  const timer: MutableRefObject<NodeJS.Timeout | null> = useRef<ReturnType<
-    typeof setTimeout
-  > | null>(null); // Ref로 새로고침시에도 초기화 방지
+  {
+    const timer: MutableRefObject<NodeJS.Timeout | null> = useRef<ReturnType<
+      typeof setTimeout
+    > | null>(null); // Ref로 새로고침시에도 초기화 방지
 
-  return (...params: T) => {
-    if (timer.current) clearTimeout(timer.current);
+    const debounce = useCallback(
+      <T extends any[]>(callback: (...params: T) => void, time: number) => {
+        return (...params: T) => {
+          if (timer.current) clearTimeout(timer.current);
 
-    timer.current = setTimeout(() => {
-      callback(...params);
-      timer.current = null;
-    }, time);
+          timer.current = setTimeout(() => {
+            callback(...params);
+            timer.current = null;
+          }, time);
+        };
+      },
+      [],
+    );
+
+    return [debounce];
   };
-};
