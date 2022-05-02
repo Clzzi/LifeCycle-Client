@@ -22,7 +22,7 @@ export const Card = ({
   title,
 }: Props) => {
   return (
-    <Wrapper>
+    <Wrapper tabIndex={0}>
       <Thumbnail src={thumbnail} className="thumbnail" />
       <Content>
         <Text>{title}</Text>
@@ -49,6 +49,13 @@ const Wrapper = styled.a`
   cursor: pointer;
   overflow: hidden;
   &:hover {
+    & > .thumbnail {
+      width: 110%;
+    }
+  }
+
+  &:focus {
+    outline: 1.5px solid ${({ theme }) => theme.colors.Main1};
     & > .thumbnail {
       width: 110%;
     }
