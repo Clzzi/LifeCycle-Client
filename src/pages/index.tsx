@@ -8,12 +8,13 @@ import {
   GENERATION_LIST,
   STACK_LIST,
 } from 'src/core/constants/filter.constants';
+import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 
 const Main: NextPage = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
-
+  const [showScrollVisible, onClickScrollTop] = useScrollTop();
   return (
     <>
       <Banner />
