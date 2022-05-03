@@ -1,18 +1,17 @@
 import type { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
-import { Button } from 'src/components/common/Button';
 import { Card } from 'src/components/common/Card';
+import { Button } from 'src/components/common/Button';
+import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import { ScrollTop } from 'src/components/common/ScrollTop';
 import { SelectBox } from 'src/components/common/SelectBox';
+import styled, { DefaultTheme, useTheme } from 'styled-components';
 import {
   GENERATION_LIST,
   STACK_LIST,
 } from 'src/core/constants/filter.constants';
-import { useScrollTop } from 'src/core/hooks/useScrollTop';
-import styled, { DefaultTheme, useTheme } from 'styled-components';
 
 const Main: NextPage = () => {
-  const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
 
