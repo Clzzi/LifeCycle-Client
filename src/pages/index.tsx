@@ -5,7 +5,6 @@ import { Card } from 'src/components/common/Card';
 import { ScrollTop } from 'src/components/common/ScrollTop';
 import { SelectBox } from 'src/components/common/SelectBox';
 import {
-  FLATFORM_LIST,
   GENERATION_LIST,
   STACK_LIST,
 } from 'src/core/constants/filter.constants';
@@ -43,12 +42,6 @@ const Main: NextPage = () => {
               border={`2px solid ${theme.colors.Main1}`}
             />
             <SelectBox
-              content={FLATFORM_LIST}
-              width="126px"
-              height="38px"
-              border={`2px solid ${theme.colors.Main1}`}
-            />
-            <SelectBox
               content={GENERATION_LIST}
               width="126px"
               height="38px"
@@ -61,7 +54,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -70,7 +62,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -79,7 +70,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -88,7 +78,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -97,7 +86,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -106,7 +94,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -115,7 +102,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -124,7 +110,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -133,7 +118,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -142,7 +126,6 @@ const Main: NextPage = () => {
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
             company="FLO"
-            platform="PDF"
             stack="백엔드"
             generation={4}
             name="제정민"
@@ -181,7 +164,7 @@ const TopWrapper = styled.div`
 `;
 
 const SelectBoxes = styled.div`
-  width: 400px;
+  width: 272px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

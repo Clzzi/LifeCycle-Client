@@ -1,18 +1,3 @@
-export const FLATFORM_LIST = [
-  {
-    name: '모든플랫폼',
-    value: 0,
-  },
-  {
-    name: '노션',
-    value: 1,
-  },
-  {
-    name: 'PDF',
-    value: 2,
-  },
-];
-
 export const GENERATION_LIST = [
   {
     name: '전체기수',

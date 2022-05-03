@@ -21,7 +21,7 @@ export const UnderLineText = styled.button`
 `;
 
 export const Tag = styled.div<{
-  type: 'COMPANY' | 'STACK' | 'PLATFORM' | 'GENERATION';
+  type: 'COMPANY' | 'STACK' | 'GENERATION';
   height: string;
   fontSize: string;
   maxWidth: string;
@@ -30,7 +30,7 @@ export const Tag = styled.div<{
 }>`
   background-color: ${({ type }) => handleTagColor(type)};
   height: ${(props) => props.height};
-  line-height: ${(props) => props.height};
+  line-height: ${(props) => `calc(${props.height} - 1px)`};
   border-radius: ${(props) => props.borderRadius};
   font-size: ${(props) => props.fontSize};
   display: flex;
