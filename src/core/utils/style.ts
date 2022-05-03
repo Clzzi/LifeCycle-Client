@@ -5,13 +5,15 @@ export const pxToRem = (px: number): string => {
 };
 
 export const handleTagColor = (
-  type: 'COMPANY' | 'PLATFORM' | 'STACK',
+  type: 'COMPANY' | 'PLATFORM' | 'STACK' | 'GENERATION',
 ): string => {
   switch (type) {
     case 'COMPANY':
-      return theme.colors.P_Hightlight;
+      return theme.colors.R_Highlight;
     case 'PLATFORM':
       return theme.colors.Y_Hightlight;
+    case 'GENERATION':
+      return theme.colors.P_Hightlight;
     default:
       return theme.colors.B_Hightlight;
   }
