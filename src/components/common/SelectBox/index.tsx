@@ -16,6 +16,7 @@ interface Props {
   border?: string;
   borderRadius?: string;
   backgroundColor?: string;
+  name?: string;
   customStyle?: CSSProperties;
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void | Promise<void>;
 }
@@ -30,6 +31,7 @@ export const SelectBox = ({
   fontSize = theme.fonts.font14,
   height = '38px',
   onChange,
+  name,
   width = '126px',
 }: Props) => {
   const style: CSSProperties = {
@@ -45,7 +47,7 @@ export const SelectBox = ({
 
   return (
     <Wrapper>
-      <select style={style} onChange={onChange}>
+      <select style={style} onChange={onChange} name={name}>
         {content.map((option) => (
           <option key={option.value} value={option.value}>
             {option.name}
