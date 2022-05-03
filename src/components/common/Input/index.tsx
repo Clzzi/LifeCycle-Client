@@ -4,7 +4,7 @@ import { Label } from '../Label';
 
 interface Props {
   value: any | undefined;
-  errorMessage: string;
+  errorMessage: string | undefined;
   placeholder?: string;
   min?: number;
   max?: number;
