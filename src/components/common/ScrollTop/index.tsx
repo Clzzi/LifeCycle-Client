@@ -23,6 +23,7 @@ export const ScrollTop = ({ visible, onClick }: Props) => {
       <ToolTip visible={focusVisible}>Enter키를 눌러도 올라가요!</ToolTip>
       <ScrollBtn
         onClick={onClick}
+        onMouseOver={() => setFocusVisible(true)}
         tabIndex={0}
         onFocus={() => setFocusVisible(true)}>
         <div />

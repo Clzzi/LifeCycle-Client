@@ -43,7 +43,5 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
       background-color: #28292A;
-      width: 100vw;
-      height: 600vh;
     }
 `;

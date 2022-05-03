@@ -1,12 +1,12 @@
+import { Tag } from 'src/core/styles/shareStyle';
 import { ellipsisLine } from 'src/core/styles/styleMoudle';
-import { handleTagColor } from 'src/core/utils/style';
+import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
 
 interface Props {
   thumbnail: string;
   title: string;
   company: string;
-  platform: string;
   stack: string;
   generation: number;
   name: string;
@@ -14,7 +14,6 @@ interface Props {
 
 export const Card = ({
   company,
-  platform,
   generation,
   name,
   stack,
@@ -27,9 +26,33 @@ export const Card = ({
       <Content>
         <Text>{title}</Text>
         <Tags>
-          <Tag type="COMPANY">{company}</Tag>
-          <Tag type="STACK">{stack}</Tag>
-          <Tag type="PLATFORM">{platform}</Tag>
+          <Tag
+            type="GENERATION"
+            fontSize={theme.fonts.font12}
+            padding="0px 18px"
+            maxWidth="330px"
+            height="18px"
+            borderRadius="4px">
+            {generation}기
+          </Tag>
+          <Tag
+            type="COMPANY"
+            fontSize={theme.fonts.font12}
+            padding="0px 18px"
+            maxWidth="330px"
+            height="18px"
+            borderRadius="4px">
+            {company}
+          </Tag>
+          <Tag
+            type="STACK"
+            fontSize={theme.fonts.font12}
+            padding="0px 18px"
+            maxWidth="330px"
+            height="18px"
+            borderRadius="4px">
+            {stack}
+          </Tag>
         </Tags>
         <Name>{`${generation}기 ${name}`}</Name>
       </Content>
@@ -94,23 +117,6 @@ const Tags = styled.div`
   margin-bottom: 2px;
   max-width: 330px;
   flex-flow: row wrap;
-`;
-
-const Tag = styled.div<{ type: 'COMPANY' | 'STACK' | 'PLATFORM' }>`
-  background-color: ${({ type }) => handleTagColor(type)};
-  height: 18px;
-  line-height: 17px;
-  border-radius: 3px;
-  font-size: ${({ theme }) => theme.fonts.font12};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0px 18px;
-  color: ${({ theme }) => theme.colors.White900};
-  white-space: nowrap;
-  max-width: 330px;
-  overflow: hidden;
 `;
 
 const Text = styled.div`
