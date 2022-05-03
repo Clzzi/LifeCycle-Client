@@ -1,15 +1,16 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 
 interface Props extends HTMLAttributes<HTMLInputElement> {
   children: ReactNode;
   message: string | undefined;
   fontSize: string;
+  customStyle?: CSSProperties;
 }
 
-export const Label = ({ children, message, fontSize }: Props) => {
+export const Label = ({ children, message, fontSize, customStyle }: Props) => {
   return (
-    <Container>
+    <Container style={customStyle}>
       {children}
       <StyledText fontSize={fontSize} visible={message?.length !== 0}>
         {message}
@@ -21,6 +22,7 @@ export const Label = ({ children, message, fontSize }: Props) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const StyledText = styled.span<{ fontSize: string; visible: boolean }>`
