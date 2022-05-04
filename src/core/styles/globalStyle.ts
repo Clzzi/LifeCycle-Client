@@ -43,5 +43,8 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
       background-color: #28292A;
+      width: 100%;
+      min-height: 100vh;
+      max-width: 100vw;
     }
 `;

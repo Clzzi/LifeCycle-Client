@@ -10,7 +10,7 @@ interface Props {
   borderRadius?: string;
   backgroundColor?: string;
   customStyle?: CSSProperties;
-  handleClick?: () => void | Promise<void>;
+  handleClick?: () => void | Promise<void | boolean>;
 }
 
 export const Button = ({

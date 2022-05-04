@@ -12,6 +12,7 @@ import {
 } from 'src/core/constants/filter.constants';
 
 const Main: NextPage = () => {
+  const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
 
@@ -29,9 +30,7 @@ const Main: NextPage = () => {
             color={theme.colors.White900}
             borderRadius="999px"
             backgroundColor={theme.colors.Main1}
-            handleClick={() => {
-              // TODO
-            }}
+            handleClick={() => router.push('/resume/write')}
           />
           <SelectBoxes>
             <SelectBox
@@ -138,12 +137,13 @@ const Main: NextPage = () => {
 export default Main;
 
 const Banner = styled.article`
-  width: 1920px;
-  height: 256px;
-  background-image: url('/assets/Banner.svg');
-  background-repeat: no-repeat;
+  width: 100%;
+  /* height: 256px; */
+  height: 15vh;
+  background: url('/assets/Banner.svg') no-repeat center;
   cursor: pointer;
   margin: -4px 0px 32px 0px;
+  background-size: 100%;
 `;
 
 const Container = styled.section`
@@ -173,7 +173,7 @@ const SelectBoxes = styled.div`
 
 const Contents = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 4fr));
+  grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 50px;
   grid-column-gap: 30px;
 `;

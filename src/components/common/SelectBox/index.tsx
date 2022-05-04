@@ -60,7 +60,6 @@ export const SelectBox = ({
 };
 
 const Wrapper = styled.div`
-  width: 100%;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -76,10 +75,12 @@ const Wrapper = styled.div`
 
 const Icon = styled.div`
   position: absolute;
+  transform: translate(-50%, -50%);
   right: 0;
+  top: 50%;
   width: 14px;
   height: 8px;
-  margin: 24px 12px 0px 0px;
+  margin-right: 4px;
   background-image: url('/assets/SelectBoxArrow.svg');
   background-repeat: no-repeat;
   cursor: pointer;
