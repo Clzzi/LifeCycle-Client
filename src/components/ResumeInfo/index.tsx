@@ -1,3 +1,4 @@
+import { NextRouter, useRouter } from 'next/router';
 import { Tag } from 'src/core/styles/shareStyle';
 import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
@@ -18,6 +19,7 @@ export const ResumeInfo = ({
   stack,
   title,
 }: Props) => {
+  const router: NextRouter = useRouter();
   return (
     <Wrapper>
       <ProfileAndBtns>
@@ -34,9 +36,7 @@ export const ResumeInfo = ({
             color={theme.colors.Black900}
             borderRadius="999px"
             backgroundColor={theme.colors.White900}
-            handleClick={() => {
-              // TODO
-            }}
+            handleClick={() => router.push('/resume/edit')}
           />
           <Button
             width="102px"

@@ -1,53 +1,58 @@
 import { NextRouter, useRouter } from 'next/router';
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Button } from 'src/components/common/Button';
 import { CheckBox } from 'src/components/common/CheckBox';
 import { Input } from 'src/components/common/Input';
 import { Modal } from 'src/components/common/Modal';
 import { Title } from 'src/components/common/Title';
+import authApi from 'src/core/apis/auth/auth.api';
 import { TERM_MESSAGE } from 'src/core/constants/register.constants';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { UnderLineText } from 'src/core/styles/shareStyle';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
-
-interface Values {
-  id: string | undefined;
-  pw: string | undefined;
-  name: string | undefined;
-  generation: number | undefined;
-}
+import { Label } from 'src/components/common/Label';
+import { RegisterValues } from 'src/types/auth.type';
+import { convertRegisterDto } from 'src/core/utils/auth';
 
 const Register = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
-  const [isTermsCheck, setIsTermsCheck] = useState<boolean>(false);
   const { values, errors, isLoading, setValues, handleSubmit } =
-    useForm<Values>({
+    useForm<RegisterValues>({
       initialValue: {
         id: undefined,
         pw: undefined,
         name: undefined,
         generation: undefined,
+        isTermsCheck: undefined,
       },
-      onSubmit: () => {
-        // TODO
+      onSubmit: async () => {
+        try {
+          await authApi.register(convertRegisterDto(values));
+          router.push('/login');
+        } catch (e: any) {
+          console.error(e);
+        }
       },
-      validate: ({ id, pw, name, generation }) => {
-        const errors: Error<Values> = new Object();
-        if (id !== undefined && id.length === 0) {
+      validate: ({ id, pw, name, generation, isTermsCheck }) => {
+        const errors: Error<RegisterValues> = new Object();
+        if (id?.length === 0) {
           errors.id = 'ID를 입력해주세요';
         }
-        if (pw !== undefined && pw.length === 0) {
+        if (pw?.length === 0) {
           errors.pw = 'PW를 입력해주세요';
         }
         if (name !== undefined && name.length === 0) {
           errors.name = '이름을 입력해주세요';
         }
-        if (generation !== undefined && generation > 7) {
+        if (generation !== undefined && (generation > 7 || generation < 1)) {
           errors.generation = '기수를 입력해주세요';
         }
-        return errors;
+        if (isTermsCheck !== undefined && isTermsCheck === false) {
+          errors.isTermsCheck = '약관동의에 체크해주세요';
+        }
+        return { ...errors };
       },
     });
 
@@ -129,7 +134,10 @@ const Register = () => {
             padding="6px 12px"
             name="generation"
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValues({ ...values, [e.target.name]: e.target.value })
+              setValues({
+                ...values,
+                [e.target.name]: e.target.value,
+              })
             }
             width="100%"
             height="56px"
@@ -137,16 +145,32 @@ const Register = () => {
             min={1}
           />
         </InputContainer>
-        <CheckBoxContainer>
-          <CheckBox
-            className="test"
-            checked={isTermsCheck}
-            onClick={() => setIsTermsCheck(!isTermsCheck)}
-          />
-          <TermMessage onClick={() => setIsVisibleModal(true)}>
-            <a>약관동의</a>
-          </TermMessage>
-        </CheckBoxContainer>
+        <Label
+          message={errors.isTermsCheck ? errors.isTermsCheck : ''}
+          fontSize={theme.fonts.font14}>
+          <CheckBoxContainer>
+            <CheckBox
+              className="test"
+              checked={
+                typeof values.isTermsCheck === 'boolean'
+                  ? (values.isTermsCheck as boolean)
+                  : false
+              }
+              onClick={() =>
+                setValues({
+                  ...values,
+                  isTermsCheck:
+                    typeof values.isTermsCheck !== 'boolean'
+                      ? true
+                      : !values.isTermsCheck,
+                })
+              }
+            />
+            <TermMessage onClick={() => setIsVisibleModal(true)}>
+              <a>약관동의</a>
+            </TermMessage>
+          </CheckBoxContainer>
+        </Label>
         <ButtonContainer>
           <Button
             width="488px"
@@ -156,12 +180,12 @@ const Register = () => {
             color={theme.colors.White900}
             borderRadius="999px"
             backgroundColor={theme.colors.Main1}
-            handleClick={() => {
-              // TODO
-            }}
+            handleClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+              handleSubmit(e)
+            }
           />
         </ButtonContainer>
-        <GoToLogin onClick={() => router.push('/')}>
+        <GoToLogin onClick={() => router.push('/login')}>
           <a>이미 계정이 있나요?</a>
         </GoToLogin>
       </Container>

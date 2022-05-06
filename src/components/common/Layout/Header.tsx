@@ -1,11 +1,13 @@
+import { NextRouter, useRouter } from 'next/router';
 import { pxToRem } from 'src/core/utils/style';
 import styled from 'styled-components';
 
 export const Header = () => {
   // url에 따라 profile보여줄지 결정, 내정보가져오는거에서 있으면 profile 설정까지 하는것
+  const router: NextRouter = useRouter();
   return (
     <Wrapper>
-      <Logo />
+      <Logo onClick={() => router.push('/')} />
       <Profile />
     </Wrapper>
   );

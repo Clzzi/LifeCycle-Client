@@ -4,37 +4,45 @@ import { ChangeEvent } from 'react';
 import { Button } from 'src/components/common/Button';
 import { Input } from 'src/components/common/Input';
 import { Title } from 'src/components/common/Title';
+import authApi from 'src/core/apis/auth/auth.api';
+import {
+  ACCESS_TOKEN_KEY,
+  REFRESH_TOKEN_KEY,
+} from 'src/core/constants/api.constants';
 import { Error, useForm } from 'src/core/hooks/useForm';
+import TokenUtil from 'src/core/utils/token';
+import { LoginValues } from 'src/types/auth.type';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
-
-interface Values {
-  id: string | undefined;
-  pw: string | undefined;
-}
 
 const Login: NextPage = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
-  const { values, errors, isLoading, setValues, handleSubmit } =
-    useForm<Values>({
-      initialValue: {
-        id: undefined,
-        pw: undefined,
-      },
-      onSubmit: () => {
-        // TODO
-      },
-      validate: ({ id, pw }) => {
-        const errors: Error<Values> = {};
-        if (id !== undefined && id.length === 0) {
-          errors.id = ' ID를 입력해주세요';
-        }
-        if (pw !== undefined && pw.length === 0) {
-          errors.pw = ' PW를 입력해주세요';
-        }
-        return errors;
-      },
-    });
+  const { values, errors, setValues, handleSubmit } = useForm<LoginValues>({
+    initialValue: {
+      id: undefined,
+      pw: undefined,
+    },
+    onSubmit: async (values) => {
+      try {
+        const { data } = await authApi.login(values);
+        TokenUtil.set(data.token, ACCESS_TOKEN_KEY);
+        TokenUtil.set(data.refreshToken, REFRESH_TOKEN_KEY);
+        router.push('/');
+      } catch (e: any) {
+        console.error(e);
+      }
+    },
+    validate: ({ id, pw }) => {
+      const errors: Error<LoginValues> = {};
+      if (id !== undefined && id.length === 0) {
+        errors.id = ' ID를 입력해주세요';
+      }
+      if (pw !== undefined && pw.length === 0) {
+        errors.pw = ' PW를 입력해주세요';
+      }
+      return errors;
+    },
+  });
 
   return (
     <Wrapper>
@@ -63,7 +71,7 @@ const Login: NextPage = () => {
             padding="6px 12px"
             name="id"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
+              setValues({ ...values, [e.target.name]: e.target.value.trim() });
             }}
             width="100%"
             height="56px"
@@ -80,7 +88,7 @@ const Login: NextPage = () => {
             padding="6px 12px"
             name="pw"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
+              setValues({ ...values, [e.target.name]: e.target.value.trim() });
             }}
             width="100%"
             height="56px"
@@ -95,9 +103,9 @@ const Login: NextPage = () => {
             color={theme.colors.White900}
             borderRadius="999px"
             backgroundColor={theme.colors.Main1}
-            handleClick={() => {
-              // TODO
-            }}
+            handleClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+              handleSubmit(e)
+            }
           />
         </ButtonContainer>
         <GoToSignUp onClick={() => router.push('/register')}>

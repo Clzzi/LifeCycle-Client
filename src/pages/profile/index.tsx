@@ -12,13 +12,13 @@ const Profile = () => {
             {
               title: '기수',
               content: '4기',
-              link: '기수변경.pdf',
+              link: '/profile/generation',
               linkTitle: '기수변경',
             },
             {
               title: '비밀번호',
               content: '',
-              link: '비번변경.pdf',
+              link: '/profile/password',
               linkTitle: '비밀번호 변경',
             },
           ]}
