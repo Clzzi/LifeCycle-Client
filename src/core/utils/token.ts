@@ -9,16 +9,16 @@ class TokenUtil {
   constructor() {}
 
   get(key: string): string {
-    return new StorageUtil().get(key);
+    return StorageUtil.get(key);
   }
 
   set(key: string, token: string): void {
-    new StorageUtil().set(key, token);
+    StorageUtil.set(key, token);
   }
 
   remove(): void {
-    new StorageUtil().remove(REFRESH_TOKEN_KEY);
-    new StorageUtil().remove(ACCESS_TOKEN_KEY);
+    StorageUtil.remove(REFRESH_TOKEN_KEY);
+    StorageUtil.remove(ACCESS_TOKEN_KEY);
   }
 
   decode(key: string): JwtPayload {
@@ -26,4 +26,4 @@ class TokenUtil {
   }
 }
 
-export default TokenUtil;
+export default new TokenUtil() as TokenUtil;

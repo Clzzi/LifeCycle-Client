@@ -12,7 +12,7 @@ const customAxios: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER,
   headers: {
     [ALLOW_CORS_KEY]: '*',
-    [TOKEN_HEADER_KEY]: new TokenUtil().get(ACCESS_TOKEN_KEY),
+    [TOKEN_HEADER_KEY]: TokenUtil.get(ACCESS_TOKEN_KEY),
   },
 });
 

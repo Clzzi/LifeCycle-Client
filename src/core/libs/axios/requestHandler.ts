@@ -10,12 +10,11 @@ import {
 const requestHandler = async (
   config: AxiosRequestConfig,
 ): Promise<AxiosRequestConfig> => {
-  const tokenUtil: TokenUtil = new TokenUtil();
-  let accessToken: string = tokenUtil.get(ACCESS_TOKEN_KEY);
-  let usingRefreshToken: string = tokenUtil.get(REFRESH_TOKEN_KEY);
+  let accessToken: string = TokenUtil.get(ACCESS_TOKEN_KEY);
+  let usingRefreshToken: string = TokenUtil.get(REFRESH_TOKEN_KEY);
 
   if (accessToken && usingRefreshToken) {
-    const decode: any = tokenUtil.decode(ACCESS_TOKEN_KEY);
+    const decode: any = TokenUtil.decode(ACCESS_TOKEN_KEY);
     const nowDate: number = Date.now() / 1000;
 
     if (decode.exp < nowDate) {
@@ -23,11 +22,11 @@ const requestHandler = async (
         const data: any = await Auth.tokenReissuance({
           refreshToken: usingRefreshToken,
         });
-        tokenUtil.set(ACCESS_TOKEN_KEY, data.data);
+        TokenUtil.set(ACCESS_TOKEN_KEY, data.data);
         accessToken = data.data;
       } catch (e: any) {
         if (e.response.data.status === 410) {
-          tokenUtil.remove();
+          TokenUtil.remove();
         }
       }
     }
