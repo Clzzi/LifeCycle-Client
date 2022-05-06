@@ -14,7 +14,7 @@ import resumeApi from 'src/core/apis/resume/resume.api';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { useEffect } from 'react';
 
-const Main = () => {
+const Main = (): JSX.Element => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
@@ -29,7 +29,7 @@ const Main = () => {
   }, [data]);
 
   if (isLoading) return <div>Loading</div>;
-  if (error) return 'An error has occurred: ' + error?.message;
+  if (error) router.push('/404');
   return (
     <>
       <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
@@ -62,14 +62,20 @@ const Main = () => {
           </SelectBoxes>
         </TopWrapper>
         <Contents>
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
+          {data?.data?.map((v) => {
+            return (
+              <Card
+                key={v.idx}
+                thumbnail={v.thumbnail}
+                title={v.title}
+                company={v.company}
+                stack={v.stack}
+                generation={4}
+                name="제정민"
+                idx={v.idx}
+              />
+            );
+          })}
         </Contents>
       </Container>
     </>
