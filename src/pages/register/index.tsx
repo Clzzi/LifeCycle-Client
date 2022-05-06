@@ -185,7 +185,7 @@ const Register = () => {
             }
           />
         </ButtonContainer>
-        <GoToLogin onClick={() => router.push('/')}>
+        <GoToLogin onClick={() => router.push('/login')}>
           <a>이미 계정이 있나요?</a>
         </GoToLogin>
       </Container>
