@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 import { Card } from 'src/components/common/Card';
 import { Button } from 'src/components/common/Button';
@@ -10,12 +9,27 @@ import {
   GENERATION_LIST,
   STACK_LIST,
 } from 'src/core/constants/filter.constants';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
+import resumeApi from 'src/core/apis/resume/resume.api';
+import { ResumesResponse } from 'src/core/apis/resume/resume.param';
+import { useEffect } from 'react';
 
-const Main: NextPage = () => {
+const Main = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
 
+  const { isLoading, error, data } = useQuery<ResumesResponse, Error>(
+    'resumes',
+    () => resumeApi.getResumes(),
+  );
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  if (isLoading) return <div>Loading</div>;
+  if (error) return 'An error has occurred: ' + error?.message;
   return (
     <>
       <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
@@ -48,78 +62,6 @@ const Main: NextPage = () => {
           </SelectBoxes>
         </TopWrapper>
         <Contents>
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
-          <Card
-            thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
-            title="🔥 FLO 합격한 제정민 포트폴리오"
-            company="FLO"
-            stack="백엔드"
-            generation={4}
-            name="제정민"
-          />
           <Card
             thumbnail="https://res.cloudinary.com/linkareer/image/fetch/f_auto,c_thumb,w_500,h_250/https://supple-attachment.s3.ap-northeast-2.amazonaws.com/post-thumbnail/7I6f998fmV42ptW-Wu3OY"
             title="🔥 FLO 합격한 제정민 포트폴리오"
@@ -177,3 +119,15 @@ const Contents = styled.div`
   grid-row-gap: 50px;
   grid-column-gap: 30px;
 `;
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery('resumes', () => resumeApi.getResumes());
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
