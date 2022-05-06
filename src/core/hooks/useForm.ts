@@ -25,7 +25,25 @@ export const useForm = <T, H extends HTMLElement = HTMLButtonElement>({
   const handleSubmit = async (e: MouseEvent<H>): Promise<void> => {
     setIsLoading(true);
     e.preventDefault();
+
+    const submitErrors: Error<T> = {};
+
+    for (const property in values) {
+      submitErrors[property] = errors[property] ? errors[property] : '';
+      if (values[property] === undefined) {
+        submitErrors[property] = '값이 비었어요!';
+      }
+    }
+
+    if (!Object.values(submitErrors).every((v) => v === '')) {
+      console.log(submitErrors);
+
+      setErrors(submitErrors);
+      return;
+    }
+
     const newErrors: Error<T> | {} = validate ? validate(values) : {};
+
     if (Object.keys(newErrors).length === 0) {
       await onSubmit(values);
     }
