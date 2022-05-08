@@ -8,3 +8,7 @@ export interface AResumeResponse extends Response {
 export interface ResumesResponse extends Response {
   data: IResume[];
 }
+
+export interface aResumeParam {
+  idx: number;
+}

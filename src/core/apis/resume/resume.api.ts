@@ -1,5 +1,5 @@
 import customAxios from 'src/core/libs/axios/customAxios';
-import { AResumeResponse, ResumesResponse } from './resume.param';
+import { aResumeParam, AResumeResponse, ResumesResponse } from './resume.param';
 
 class Resume {
   public async getResumes(): Promise<ResumesResponse> {
@@ -7,8 +7,8 @@ class Resume {
     return data;
   }
 
-  public async getAResume(idx: number): Promise<AResumeResponse> {
-    const { data } = await customAxios.get(`/resume/${idx}`);
+  public async getAResume(params: aResumeParam): Promise<AResumeResponse> {
+    const { data } = await customAxios.get(`/resume/${params}`);
     return data;
   }
 }
