@@ -1,5 +1,12 @@
 import customAxios from 'src/core/libs/axios/customAxios';
-import { aResumeParam, AResumeResponse, ResumesResponse } from './resume.param';
+import { Response } from 'src/types/common.type';
+import {
+  aResumeParam,
+  AResumeResponse,
+  makeResumeParams,
+  ResumesResponse,
+  UploadResponse,
+} from './resume.param';
 
 class Resume {
   public async getResumes(): Promise<ResumesResponse> {
@@ -11,6 +18,21 @@ class Resume {
     const { data } = await customAxios.get<AResumeResponse>(
       `/resume/${params.idx}`,
     );
+    return data;
+  }
+
+  public async upload(file: FormData): Promise<UploadResponse> {
+    const { data } = await customAxios.post<UploadResponse>('/image', file);
+    return data;
+  }
+
+  public async makeResume(parmas: makeResumeParams): Promise<Response> {
+    const { data } = await customAxios.post<Response>('/resume', parmas);
+    return data;
+  }
+
+  public async deleteResume(): Promise<Response> {
+    const { data } = await customAxios.delete<Response>('/resume');
     return data;
   }
 }
