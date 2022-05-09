@@ -9,28 +9,35 @@ import {
 
 class User {
   public async getAUser(param: aUserParam): Promise<UserResponse> {
-    const { data } = await customAxios.get(`/user/${param}`);
+    const { data } = await customAxios.get<UserResponse>(`/user/${param}`);
     return data;
   }
 
   public async updatePassword(param: updatePasswordParam): Promise<Response> {
-    const { data } = await customAxios.put('/user/update/password', param);
+    const { data } = await customAxios.put<Response>(
+      '/user/update/password',
+      param,
+    );
     return data;
   }
 
   public async updateGeneration(
     param: updateGenerationParam,
   ): Promise<Response> {
-    const { data } = await customAxios.put('/user/update/generation', param);
+    const { data } = await customAxios.put<Response>(
+      '/user/update/generation',
+      param,
+    );
     return data;
   }
 
   public async accountWithdrawal(): Promise<Response> {
-    const { data } = await customAxios.delete('/user');
+    const { data } = await customAxios.delete<Response>('/user');
     return data;
   }
+
   public async getAUserByToken(): Promise<UserResponse> {
-    const { data } = await customAxios.get('/user');
+    const { data } = await customAxios.get<UserResponse>('/user');
     return data;
   }
 }

@@ -19,3 +19,8 @@ export interface RegisterParam {
 export interface LoginResponse extends Response {
   data: ILogin;
 }
+
+
+export interface TokenReissuanceResponse extends Response {
+  data: string;
+}

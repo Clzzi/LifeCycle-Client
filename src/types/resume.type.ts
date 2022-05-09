@@ -1,3 +1,5 @@
+import { IUser } from './auth.type';
+
 export interface IResume {
   idx: number;
   createdAt: string;
@@ -6,4 +8,5 @@ export interface IResume {
   stack: string;
   thumbnail: string;
   content: string;
+  user: IUser;
 }
