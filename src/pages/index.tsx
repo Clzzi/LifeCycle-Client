@@ -1,35 +1,30 @@
+import {
+  STACK_LIST,
+  GENERATION_LIST,
+} from 'src/core/constants/filter.constants';
 import { NextRouter, useRouter } from 'next/router';
 import { Card } from 'src/components/common/Card';
 import { Button } from 'src/components/common/Button';
+import resumeApi from 'src/core/apis/resume/resume.api';
 import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import { ScrollTop } from 'src/components/common/ScrollTop';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
-import {
-  GENERATION_LIST,
-  STACK_LIST,
-} from 'src/core/constants/filter.constants';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
-import resumeApi from 'src/core/apis/resume/resume.api';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
-import { useEffect } from 'react';
 
 const Main = (): JSX.Element => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
+  
+  // const { isLoading, error, data } = useQuery<ResumesResponse, Error>(
+  //   'resumes',
+  //   () => resumeApi.getResumes(),
+  // );
 
-  const { isLoading, error, data } = useQuery<ResumesResponse, Error>(
-    'resumes',
-    () => resumeApi.getResumes(),
-  );
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  if (isLoading) return <div>Loading</div>;
-  if (error) router.push('/404');
+  // if (isLoading) return <div>Loading</div>;
+  // if (error) router.push('/404');
   return (
     <>
       <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
@@ -62,7 +57,7 @@ const Main = (): JSX.Element => {
           </SelectBoxes>
         </TopWrapper>
         <Contents>
-          {data?.data?.map((v) => {
+          {/* {data?.data?.map((v) => {
             return (
               <Card
                 key={v.idx}
@@ -75,7 +70,7 @@ const Main = (): JSX.Element => {
                 idx={v.idx}
               />
             );
-          })}
+          })} */}
         </Contents>
       </Container>
     </>
@@ -86,7 +81,7 @@ export default Main;
 
 const Banner = styled.article`
   width: 100%;
-  /* height: 256px; */
+  height: 256px;
   height: 15vh;
   background: url('/assets/Banner.svg') no-repeat center;
   cursor: pointer;
@@ -126,14 +121,13 @@ const Contents = styled.div`
   grid-column-gap: 30px;
 `;
 
-export async function getStaticProps() {
-  const queryClient = new QueryClient();
+// export async function getStaticProps() {
+//   const queryClient = new QueryClient();
+//   await queryClient.prefetchQuery('resumes', () => resumeApi.getResumes());
 
-  await queryClient.prefetchQuery('resumes', () => resumeApi.getResumes());
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//   };
+// }
