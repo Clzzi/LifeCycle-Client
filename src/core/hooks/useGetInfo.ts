@@ -1,11 +1,13 @@
 import { useCallback, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { infoAtom } from '../store/auth.store';
 import userApi from 'src/core/apis/user/user.api';
+import TokenUtil from 'src/core/utils/token';
+import { REFRESH_TOKEN_KEY } from '../constants/api.constants';
 
 export const useGetInfo = () => {
   const [userInfo, setUserInfo] = useRecoilState(infoAtom);
-
+  const resetUserInfo = useResetRecoilState(infoAtom);
   const getUserInfo = useCallback(async () => {
     try {
       const { data } = await userApi.getAUserByToken();
@@ -16,8 +18,8 @@ export const useGetInfo = () => {
   }, [setUserInfo]);
 
   useEffect(() => {
-    getUserInfo();
+    if (TokenUtil.get(REFRESH_TOKEN_KEY)) getUserInfo();
   }, [getUserInfo]);
 
-  return userInfo;
+  return { userInfo, resetUserInfo };
 };

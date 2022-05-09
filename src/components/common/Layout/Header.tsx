@@ -1,40 +1,43 @@
 import { NextRouter, useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { pxToRem } from 'src/core/utils/style';
 import styled from 'styled-components';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import { useClickAway } from 'src/core/hooks/useClickAway';
+import TokenUtil from 'src/core/utils/token';
 
 export const Header = () => {
-  const userInfo = useGetInfo();
+  const { userInfo, resetUserInfo } = useGetInfo();
   const router: NextRouter = useRouter();
-  const [visible, setVisible] = useState<boolean>(false);
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
   const ref = useClickAway<HTMLDivElement>(() => setIsVisibleModal(false));
-
-  useEffect(() => {
-    if (router.asPath === '/register' || router.asPath === '/login') {
-      setVisible(true);
-    } else {
-      setVisible(false);
-    }
-  }, [setVisible, router.asPath]);
 
   const onClickSetting = useCallback(() => {
     router.push('/profile');
     setIsVisibleModal(false);
   }, [router]);
 
+  const onClickLogOut = useCallback(() => {
+    router.push('/');
+    TokenUtil.remove();
+    setIsVisibleModal(false);
+    resetUserInfo();
+  }, [resetUserInfo, router]);
+
   return (
-    <Wrapper visible={visible}>
+    <Wrapper>
       <Logo onClick={() => router.push('/')} />
       <div ref={ref}>
         <Profile
           width="40px"
           height="40px"
-          onClick={() => setIsVisibleModal(!isVisibleModal)}
+          onClick={
+            userInfo.name
+              ? () => setIsVisibleModal(!isVisibleModal)
+              : () => router.push('/login')
+          }
         />
-        {isVisibleModal && (
+        {isVisibleModal && userInfo.name && (
           <Info>
             <InfoProfile>
               <Profile width="40px" height="40px" />
@@ -43,10 +46,16 @@ export const Header = () => {
                 <span>{userInfo.name}</span>
               </div>
             </InfoProfile>
+
             <InfoSetting onClick={onClickSetting}>
               <div />
               <span>설정</span>
             </InfoSetting>
+
+            <LogOut onClick={onClickLogOut}>
+              <div />
+              <span>로그아웃</span>
+            </LogOut>
           </Info>
         )}
       </div>
@@ -54,8 +63,8 @@ export const Header = () => {
   );
 };
 
-const Wrapper = styled.nav<{ visible: boolean }>`
-  display: ${(props) => (props.visible ? 'none' : 'flex')};
+const Wrapper = styled.nav`
+  display: flex;
   width: 100vw;
   height: ${pxToRem(56)};
   background-color: ${({ theme }) => theme.colors.Black700};
@@ -91,6 +100,7 @@ const Info = styled.div`
   justify-content: flex-start;
   align-items: center;
   text-align: center;
+  z-index: 99;
   background-color: ${({ theme }) => theme.colors.Black300};
   right: 0;
   top: 0;
@@ -131,6 +141,29 @@ const InfoSetting = styled.div`
   cursor: pointer;
   & > div {
     background-image: url('/assets/Settings.svg');
+    background-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+  & > span {
+    font-size: ${({ theme }) => theme.fonts.font14};
+    color: ${({ theme }) => theme.colors.White900};
+    margin-left: 12px;
+  }
+`;
+
+const LogOut = styled.div`
+  padding: 16px;
+  width: 100%;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  & > div {
+    background-image: url('/assets/LogOut.svg');
     background-size: 24px;
     width: 24px;
     height: 24px;

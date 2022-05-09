@@ -1,4 +1,4 @@
-const errorHandler = async (status: string): Promise<void> => {
+const errorHandler = async (status?: number): Promise<void> => {
   console.log(status);
 };
 

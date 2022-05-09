@@ -1,4 +1,6 @@
 import { RegisterValues } from 'src/types/auth.type';
+import { ACCESS_TOKEN_KEY } from '../constants/api.constants';
+import TokenUtil from './token';
 
 export const convertRegisterDto = (values: RegisterValues) => {
   return {
@@ -7,4 +9,11 @@ export const convertRegisterDto = (values: RegisterValues) => {
     name: values.name,
     generation: Number(values.generation),
   };
+};
+
+export const checkToken = (): boolean => {
+  if (TokenUtil.get(ACCESS_TOKEN_KEY)) {
+    return true;
+  }
+  return false;
 };
