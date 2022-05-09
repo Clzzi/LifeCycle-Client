@@ -1,7 +1,9 @@
 import { ProfileInfo } from 'src/components/ProfileInfo';
+import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import styled from 'styled-components';
 
 const Profile = () => {
+  const { userInfo } = useGetInfo();
   return (
     <Wrapper>
       <Container>
@@ -11,8 +13,8 @@ const Profile = () => {
           contents={[
             {
               title: '기수',
-              content: '4기',
-              link: '/profile/generation',
+              content: `${userInfo.generation}기`,
+              link: `/profile/generation?generation=${userInfo.generation}`,
               linkTitle: '기수변경',
             },
             {
