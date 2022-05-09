@@ -1,3 +1,4 @@
+import { NextRouter, useRouter } from 'next/router';
 import { Tag } from 'src/core/styles/shareStyle';
 import { ellipsisLine } from 'src/core/styles/styleMoudle';
 import { theme } from 'src/core/styles/theme';
@@ -10,6 +11,7 @@ interface Props {
   stack: string;
   generation: number;
   name: string;
+  idx: number;
 }
 
 export const Card = ({
@@ -19,9 +21,11 @@ export const Card = ({
   stack,
   thumbnail,
   title,
+  idx,
 }: Props) => {
+  const router: NextRouter = useRouter();
   return (
-    <Wrapper tabIndex={0}>
+    <Wrapper tabIndex={0} onClick={() => router.push(`/resume/${idx}`)}>
       <Thumbnail src={thumbnail} className="thumbnail" />
       <Content>
         <Text>{title}</Text>

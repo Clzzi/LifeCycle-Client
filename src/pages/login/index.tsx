@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 import { ChangeEvent } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { Button } from 'src/components/common/Button';
 import { Input } from 'src/components/common/Input';
 import { Title } from 'src/components/common/Title';
@@ -10,6 +11,7 @@ import {
   REFRESH_TOKEN_KEY,
 } from 'src/core/constants/api.constants';
 import { Error, useForm } from 'src/core/hooks/useForm';
+import { infoAtom } from 'src/core/store/auth.store';
 import TokenUtil from 'src/core/utils/token';
 import { LoginValues } from 'src/types/auth.type';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
@@ -17,6 +19,7 @@ import styled, { DefaultTheme, useTheme } from 'styled-components';
 const Login: NextPage = () => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
+  const setUserInfo = useSetRecoilState(infoAtom);
   const { values, errors, setValues, handleSubmit } = useForm<LoginValues>({
     initialValue: {
       id: undefined,
@@ -25,8 +28,9 @@ const Login: NextPage = () => {
     onSubmit: async (values) => {
       try {
         const { data } = await authApi.login(values);
-        TokenUtil.set(data.token, ACCESS_TOKEN_KEY);
-        TokenUtil.set(data.refreshToken, REFRESH_TOKEN_KEY);
+        TokenUtil.set(ACCESS_TOKEN_KEY, data.token);
+        TokenUtil.set(REFRESH_TOKEN_KEY, data.refreshToken);
+        setUserInfo(data.user);
         router.push('/');
       } catch (e: any) {
         console.error(e);
