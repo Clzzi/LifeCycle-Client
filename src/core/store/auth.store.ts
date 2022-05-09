@@ -4,8 +4,17 @@ import { IUser } from 'src/types/auth.type';
 export const infoAtom = atom<IUser>({
   key: 'infoAtom',
   default: {
-    userId: 'id',
-    name: 'name',
-    generation: 5,
+    userId: '',
+    name: '',
+    generation: 0,
+    resume: {
+      company: '',
+      content: '',
+      createdAt: '',
+      idx: 0,
+      stack: '',
+      thumbnail: '',
+      title: '',
+    },
   },
 });

@@ -1,10 +1,22 @@
-import { ReactNode } from 'react';
 import { Header } from './Header';
+import { NextRouter, useRouter } from 'next/router';
+import { ReactNode, useEffect, useState } from 'react';
 
 export const Layout = ({ children }: { children: ReactNode }) => {
+  const router: NextRouter = useRouter();
+  const [visible, setVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (router.asPath === '/register' || router.asPath === '/login') {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+  }, [setVisible, router.asPath]);
+
   return (
     <>
-      <Header />
+      {visible && <Header />}
       {children}
     </>
   );

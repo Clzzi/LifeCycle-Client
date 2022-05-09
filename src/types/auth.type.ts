@@ -20,6 +20,15 @@ export interface IUser {
   userId: string;
   name: string;
   generation: number;
+  resume: {
+    idx: number;
+    createdAt: string;
+    title: string;
+    company: string;
+    stack: string;
+    thumbnail: string;
+    content: string;
+  };
 }
 
 export interface ILogin extends IToken {

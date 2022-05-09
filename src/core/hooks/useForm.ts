@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent, useEffect, useState } from 'react';
+import React, { FormEvent, MouseEvent, useEffect, useState } from 'react';
 
 export type Error<T> = { [P in keyof T]?: string };
 
@@ -22,7 +22,9 @@ export const useForm = <T, H extends HTMLElement = HTMLButtonElement>({
     setErrors(newError);
   }, [values]);
 
-  const handleSubmit = async (e: MouseEvent<H>): Promise<void> => {
+  const handleSubmit = async (
+    e: MouseEvent<H> | React.KeyboardEvent,
+  ): Promise<void> => {
     setIsLoading(true);
     e.preventDefault();
 

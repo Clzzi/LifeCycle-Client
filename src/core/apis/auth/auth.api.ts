@@ -5,26 +5,35 @@ import {
   LoginResponse,
   RegisterParam,
   TokenReissuanceParam,
+  TokenReissuanceResponse,
 } from './auth.param';
 
 class Auth {
-  public async tokenReissuance(param: TokenReissuanceParam): Promise<any> {
-    const { data } = await customAxios.post('/login/refresh', param);
+  public async tokenReissuance(
+    param: TokenReissuanceParam,
+  ): Promise<TokenReissuanceResponse> {
+    const { data } = await customAxios.post<TokenReissuanceResponse>(
+      '/login/refresh',
+      param,
+    );
     return data;
   }
 
   public async login(param: LoginParam): Promise<LoginResponse> {
-    const { data } = await customAxios.post('/user/login', param);
+    const { data } = await customAxios.post<LoginResponse>(
+      '/user/login',
+      param,
+    );
     return data;
   }
 
   public async register(param: RegisterParam): Promise<Response> {
-    const { data } = await customAxios.post('/user/register', param);
+    const { data } = await customAxios.post<Response>('/user/register', param);
     return data;
   }
 
   public async accountWithDrawal(): Promise<Response> {
-    const { data } = await customAxios.delete('/user');
+    const { data } = await customAxios.delete<Response>('/user');
     return data;
   }
 }

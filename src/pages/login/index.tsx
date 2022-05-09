@@ -1,19 +1,19 @@
-import type { NextPage } from 'next';
-import { NextRouter, useRouter } from 'next/router';
-import { ChangeEvent } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { Button } from 'src/components/common/Button';
-import { Input } from 'src/components/common/Input';
-import { Title } from 'src/components/common/Title';
-import authApi from 'src/core/apis/auth/auth.api';
 import {
   ACCESS_TOKEN_KEY,
   REFRESH_TOKEN_KEY,
 } from 'src/core/constants/api.constants';
-import { Error, useForm } from 'src/core/hooks/useForm';
-import { infoAtom } from 'src/core/store/auth.store';
+import type { NextPage } from 'next';
+import React, { ChangeEvent } from 'react';
+import { useSetRecoilState } from 'recoil';
 import TokenUtil from 'src/core/utils/token';
 import { LoginValues } from 'src/types/auth.type';
+import authApi from 'src/core/apis/auth/auth.api';
+import { NextRouter, useRouter } from 'next/router';
+import { infoAtom } from 'src/core/store/auth.store';
+import { Title } from 'src/components/common/Title';
+import { Input } from 'src/components/common/Input';
+import { Button } from 'src/components/common/Button';
+import { Error, useForm } from 'src/core/hooks/useForm';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 
 const Login: NextPage = () => {
@@ -93,6 +93,9 @@ const Login: NextPage = () => {
             name="pw"
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
               setValues({ ...values, [e.target.name]: e.target.value.trim() });
+            }}
+            handleKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === 'Enter') handleSubmit(e);
             }}
             width="100%"
             height="56px"

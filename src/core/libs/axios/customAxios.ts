@@ -3,7 +3,7 @@ import {
   ALLOW_CORS_KEY,
   TOKEN_HEADER_KEY,
 } from 'src/core/constants/api.constants';
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import TokenUtil from 'src/core/utils/token';
 import requestHandler from './requestHandler';
 import errorHandler from './errorHandler';
@@ -21,7 +21,7 @@ customAxios.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => errorHandler(error.response.status),
+  (error: AxiosError) => errorHandler(error.response?.status),
 );
 
 export default customAxios;
