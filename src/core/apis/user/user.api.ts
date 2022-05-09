@@ -4,10 +4,11 @@ import {
   aUserParam,
   updateGenerationParam,
   updatePasswordParam,
+  UserResponse,
 } from './user.param';
 
 class User {
-  public async getAUser(param: aUserParam) {
+  public async getAUser(param: aUserParam): Promise<UserResponse> {
     const { data } = await customAxios.get(`/user/${param}`);
     return data;
   }
@@ -28,6 +29,10 @@ class User {
     const { data } = await customAxios.delete('/user');
     return data;
   }
+  public async getAUserByToken(): Promise<UserResponse> {
+    const { data } = await customAxios.get('/user');
+    return data;
+  }
 }
 
-export default User;
+export default new User();
