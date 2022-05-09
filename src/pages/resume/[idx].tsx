@@ -5,29 +5,64 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import { ScrollTop } from 'src/components/common/ScrollTop';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
+import resumeApi from 'src/core/apis/resume/resume.api';
+import { AResumeResponse } from 'src/core/apis/resume/resume.param';
+import { IResume } from 'src/types/resume.type';
+import { useEffect, useState } from 'react';
+import { checkToken } from 'src/core/utils/auth';
 
-const Resume = ({ idx }: { idx: string }) => {
+const Resume = ({ idx }: { idx: number }) => {
   const router: NextRouter = useRouter();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
+  const [isIdx, setIsIdx] = useState<boolean>(false);
 
-  if (router.isFallback) {
-    // 스켈레톤 UI
-    return <div>loading</div>;
+  useEffect(() => {
+    if (!checkToken()) {
+      router.push('/login');
+    } else {
+      if (idx) {
+        setIsIdx(true);
+      } else {
+        setIsIdx(false);
+      }
+    }
+  }, [idx, router]);
+
+  const { isLoading, error, data } = useQuery<AResumeResponse, Error, IResume>(
+    'AResume',
+    () => resumeApi.getAResume({ idx }),
+    {
+      select: (data) => {
+        return data.data;
+      },
+      enabled: isIdx,
+    },
+  );
+
+  if (isLoading) {
+    return <div style={{ color: 'white' }}>loading....</div>;
+  }
+
+  if (error) {
+    router.push('/404');
   }
 
   return (
     <Wrapper>
       <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
-      <Container>
-        <ResumeInfo
-          generation={4}
-          name="제정민"
-          stack="백엔드"
-          company="FLO"
-          title="🔥 FLO 합격한 제정민 포트폴리오"
-        />
-        <PDF file="https://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/a341fa34-fc1b-4c9c-8b30-e9a0ae3bafd1.pdf" />
-      </Container>
+      {data && (
+        <Container>
+          <ResumeInfo
+            generation={data.user.generation}
+            name={data.user.name}
+            stack={data.stack}
+            company={data.company}
+            title={data.title}
+          />
+          <PDF file={data.content} />
+        </Container>
+      )}
     </Wrapper>
   );
 };
@@ -35,23 +70,24 @@ const Resume = ({ idx }: { idx: string }) => {
 export default Resume;
 
 export const getStaticProps: GetStaticProps = async (context: any) => {
-  const idx = context.params.idx as string;
+  const idx = Number(context.params.idx);
 
-  // if (false) { TODO -> API 통신후 에러시 notFound 리턴
-  //   return { notFound: true };
-  // }
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('AResume', () =>
+    resumeApi.getAResume({ idx }),
+  );
 
   return {
     props: {
       idx,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };
 
 export const getStaticPaths = async () => {
-  const paths = [{ params: { idx: '2' } }];
   return {
-    paths,
+    paths: [],
     fallback: true,
   };
 };
