@@ -129,6 +129,7 @@ const EditResume = () => {
                 padding: '6px 12px',
                 margin: '0px 0px 4px 0px',
               }}
+              value={values.stack}
               name="stack"
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                 setValues({ ...values, [e.target.name]: e.target.value })

@@ -9,7 +9,7 @@ interface Props {
   title: string;
   subTitle: string;
   children: ReactNode;
-  onSave: () => void | Promise<void>;
+  onSave: (e?: any) => void | Promise<void>;
   customStyle?: CSSProperties;
 }
 

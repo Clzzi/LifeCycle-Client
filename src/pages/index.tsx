@@ -15,12 +15,22 @@ import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
 import { infoAtom } from 'src/core/store/auth.store';
 import { useRecoilValue } from 'recoil';
+import { ChangeEvent, useState } from 'react';
+
+interface Filter {
+  stackFilter: number;
+  generationFilter: number;
+}
 
 const Main = (): JSX.Element => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
   const userInfo = useRecoilValue(infoAtom);
+  const [filter, setFilter] = useState<Filter>({
+    generationFilter: 0,
+    stackFilter: 0,
+  });
 
   const { isLoading, error, data } = useQuery<
     ResumesResponse,
@@ -66,12 +76,22 @@ const Main = (): JSX.Element => {
               width="126px"
               height="38px"
               border={`2px solid ${theme.colors.Main1}`}
+              value={filter.stackFilter}
+              name="stackFilter"
+              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                setFilter({ ...filter, [e.target.name]: e.target.value })
+              }
             />
             <SelectBox
+              value={filter.generationFilter}
               content={GENERATION_LIST}
               width="126px"
               height="38px"
               border={`2px solid ${theme.colors.Main1}`}
+              name="generationFilter"
+              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                setFilter({ ...filter, [e.target.name]: e.target.value })
+              }
             />
           </SelectBoxes>
         </TopWrapper>

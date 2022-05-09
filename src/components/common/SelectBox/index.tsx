@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 interface Options {
   name: string;
-  value: number | string;
+  value: number | string | string;
 }
 
 interface Props {
@@ -19,6 +19,7 @@ interface Props {
   name?: string;
   customStyle?: CSSProperties;
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void | Promise<void>;
+  value: number | undefined | string;
 }
 
 export const SelectBox = ({
@@ -31,6 +32,7 @@ export const SelectBox = ({
   fontSize = theme.fonts.font14,
   height = '38px',
   onChange,
+  value,
   name,
   width = '126px',
 }: Props) => {
@@ -44,10 +46,9 @@ export const SelectBox = ({
     borderRadius,
     color,
   };
-
   return (
     <Wrapper>
-      <select style={style} onChange={onChange} name={name}>
+      <select style={style} onChange={onChange} name={name} value={value}>
         {content.map((option) => (
           <option key={option.value} value={option.value}>
             {option.name}

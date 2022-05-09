@@ -1,29 +1,39 @@
+import { NextRouter, useRouter } from 'next/router';
 import { ChangeEvent, useEffect } from 'react';
-import { Input } from 'src/components/common/Input';
+import { useRecoilValue } from 'recoil';
 import { Label } from 'src/components/common/Label';
 import { ProfileEdit } from 'src/components/common/ProfileEdit';
 import { SelectBox } from 'src/components/common/SelectBox';
+import userApi from 'src/core/apis/user/user.api';
 import { GENERATION_LIST } from 'src/core/constants/filter.constants';
 import { Error, useForm } from 'src/core/hooks/useForm';
+import { infoAtom } from 'src/core/store/auth.store';
 import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
 
 interface Values {
-  generation: string | undefined;
+  generation: number | undefined;
 }
 
 const EditGeneration = () => {
+  const router: NextRouter = useRouter();
+  const userInfo = useRecoilValue(infoAtom);
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({
       initialValue: {
         generation: undefined,
       },
-      onSubmit: () => {
-        // TODO
+      onSubmit: async () => {
+        try {
+          await userApi.updateGeneration({ generation: values.generation! });
+          router.push('/profile');
+        } catch (e: any) {
+          console.error(e);
+        }
       },
       validate: ({ generation }) => {
         const errors: Error<Values> = {};
-        if (generation !== undefined && generation === '0') {
+        if (generation !== undefined && generation === 0) {
           errors.generation = '바꿀 기수를 선택해주세요';
         }
         return errors;
@@ -31,15 +41,17 @@ const EditGeneration = () => {
     });
 
   useEffect(() => {
-    console.log(values);
-  }, [values]);
+    setValues({ generation: userInfo.generation });
+  }, [userInfo, setValues]);
 
   return (
     <Wrapper>
       <ProfileEdit
         title="기수 변경"
         subTitle="기수를 변경합니다"
-        onSave={() => console.log('save')}>
+        onSave={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+          handleSubmit(e)
+        }>
         <Label
           message={errors.generation ? errors.generation : ''}
           fontSize={theme.fonts.font14}
@@ -55,9 +67,10 @@ const EditGeneration = () => {
               padding: '6px 12px',
               margin: '0px 0px 4px 0px',
             }}
+            value={values.generation}
             name="generation"
             onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              setValues({ ...values, [e.target.name]: e.target.value })
+              setValues({ ...values, [e.target.name]: Number(e.target.value) })
             }
           />
         </Label>

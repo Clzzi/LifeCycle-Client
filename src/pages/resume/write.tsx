@@ -130,6 +130,7 @@ const ResumeWrite = () => {
                 margin: '0px 0px 4px 0px',
               }}
               name="stack"
+              value={values.stack}
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                 setValues({ ...values, [e.target.name]: e.target.value })
               }

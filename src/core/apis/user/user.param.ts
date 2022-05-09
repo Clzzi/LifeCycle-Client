@@ -5,7 +5,7 @@ export interface aUserParam {
 }
 
 export interface updatePasswordParam {
-  password: string;
+  pw: string;
 }
 
 export interface updateGenerationParam {
