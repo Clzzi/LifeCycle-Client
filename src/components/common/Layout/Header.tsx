@@ -29,8 +29,8 @@ export const Header = () => {
       <Logo onClick={() => router.push('/')} />
       <div ref={ref}>
         <Profile
-          width="40px"
-          height="40px"
+          width="60px"
+          height="60px"
           onClick={
             userInfo.name
               ? () => setIsVisibleModal(!isVisibleModal)
@@ -66,7 +66,7 @@ export const Header = () => {
 const Wrapper = styled.nav`
   display: flex;
   width: 100vw;
-  height: ${pxToRem(56)};
+  height: 4rem;
   background-color: ${({ theme }) => theme.colors.Black700};
   padding: 0px 215px;
   text-align: center;
@@ -85,9 +85,12 @@ const Logo = styled.div`
 const Profile = styled.div<{ width: string; height: string }>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  background-image: url('/assets/unsigned-profile.svg');
+  background-image: url('/assets/Lion.svg');
+  background-size: ${(props) => props.width};
   background-repeat: no-repeat;
+  background-position: center center;
   cursor: pointer;
+  margin-top: 12px;
 `;
 
 const Info = styled.div`

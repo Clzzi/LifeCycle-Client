@@ -15,7 +15,8 @@ import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
 import { infoAtom } from 'src/core/store/auth.store';
 import { useRecoilValue } from 'recoil';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useGetInfo } from 'src/core/hooks/useGetInfo';
 
 interface Filter {
   stackFilter: number;
@@ -23,10 +24,10 @@ interface Filter {
 }
 
 const Main = (): JSX.Element => {
+  const { userInfo } = useGetInfo();
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
-  const userInfo = useRecoilValue(infoAtom);
   const [filter, setFilter] = useState<Filter>({
     generationFilter: 0,
     stackFilter: 0,

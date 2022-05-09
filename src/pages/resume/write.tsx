@@ -1,4 +1,5 @@
-import { ChangeEvent, useEffect } from 'react';
+import { NextRouter, useRouter } from 'next/router';
+import React, { ChangeEvent, useState } from 'react';
 import { Button } from 'src/components/common/Button';
 import { ImageInput } from 'src/components/common/ImageInput';
 import { Input } from 'src/components/common/Input';
@@ -6,9 +7,11 @@ import { Label } from 'src/components/common/Label';
 import { PDFInput } from 'src/components/common/PDFInput';
 import { SelectBox } from 'src/components/common/SelectBox';
 import { Title } from 'src/components/common/Title';
+import resumeApi from 'src/core/apis/resume/resume.api';
 import { STACK_LIST } from 'src/core/constants/filter.constants';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { theme } from 'src/core/styles/theme';
+import resume from 'src/core/utils/resume';
 import styled from 'styled-components';
 
 interface Values {
@@ -20,6 +23,24 @@ interface Values {
 }
 
 const ResumeWrite = () => {
+  const router: NextRouter = useRouter();
+  const [pdfName, setPdfName] = useState<string>('');
+  const [imagePreview, setImagePreview] = useState<string>('');
+
+  const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    const formData = new FormData();
+    formData.append('files', e.target.files![0]);
+    const { data } = await resumeApi.upload(formData);
+
+    if (e.target.files![0].type === 'image/png') {
+      setImagePreview(data[0]);
+      setValues({ ...values, thumbnail: data[0] });
+    } else {
+      setPdfName(e.target.files![0].name);
+      setValues({ ...values, content: data[0] });
+    }
+  };
+
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({
       initialValue: {
@@ -29,8 +50,14 @@ const ResumeWrite = () => {
         content: undefined,
         thumbnail: undefined,
       },
-      onSubmit: () => {
-        // TODO
+      onSubmit: async () => {
+        try {
+          values.stack = resume.convertStackToString(Number(values.stack));
+          await resumeApi.makeResume(values);
+          router.push('/');
+        } catch (e: any) {
+          console.error(e);
+        }
       },
       validate: ({ title, company, content, thumbnail, stack }) => {
         const errors: Error<Values> = {};
@@ -64,20 +91,22 @@ const ResumeWrite = () => {
           mainText="포트폴리오 등록"
           subText="여러분들의 멋진 포트폴리오를 공유해보세요!"
         />
-        <ImageInput
-          text="썸네일을 등록해주세요"
-          width="100%"
-          height="245px"
-          fontSize={theme.fonts.font16}
-          color={theme.colors.Gray700}
-          errorMessage={errors.thumbnail ? errors.thumbnail : ''}
-          name="image"
-          backgroundColor="transparent"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            console.log(e.target.files)
-          }
-          margin="60px 0px"
-        />
+        {imagePreview.length ? (
+          <Preview url={imagePreview} />
+        ) : (
+          <ImageInput
+            text="썸네일을 등록해주세요"
+            width="100%"
+            height="245px"
+            fontSize={theme.fonts.font16}
+            color={theme.colors.Gray700}
+            errorMessage={errors.thumbnail ? errors.thumbnail : ''}
+            name="image"
+            backgroundColor="transparent"
+            onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeFile(e)}
+            margin="60px 0px"
+          />
+        )}
         <Inputs>
           <Input
             value={values.title}
@@ -139,26 +168,20 @@ const ResumeWrite = () => {
           <PDFInput
             placeholder="PDF파일"
             errorMessage={errors.content ? errors.content : ''}
-            height="56px"
+            height="fit-content"
             width="100%"
             borderRadius="4px"
             backgroundColor={theme.colors.Black500}
-            padding="6px 12px"
-            title={values.content}
+            padding="16px 40px 16px 12px"
+            title={pdfName}
             name="content"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              console.log(e.target.files);
-              setValues({
-                ...values,
-                [e.target.name]: e.target.files![0].name,
-              });
-            }}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeFile(e)}
             color={theme.colors.White900}
             customStyle={{
               display: 'flex',
               justifyContent: 'start',
               alignItems: 'center',
-              textAlign: 'center',
+              textAlign: 'start',
             }}
           />
         </Inputs>
@@ -171,9 +194,9 @@ const ResumeWrite = () => {
             color={theme.colors.White900}
             borderRadius="2px"
             backgroundColor={theme.colors.Main1}
-            handleClick={() => {
-              // TODO
-            }}
+            handleClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+              handleSubmit(e)
+            }
           />
           <Button
             width="102px"
@@ -187,9 +210,7 @@ const ResumeWrite = () => {
               border: `1px solid ${theme.colors.Gray900}`,
               marginLeft: '16px',
             }}
-            handleClick={() => {
-              // TODO
-            }}
+            handleClick={() => router.back()}
           />
         </Buttons>
       </Container>
@@ -217,7 +238,7 @@ const Container = styled.main`
 
 const Inputs = styled.div`
   width: 100%;
-  height: 342px;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -230,4 +251,12 @@ const Buttons = styled.div`
   text-align: center;
   align-items: center;
   margin-top: 12px;
+`;
+
+const Preview = styled.div<{ url: string }>`
+  width: 100%;
+  height: 245px;
+  background-image: ${(props) => `url(${props.url})`};
+  border-radius: 4px;
+  margin: 68px 0px;
 `;

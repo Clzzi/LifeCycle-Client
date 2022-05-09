@@ -1,4 +1,6 @@
 import { NextRouter, useRouter } from 'next/router';
+import { useCallback, useEffect } from 'react';
+import resumeApi from 'src/core/apis/resume/resume.api';
 import { Tag } from 'src/core/styles/shareStyle';
 import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
@@ -10,6 +12,7 @@ interface Props {
   stack: string;
   company: string;
   title: string;
+  isMyResume: boolean;
 }
 
 export const ResumeInfo = ({
@@ -18,44 +21,57 @@ export const ResumeInfo = ({
   name,
   stack,
   title,
+  isMyResume,
 }: Props) => {
   const router: NextRouter = useRouter();
+
+  const handleDeleteResume = useCallback(async () => {
+    try {
+      await resumeApi.deleteResume();
+      router.push('/');
+    } catch (e: any) {
+      console.error(e);
+    }
+  }, [router]);
+
   return (
     <Wrapper>
       <ProfileAndBtns>
-        <Profile>
-          <div />
-          <span>{`${generation}기 ${name}`}</span>
-        </Profile>
-        <Buttons>
-          <Button
-            width="102px"
-            height="38px"
-            content="수정"
-            fontSize={theme.fonts.font14}
-            color={theme.colors.Black900}
-            borderRadius="999px"
-            backgroundColor={theme.colors.White900}
-            handleClick={() => router.push('/resume/edit')}
-          />
-          <Button
-            width="102px"
-            height="38px"
-            content="삭제"
-            fontSize={theme.fonts.font14}
-            color={theme.colors.Gray600}
-            borderRadius="999px"
-            backgroundColor="transparent"
-            customStyle={{
-              border: `2px solid ${theme.colors.Gray600}`,
-            }}
-            handleClick={() => {
-              // TODO
-            }}
-          />
-        </Buttons>
+        <Profile />
+        <Container>
+          <span>{title}</span>
+          <GenerationAndBtns>
+            <div>{`${generation}기 ${name}`}</div>
+            {isMyResume ? (
+              <Buttons>
+                <Button
+                  width="102px"
+                  height="38px"
+                  content="수정"
+                  fontSize={theme.fonts.font14}
+                  color={theme.colors.Black900}
+                  borderRadius="999px"
+                  backgroundColor={theme.colors.White900}
+                  handleClick={() => router.push('/resume/edit')}
+                />
+                <Button
+                  width="102px"
+                  height="38px"
+                  content="삭제"
+                  fontSize={theme.fonts.font14}
+                  color={theme.colors.Gray600}
+                  borderRadius="999px"
+                  backgroundColor="transparent"
+                  customStyle={{
+                    border: `2px solid ${theme.colors.Gray600}`,
+                  }}
+                  handleClick={handleDeleteResume}
+                />
+              </Buttons>
+            ) : null}
+          </GenerationAndBtns>
+        </Container>
       </ProfileAndBtns>
-      <Title>{title}</Title>
       <Tags>
         <Tag
           type="GENERATION"
@@ -99,27 +115,49 @@ const Wrapper = styled.div`
 const ProfileAndBtns = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: start;
   align-content: center;
   text-align: center;
-  margin-bottom: 12px;
+  width: 100%;
+  position: relative;
 `;
 
 const Profile = styled.div`
+  width: 124px;
+  height: 124px;
+  background-image: url('/assets/Lion.svg');
+  background-size: 124px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-right: 12px;
+`;
+
+const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
-  & > div {
-    width: 34px;
-    height: 34px;
-    background-image: url('/assets/unsigned-profile.svg');
-    background-size: 34px;
-    margin-right: 12px;
-  }
+  width: 100%;
+  padding: 16px 0px;
   & > span {
-    font-size: ${({ theme }) => theme.fonts.font14};
+    width: 100%;
+    text-align: start;
+    font-size: ${({ theme }) => theme.fonts.font28};
+    color: ${({ theme }) => theme.colors.White900};
+    padding-bottom: 12px;
+  }
+`;
+
+const GenerationAndBtns = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  & > div {
+    font-size: ${({ theme }) => theme.fonts.font22};
     color: ${({ theme }) => theme.colors.White900};
   }
 `;
@@ -131,14 +169,6 @@ const Buttons = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-`;
-
-const Title = styled.div`
-  text-align: start;
-  width: 100%;
-  font-size: ${({ theme }) => theme.fonts.font28};
-  color: ${({ theme }) => theme.colors.White900};
-  margin-bottom: 12px;
 `;
 
 const Tags = styled.div`
