@@ -12,19 +12,29 @@ import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
+import { IResume } from 'src/types/resume.type';
+import { infoAtom } from 'src/core/store/auth.store';
+import { useRecoilValue } from 'recoil';
 
 const Main = (): JSX.Element => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
+  const userInfo = useRecoilValue(infoAtom);
 
-  const { isLoading, error, data } = useQuery<ResumesResponse, Error>(
-    'resumes',
-    () => resumeApi.getResumes(),
-  );
+  const { isLoading, error, data } = useQuery<
+    ResumesResponse,
+    Error,
+    IResume[]
+  >('resumes', () => resumeApi.getResumes(), {
+    select: (data) => {
+      return data.data;
+    },
+  });
 
   if (isLoading) return <div>Loading</div>;
   if (error) router.push('/404');
+
   return (
     <>
       <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
@@ -34,12 +44,21 @@ const Main = (): JSX.Element => {
           <Button
             width="126px"
             height="38px"
-            content="이력서 등록하기"
+            content={userInfo.resume ? '내 이력서 보기' : '이력서 등록하기'}
             fontSize={theme.fonts.font14}
             color={theme.colors.White900}
             borderRadius="999px"
             backgroundColor={theme.colors.Main1}
-            handleClick={() => router.push('/resume/write')}
+            customStyle={{
+              visibility: userInfo.generation ? 'visible' : 'hidden',
+            }}
+            handleClick={() =>
+              router.push(
+                userInfo.resume
+                  ? `/resume/${userInfo.resume.idx}`
+                  : '/resume/write',
+              )
+            }
           />
           <SelectBoxes>
             <SelectBox
@@ -57,7 +76,7 @@ const Main = (): JSX.Element => {
           </SelectBoxes>
         </TopWrapper>
         <Contents>
-          {data?.data?.map((v) => {
+          {data?.map((v) => {
             return (
               <Card
                 key={v.idx}
@@ -65,8 +84,8 @@ const Main = (): JSX.Element => {
                 title={v.title}
                 company={v.company}
                 stack={v.stack}
-                generation={4}
-                name="제정민"
+                generation={v.user.generation}
+                name={v.user.name}
                 idx={v.idx}
               />
             );
