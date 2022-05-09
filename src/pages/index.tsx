@@ -17,14 +17,14 @@ const Main = (): JSX.Element => {
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
-  
-  // const { isLoading, error, data } = useQuery<ResumesResponse, Error>(
-  //   'resumes',
-  //   () => resumeApi.getResumes(),
-  // );
 
-  // if (isLoading) return <div>Loading</div>;
-  // if (error) router.push('/404');
+  const { isLoading, error, data } = useQuery<ResumesResponse, Error>(
+    'resumes',
+    () => resumeApi.getResumes(),
+  );
+
+  if (isLoading) return <div>Loading</div>;
+  if (error) router.push('/404');
   return (
     <>
       <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
@@ -57,7 +57,7 @@ const Main = (): JSX.Element => {
           </SelectBoxes>
         </TopWrapper>
         <Contents>
-          {/* {data?.data?.map((v) => {
+          {data?.data?.map((v) => {
             return (
               <Card
                 key={v.idx}
@@ -70,7 +70,7 @@ const Main = (): JSX.Element => {
                 idx={v.idx}
               />
             );
-          })} */}
+          })}
         </Contents>
       </Container>
     </>
@@ -121,13 +121,13 @@ const Contents = styled.div`
   grid-column-gap: 30px;
 `;
 
-// export async function getStaticProps() {
-//   const queryClient = new QueryClient();
-//   await queryClient.prefetchQuery('resumes', () => resumeApi.getResumes());
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('resumes', () => resumeApi.getResumes());
 
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//     },
-//   };
-// }
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
