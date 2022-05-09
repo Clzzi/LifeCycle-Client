@@ -37,6 +37,7 @@
     "react-notion-x": "^6.7.0-alpha.1",
     "react-pdf": "^5.7.2",
     "react-query": "^3.34.19",
+    "recoil": "0.7.2",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
