@@ -15,6 +15,7 @@ import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
+import ResumeUtil from 'src/core/utils/resume';
 
 interface Filter {
   stackFilter: number;
@@ -31,17 +32,21 @@ const Main = (): JSX.Element => {
     stackFilter: 0,
   });
 
-  const { isLoading, error, data } = useQuery<
+  const { isLoading, error, data, isFetching } = useQuery<
     ResumesResponse,
     Error,
     IResume[]
-  >('resumes', () => resumeApi.getResumes(), {
+  >(['resumes', filter], () => resumeApi.getResumes(), {
     select: (data) => {
-      return data.data;
+      return ResumeUtil.filterResume(
+        filter.generationFilter,
+        filter.stackFilter,
+        data.data,
+      );
     },
   });
 
-  if (isLoading) return <div>Loading</div>;
+  if (isFetching) console.log('asdf');
   if (error) router.push('/404');
 
   return (
@@ -78,7 +83,10 @@ const Main = (): JSX.Element => {
               value={filter.stackFilter}
               name="stackFilter"
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                setFilter({ ...filter, [e.target.name]: e.target.value })
+                setFilter({
+                  ...filter,
+                  [e.target.name]: Number(e.target.value),
+                })
               }
             />
             <SelectBox
@@ -89,7 +97,10 @@ const Main = (): JSX.Element => {
               border={`2px solid ${theme.colors.Main1}`}
               name="generationFilter"
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                setFilter({ ...filter, [e.target.name]: e.target.value })
+                setFilter({
+                  ...filter,
+                  [e.target.name]: Number(e.target.value),
+                })
               }
             />
           </SelectBoxes>
@@ -117,10 +128,13 @@ const Main = (): JSX.Element => {
 
 export default Main;
 
+// 스켈레톤 UI
+// 성공 / 에러 처리
+// 로딩 처리
+
 const Banner = styled.article`
   width: 100%;
   height: 256px;
-  height: 15vh;
   background: url('/assets/Banner.svg') no-repeat center;
   cursor: pointer;
   margin: -4px 0px 32px 0px;

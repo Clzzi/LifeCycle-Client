@@ -35,6 +35,13 @@ class Resume {
     const { data } = await customAxios.delete<Response>('/resume');
     return data;
   }
+
+  public async updateResume(
+    params: makeResumeParams,
+  ): Promise<AResumeResponse> {
+    const { data } = await customAxios.put<AResumeResponse>('/resume', params);
+    return data;
+  }
 }
 
 export default new Resume();

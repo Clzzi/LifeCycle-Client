@@ -31,11 +31,6 @@ class Auth {
     const { data } = await customAxios.post<Response>('/user/register', param);
     return data;
   }
-
-  public async accountWithDrawal(): Promise<Response> {
-    const { data } = await customAxios.delete<Response>('/user');
-    return data;
-  }
 }
 
 export default new Auth();

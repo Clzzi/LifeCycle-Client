@@ -10,11 +10,12 @@ import resumeApi from 'src/core/apis/resume/resume.api';
 import { AResumeResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
 import { useEffect, useState } from 'react';
-import { checkToken } from 'src/core/utils/auth';
 import { useRecoilValue } from 'recoil';
 import { infoAtom } from 'src/core/store/auth.store';
+import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 
 const Resume = ({ idx }: { idx: number }) => {
+  useCheckLogin();
   const router: NextRouter = useRouter();
   const userInfo = useRecoilValue(infoAtom);
   const [isIdx, setIsIdx] = useState<boolean>(false);
@@ -22,14 +23,10 @@ const Resume = ({ idx }: { idx: number }) => {
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
 
   useEffect(() => {
-    if (!checkToken()) {
-      router.push('/login');
+    if (idx) {
+      setIsIdx(true);
     } else {
-      if (idx) {
-        setIsIdx(true);
-      } else {
-        setIsIdx(false);
-      }
+      setIsIdx(false);
     }
   }, [idx, router]);
 

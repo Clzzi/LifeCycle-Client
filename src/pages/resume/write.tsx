@@ -1,5 +1,5 @@
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { NextRouter, useRouter } from 'next/router';
-import React, { ChangeEvent, useState } from 'react';
 import { Button } from 'src/components/common/Button';
 import { ImageInput } from 'src/components/common/ImageInput';
 import { Input } from 'src/components/common/Input';
@@ -9,35 +9,39 @@ import { SelectBox } from 'src/components/common/SelectBox';
 import { Title } from 'src/components/common/Title';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { STACK_LIST } from 'src/core/constants/filter.constants';
+import { useCheckResume } from 'src/core/hooks/useCheckResume';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { theme } from 'src/core/styles/theme';
-import resume from 'src/core/utils/resume';
+import ResumeUtil from 'src/core/utils/resume';
 import styled from 'styled-components';
 
 interface Values {
   title: string | undefined;
   company: string | undefined;
-  stack: string | undefined;
+  stack: string | undefined | number;
   content: string | undefined;
   thumbnail: string | undefined;
 }
 
 const ResumeWrite = () => {
+  useCheckResume('WRITE');
   const router: NextRouter = useRouter();
   const [pdfName, setPdfName] = useState<string>('');
   const [imagePreview, setImagePreview] = useState<string>('');
 
   const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
-    const formData = new FormData();
-    formData.append('files', e.target.files![0]);
-    const { data } = await resumeApi.upload(formData);
-
-    if (e.target.files![0].type === 'image/png') {
-      setImagePreview(data[0]);
-      setValues({ ...values, thumbnail: data[0] });
-    } else {
-      setPdfName(e.target.files![0].name);
-      setValues({ ...values, content: data[0] });
+    if (e.target.files?.length) {
+      const formData = new FormData();
+      formData.append('files', e.target.files[0]);
+      const { data } = await resumeApi.upload(formData);
+      console.log(e.target.files[0].type);
+      if (e.target.files[0].type.startsWith('image')) {
+        setImagePreview(data[0]);
+        setValues({ ...values, thumbnail: data[0] });
+      } else {
+        setPdfName(e.target.files![0].name);
+        setValues({ ...values, content: data[0] });
+      }
     }
   };
 
@@ -52,14 +56,14 @@ const ResumeWrite = () => {
       },
       onSubmit: async () => {
         try {
-          values.stack = resume.convertStackToString(Number(values.stack));
+          values.stack = ResumeUtil.convertStackToString(Number(values.stack));
           await resumeApi.makeResume(values);
           router.push('/');
         } catch (e: any) {
           console.error(e);
         }
       },
-      validate: ({ title, company, content, thumbnail, stack }) => {
+      validate: ({ title, company, stack }) => {
         const errors: Error<Values> = {};
 
         if (title !== undefined && title.length === 0) {
@@ -78,6 +82,11 @@ const ResumeWrite = () => {
       },
     });
 
+  const onDeleteImage = useCallback(() => {
+    setValues({ ...values, thumbnail: '' });
+    setImagePreview('');
+  }, [setValues, setImagePreview, values]);
+
   return (
     <Wrapper>
       <Container>
@@ -92,7 +101,9 @@ const ResumeWrite = () => {
           subText="여러분들의 멋진 포트폴리오를 공유해보세요!"
         />
         {imagePreview.length ? (
-          <Preview url={imagePreview} />
+          <PreviewDim onClick={onDeleteImage}>
+            <Preview url={imagePreview} />
+          </PreviewDim>
         ) : (
           <ImageInput
             text="썸네일을 등록해주세요"
@@ -253,10 +264,43 @@ const Buttons = styled.div`
   margin-top: 12px;
 `;
 
+const PreviewDim = styled.div`
+  width: 100%;
+  height: 245px;
+  border-radius: 4px;
+  margin: 68px 0px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid ${({ theme }) => theme.colors.Gray700};
+  &:hover {
+    &::after {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      content: url('/assets/Delete.svg');
+    }
+  }
+`;
+
 const Preview = styled.div<{ url: string }>`
   width: 100%;
   height: 245px;
   background-image: ${(props) => `url(${props.url})`};
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   border-radius: 4px;
-  margin: 68px 0px;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 999;
+  &:hover {
+    -webkit-filter: blur(1.5px);
+    -moz-filter: blur(1.5px);
+    -o-filter: blur(1.5px);
+    -ms-filter: blur(1.5px);
+    filter: blur(1.5px);
+    transform: scale(1.02);
+  }
 `;

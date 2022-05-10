@@ -20,7 +20,7 @@ export interface UploadResponse extends Response {
 export interface makeResumeParams {
   title: string | undefined;
   company: string | undefined;
-  stack: string | undefined;
+  stack: string | undefined | number;
   thumbnail: string | undefined;
   content: string | undefined;
 }

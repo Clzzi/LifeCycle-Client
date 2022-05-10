@@ -1,11 +1,12 @@
 import { NextRouter, useRouter } from 'next/router';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { Tag } from 'src/core/styles/shareStyle';
 import { theme } from 'src/core/styles/theme';
 import { handleProfileImg } from 'src/core/utils/style';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
+import { Modal } from '../common/Modal';
 
 interface Props {
   generation: number;
@@ -25,6 +26,7 @@ export const ResumeInfo = ({
   isMyResume,
 }: Props) => {
   const router: NextRouter = useRouter();
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const handleDeleteResume = useCallback(async () => {
     try {
@@ -36,75 +38,142 @@ export const ResumeInfo = ({
   }, [router]);
 
   return (
-    <Wrapper>
-      <ProfileAndBtns>
-        <Profile generation={generation} />
-        <Container>
-          <span>{title}</span>
-          <GenerationAndBtns>
-            <div>{`${generation}기 ${name}`}</div>
-            {isMyResume ? (
-              <Buttons>
-                <Button
-                  width="102px"
-                  height="38px"
-                  content="수정"
-                  fontSize={theme.fonts.font14}
-                  color={theme.colors.Black900}
-                  borderRadius="999px"
-                  backgroundColor={theme.colors.White900}
-                  handleClick={() => router.push('/resume/edit')}
-                />
-                <Button
-                  width="102px"
-                  height="38px"
-                  content="삭제"
-                  fontSize={theme.fonts.font14}
-                  color={theme.colors.Gray600}
-                  borderRadius="999px"
-                  backgroundColor="transparent"
-                  customStyle={{
-                    border: `2px solid ${theme.colors.Gray600}`,
-                  }}
-                  handleClick={handleDeleteResume}
-                />
-              </Buttons>
-            ) : null}
-          </GenerationAndBtns>
-        </Container>
-      </ProfileAndBtns>
-      <Tags>
-        <Tag
-          type="GENERATION"
-          maxWidth="330px"
-          height="28px"
-          padding="0px 34px"
-          borderRadius="4px"
-          fontSize={theme.fonts.font16}>
-          {generation}기
-        </Tag>
-        <Tag
-          type="STACK"
-          maxWidth="330px"
-          height="28px"
-          padding="0px 34px"
-          borderRadius="4px"
-          fontSize={theme.fonts.font16}>
-          {stack}
-        </Tag>
-        <Tag
-          type="COMPANY"
-          maxWidth="330px"
-          height="28px"
-          padding="0px 34px"
-          borderRadius="4px"
-          fontSize={theme.fonts.font16}>
-          {company}
-        </Tag>
-      </Tags>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <ProfileAndBtns>
+          <Profile generation={generation} />
+          <Container>
+            <span>{title}</span>
+            <GenerationAndBtns>
+              <div>{`${generation}기 ${name}`}</div>
+              {isMyResume ? (
+                <Buttons>
+                  <Button
+                    width="102px"
+                    height="38px"
+                    content="수정"
+                    fontSize={theme.fonts.font14}
+                    color={theme.colors.Black900}
+                    borderRadius="999px"
+                    backgroundColor={theme.colors.White900}
+                    handleClick={() => router.push('/resume/edit')}
+                  />
+                  <Button
+                    width="102px"
+                    height="38px"
+                    content="삭제"
+                    fontSize={theme.fonts.font14}
+                    color={theme.colors.Gray600}
+                    borderRadius="999px"
+                    backgroundColor="transparent"
+                    customStyle={{
+                      border: `2px solid ${theme.colors.Gray600}`,
+                    }}
+                    handleClick={() => setModalVisible(true)}
+                  />
+                </Buttons>
+              ) : null}
+            </GenerationAndBtns>
+          </Container>
+        </ProfileAndBtns>
+        <Tags>
+          <Tag
+            type="GENERATION"
+            maxWidth="330px"
+            height="28px"
+            padding="0px 34px"
+            borderRadius="4px"
+            fontSize={theme.fonts.font16}>
+            {generation}기
+          </Tag>
+          <Tag
+            type="STACK"
+            maxWidth="330px"
+            height="28px"
+            padding="0px 34px"
+            borderRadius="4px"
+            fontSize={theme.fonts.font16}>
+            {stack}
+          </Tag>
+          <Tag
+            type="COMPANY"
+            maxWidth="330px"
+            height="28px"
+            padding="0px 34px"
+            borderRadius="4px"
+            fontSize={theme.fonts.font16}>
+            {company}
+          </Tag>
+        </Tags>
+      </Wrapper>
+      <Modal
+        onClose={() => setModalVisible(false)}
+        visible={modalVisible}
+        height="196px">
+        <ModalContainer>
+          <Title>이력서 삭제</Title>
+          <Desc>정말 삭제하시겠습니까?</Desc>
+          <ModalButtons>
+            <Button
+              width="102px"
+              height="38px"
+              content="뒤로"
+              fontSize={theme.fonts.font14}
+              color={theme.colors.White700}
+              borderRadius="4px"
+              backgroundColor={theme.colors.Gray900}
+              customStyle={{
+                border: `2px solid ${theme.colors.Gray900}`,
+                margin: '0px 12px 0px 0px',
+              }}
+              handleClick={() => setModalVisible(false)}
+            />
+            <Button
+              width="102px"
+              height="38px"
+              content="삭제"
+              fontSize={theme.fonts.font14}
+              color={theme.colors.White900}
+              borderRadius="4px"
+              backgroundColor={theme.colors.Main1}
+              handleClick={handleDeleteResume}
+            />
+          </ModalButtons>
+        </ModalContainer>
+      </Modal>
+    </>
   );
 };
+
+const ModalContainer = styled.section`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: center;
+`;
+
+const ModalButtons = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+`;
+
+const Title = styled.div`
+  font-size: ${({ theme }) => theme.fonts.font24};
+  color: ${({ theme }) => theme.colors.Black900};
+  font-weight: bold;
+`;
+
+const Desc = styled.div`
+  font-size: ${({ theme }) => theme.fonts.font18};
+  margin-bottom: 26px;
+`;
 
 const Wrapper = styled.div`
   max-width: 1200px;
