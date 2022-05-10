@@ -6,6 +6,7 @@ import { ProfileEdit } from 'src/components/common/ProfileEdit';
 import { SelectBox } from 'src/components/common/SelectBox';
 import userApi from 'src/core/apis/user/user.api';
 import { GENERATION_LIST } from 'src/core/constants/filter.constants';
+import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { infoAtom } from 'src/core/store/auth.store';
 import { theme } from 'src/core/styles/theme';
@@ -16,6 +17,7 @@ interface Values {
 }
 
 const EditGeneration = () => {
+  useCheckLogin();
   const router: NextRouter = useRouter();
   const userInfo = useRecoilValue(infoAtom);
   const { values, errors, isLoading, setValues, handleSubmit } =
