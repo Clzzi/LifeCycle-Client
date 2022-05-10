@@ -7,8 +7,8 @@ import { useClickAway } from 'src/core/hooks/useClickAway';
 import TokenUtil from 'src/core/utils/token';
 
 export const Header = () => {
-  const { userInfo, resetUserInfo } = useGetInfo();
   const router: NextRouter = useRouter();
+  const { userInfo, resetUserInfo } = useGetInfo();
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
   const ref = useClickAway<HTMLDivElement>(() => setIsVisibleModal(false));
 
