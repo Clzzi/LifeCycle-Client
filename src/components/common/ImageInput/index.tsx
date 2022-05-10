@@ -1,4 +1,4 @@
-import { ChangeEvent, CSSProperties } from 'react';
+import React, { ChangeEvent, CSSProperties, RefObject, useRef } from 'react';
 import styled from 'styled-components';
 import { Label } from '../Label';
 
@@ -37,6 +37,7 @@ export const ImageInput = ({
   width = '140px',
   text,
 }: Props) => {
+  const ref: RefObject<HTMLInputElement> = useRef(null);
   const style: CSSProperties = {
     ...customStyle,
     margin,
@@ -50,11 +51,18 @@ export const ImageInput = ({
   };
   return (
     <Label message={errorMessage} fontSize={errorFontSize}>
-      <Input htmlFor="image-input" tabIndex={0} style={style}>
+      <Input
+        htmlFor="image-input"
+        tabIndex={0}
+        style={style}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === ' ') ref.current?.click();
+        }}>
         <div />
         <span style={{ fontSize }}>{text}</span>
       </Input>
       <input
+        ref={ref}
         type="file"
         accept="image/*"
         id="image-input"

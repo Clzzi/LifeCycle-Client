@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ResumeInfo } from 'src/components/ResumeInfo';
 import { PDF } from 'src/components/PDF';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticProps } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import { ScrollTop } from 'src/components/common/ScrollTop';
@@ -10,22 +10,23 @@ import resumeApi from 'src/core/apis/resume/resume.api';
 import { AResumeResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
 import { useEffect, useState } from 'react';
-import { checkToken } from 'src/core/utils/auth';
+import { useRecoilValue } from 'recoil';
+import { infoAtom } from 'src/core/store/auth.store';
+import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 
 const Resume = ({ idx }: { idx: number }) => {
+  useCheckLogin();
   const router: NextRouter = useRouter();
-  const { showScrollVisible, onClickScrollTop } = useScrollTop();
+  const userInfo = useRecoilValue(infoAtom);
   const [isIdx, setIsIdx] = useState<boolean>(false);
+  const [isMyResume, setIsMyResume] = useState<boolean>(false);
+  const { showScrollVisible, onClickScrollTop } = useScrollTop();
 
   useEffect(() => {
-    if (!checkToken()) {
-      router.push('/login');
+    if (idx) {
+      setIsIdx(true);
     } else {
-      if (idx) {
-        setIsIdx(true);
-      } else {
-        setIsIdx(false);
-      }
+      setIsIdx(false);
     }
   }, [idx, router]);
 
@@ -39,6 +40,14 @@ const Resume = ({ idx }: { idx: number }) => {
       enabled: isIdx,
     },
   );
+
+  useEffect(() => {
+    if (data?.user.userId === userInfo.userId) {
+      setIsMyResume(true);
+    } else {
+      setIsMyResume(false);
+    }
+  }, [data?.user.userId, userInfo.userId]);
 
   if (isLoading) {
     return <div style={{ color: 'white' }}>loading....</div>;
@@ -59,6 +68,7 @@ const Resume = ({ idx }: { idx: number }) => {
             stack={data.stack}
             company={data.company}
             title={data.title}
+            isMyResume={isMyResume}
           />
           <PDF file={data.content} />
         </Container>

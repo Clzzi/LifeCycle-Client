@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react';
 import { Input } from 'src/components/common/Input';
 import { ProfileEdit } from 'src/components/common/ProfileEdit';
 import userApi from 'src/core/apis/user/user.api';
+import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
@@ -13,6 +14,7 @@ interface Values {
 }
 
 const EditPassword = () => {
+  useCheckLogin();
   const router: NextRouter = useRouter();
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({

@@ -7,7 +7,11 @@ export const Layout = ({ children }: { children: ReactNode }) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    if (router.asPath === '/register' || router.asPath === '/login') {
+    if (
+      router.asPath === '/register' ||
+      router.asPath === '/login' ||
+      router.asPath === '/404'
+    ) {
       setVisible(false);
     } else {
       setVisible(true);

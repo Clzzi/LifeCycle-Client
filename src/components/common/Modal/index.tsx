@@ -1,5 +1,5 @@
 import { useClickAway } from 'src/core/hooks/useClickAway';
-import { CSSProperties, ReactNode, RefObject, useMemo } from 'react';
+import { CSSProperties, ReactNode, RefObject, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -10,7 +10,6 @@ interface Props {
   backgroundColor?: string;
   visible: boolean;
   onClose: () => void;
-  onYes?: () => void;
   customStyle?: CSSProperties;
 }
 
@@ -22,7 +21,6 @@ export const Modal = ({
   height = '500px',
   borderRadius = '12px',
   backgroundColor,
-  onYes,
   customStyle,
 }: Props) => {
   const ref: RefObject<HTMLDivElement> = useClickAway<HTMLDivElement>(() => {
@@ -32,6 +30,19 @@ export const Modal = ({
   const style: CSSProperties = useMemo(() => {
     return { ...customStyle, width, height, borderRadius, backgroundColor };
   }, [width, height, borderRadius, backgroundColor, customStyle]);
+
+  useEffect(() => {
+    document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = '';
+      window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+    };
+  }, []);
 
   return visible ? (
     <BackgroundDim>
@@ -51,8 +62,9 @@ const BackgroundDim = styled.section`
   background-color: ${({ theme }) => theme.colors.Gray800};
   display: flex;
   justify-content: center;
-  align-items: center;
   text-align: center;
+  align-items: center;
+  z-index: 999;
 `;
 
 const ModalCard = styled.div`

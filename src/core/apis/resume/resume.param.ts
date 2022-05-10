@@ -12,3 +12,15 @@ export interface ResumesResponse extends Response {
 export interface aResumeParam {
   idx: number;
 }
+
+export interface UploadResponse extends Response {
+  data: string[];
+}
+
+export interface makeResumeParams {
+  title: string | undefined;
+  company: string | undefined;
+  stack: string | undefined | number;
+  thumbnail: string | undefined;
+  content: string | undefined;
+}

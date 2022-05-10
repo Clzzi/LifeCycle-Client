@@ -1,14 +1,14 @@
 import { NextRouter, useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
-import { pxToRem } from 'src/core/utils/style';
+import { handleProfileImg, pxToRem } from 'src/core/utils/style';
 import styled from 'styled-components';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import { useClickAway } from 'src/core/hooks/useClickAway';
 import TokenUtil from 'src/core/utils/token';
 
 export const Header = () => {
-  const { userInfo, resetUserInfo } = useGetInfo();
   const router: NextRouter = useRouter();
+  const { userInfo, resetUserInfo } = useGetInfo();
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
   const ref = useClickAway<HTMLDivElement>(() => setIsVisibleModal(false));
 
@@ -28,19 +28,27 @@ export const Header = () => {
     <Wrapper>
       <Logo onClick={() => router.push('/')} />
       <div ref={ref}>
-        <Profile
-          width="40px"
-          height="40px"
-          onClick={
-            userInfo.name
-              ? () => setIsVisibleModal(!isVisibleModal)
-              : () => router.push('/login')
-          }
-        />
+        {userInfo.generation ? (
+          <Profile
+            width="60px"
+            height="60px"
+            margin="12px 0 0 0"
+            generation={userInfo.generation}
+            onClick={() => setIsVisibleModal(!isVisibleModal)}
+          />
+        ) : (
+          <DefaultProfile onClick={() => router.push('/login')} />
+        )}
+
         {isVisibleModal && userInfo.name && (
           <Info>
             <InfoProfile>
-              <Profile width="40px" height="40px" />
+              <Profile
+                width="40px"
+                height="40px"
+                margin="6px 0 0 0"
+                generation={userInfo.generation}
+              />
               <div>
                 <div>{userInfo.generation}기</div>
                 <span>{userInfo.name}</span>
@@ -66,7 +74,7 @@ export const Header = () => {
 const Wrapper = styled.nav`
   display: flex;
   width: 100vw;
-  height: ${pxToRem(56)};
+  height: 4rem;
   background-color: ${({ theme }) => theme.colors.Black700};
   padding: 0px 215px;
   text-align: center;
@@ -82,11 +90,13 @@ const Logo = styled.div`
   cursor: pointer;
 `;
 
-const Profile = styled.div<{ width: string; height: string }>`
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+const DefaultProfile = styled.div`
+  width: 40px;
+  height: 40px;
   background-image: url('/assets/unsigned-profile.svg');
+  background-size: 40px;
   background-repeat: no-repeat;
+  background-position: center center;
   cursor: pointer;
 `;
 
@@ -173,4 +183,20 @@ const LogOut = styled.div`
     color: ${({ theme }) => theme.colors.White900};
     margin-left: 12px;
   }
+`;
+
+const Profile = styled.div<{
+  width: string;
+  height: string;
+  margin: string;
+  generation: number;
+}>`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  background-image: ${(props) => handleProfileImg(props.generation)};
+  background-size: ${(props) => props.width};
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin: ${(props) => props.margin};
+  cursor: pointer;
 `;

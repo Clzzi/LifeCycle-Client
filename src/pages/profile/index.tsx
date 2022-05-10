@@ -1,8 +1,10 @@
 import { ProfileInfo } from 'src/components/ProfileInfo';
+import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import styled from 'styled-components';
 
 const Profile = () => {
+  useCheckLogin();
   const { userInfo } = useGetInfo();
   return (
     <Wrapper>
@@ -48,6 +50,13 @@ const Container = styled.main`
   justify-content: start;
   text-align: center;
   align-items: center;
+`;
+
+const TopWrapper = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const Title = styled.div`

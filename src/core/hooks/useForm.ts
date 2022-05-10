@@ -38,8 +38,6 @@ export const useForm = <T, H extends HTMLElement = HTMLButtonElement>({
     }
 
     if (!Object.values(submitErrors).every((v) => v === '')) {
-      console.log(submitErrors);
-
       setErrors(submitErrors);
       return;
     }

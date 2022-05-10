@@ -1,4 +1,4 @@
-import { ChangeEvent, CSSProperties } from 'react';
+import React, { ChangeEvent, CSSProperties, RefObject, useRef } from 'react';
 import styled from 'styled-components';
 import { Label } from '../Label';
 
@@ -38,6 +38,7 @@ export const PDFInput = ({
   padding,
 }: Props) => {
   //application/pdf
+  const ref: RefObject<HTMLInputElement> = useRef(null);
   const style: CSSProperties = {
     ...customStyle,
     margin,
@@ -51,12 +52,19 @@ export const PDFInput = ({
   };
   return (
     <Label message={errorMessage} fontSize={errorFontSize}>
-      <Input style={style} htmlFor="pdf-input" tabIndex={0}>
+      <Input
+        style={style}
+        htmlFor="pdf-input"
+        tabIndex={0}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === ' ') ref.current?.click();
+        }}>
         {title && title.length ? title : placeholder}
         <div />
       </Input>
 
       <input
+        ref={ref}
         type="file"
         accept=".pdf"
         id="pdf-input"
@@ -75,6 +83,7 @@ const Input = styled.label`
   margin-bottom: 4px;
   transition: 0.1s ease-in-out;
   cursor: pointer !important;
+  min-height: 56px;
   &::placeholder {
     font-size: ${({ theme }) => theme.fonts.font14};
   }
