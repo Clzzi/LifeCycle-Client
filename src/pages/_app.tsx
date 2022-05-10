@@ -8,6 +8,7 @@ import { Layout } from 'src/components/common/Layout/Layout';
 import { pdfjs } from 'react-pdf';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
+import { Toast } from 'src/components/common/Toast';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <ThemeProvider theme={theme}>
             <Layout>
               <GlobalStyle />
+              <Toast />
               <Component {...pageProps} />
             </Layout>
           </ThemeProvider>
