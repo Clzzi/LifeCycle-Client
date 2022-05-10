@@ -3,6 +3,7 @@ import { useCallback, useEffect } from 'react';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { Tag } from 'src/core/styles/shareStyle';
 import { theme } from 'src/core/styles/theme';
+import { handleProfileImg } from 'src/core/utils/style';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
 
@@ -37,7 +38,7 @@ export const ResumeInfo = ({
   return (
     <Wrapper>
       <ProfileAndBtns>
-        <Profile />
+        <Profile generation={generation} />
         <Container>
           <span>{title}</span>
           <GenerationAndBtns>
@@ -122,10 +123,10 @@ const ProfileAndBtns = styled.div`
   position: relative;
 `;
 
-const Profile = styled.div`
+const Profile = styled.div<{ generation: number }>`
   width: 124px;
   height: 124px;
-  background-image: url('/assets/Lion.svg');
+  background-image: ${(props) => handleProfileImg(props.generation)};
   background-size: 124px;
   background-repeat: no-repeat;
   background-position: center center;

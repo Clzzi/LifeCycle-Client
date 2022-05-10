@@ -13,8 +13,6 @@ import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { infoAtom } from 'src/core/store/auth.store';
-import { useRecoilValue } from 'recoil';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 
