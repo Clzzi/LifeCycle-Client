@@ -36,7 +36,6 @@ const ResumeWrite = () => {
       const formData = new FormData();
       formData.append('files', e.target.files[0]);
       const { data } = await resumeApi.upload(formData);
-      console.log(e.target.files[0].type);
       if (e.target.files[0].type.startsWith('image')) {
         setImagePreview(data[0]);
         setValues({ ...values, thumbnail: data[0] });

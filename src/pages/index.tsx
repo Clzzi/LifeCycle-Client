@@ -46,7 +46,6 @@ const Main = (): JSX.Element => {
     },
   });
 
-  if (isFetching) console.log('asdf');
   if (error) router.push('/404');
 
   return (
