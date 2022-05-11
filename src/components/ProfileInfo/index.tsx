@@ -64,7 +64,6 @@ const ContentBoard = styled.div`
   height: 72px;
   padding: 23px 12px 23px 20px;
   background-color: ${({ theme }) => theme.colors.Black800};
-
   & > div {
     width: 100%;
     height: 100%;

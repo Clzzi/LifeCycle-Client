@@ -66,6 +66,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   & > select {
+    cursor: pointer;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;

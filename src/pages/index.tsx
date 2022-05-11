@@ -129,8 +129,8 @@ const Main = (): JSX.Element => {
 export default Main;
 
 // 스켈레톤 UI
-// 성공 / 에러 처리
 // 로딩 처리
+// 드래그, 선택 처리
 
 const Banner = styled.article`
   width: 100%;
