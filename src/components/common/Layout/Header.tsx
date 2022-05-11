@@ -1,6 +1,6 @@
 import { NextRouter, useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
-import { handleProfileImg, pxToRem } from 'src/core/utils/style';
+import { handleProfileImg } from 'src/core/utils/style';
 import styled from 'styled-components';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import { useClickAway } from 'src/core/hooks/useClickAway';
@@ -114,7 +114,7 @@ const Info = styled.div`
   background-color: ${({ theme }) => theme.colors.Black300};
   right: 0;
   top: 0;
-  margin: 54px 214px 0px 0px;
+  margin: 62px 222px 0px 0px;
 `;
 
 const InfoProfile = styled.div`
@@ -149,6 +149,10 @@ const InfoSetting = styled.div`
   align-items: center;
   text-align: center;
   cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.Gray900};
+  }
   & > div {
     background-image: url('/assets/Settings.svg');
     background-size: 24px;
@@ -172,6 +176,10 @@ const LogOut = styled.div`
   align-items: center;
   text-align: center;
   cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.Gray900};
+  }
   & > div {
     background-image: url('/assets/LogOut.svg');
     background-size: 24px;
