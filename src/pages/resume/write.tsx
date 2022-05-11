@@ -14,6 +14,7 @@ import { Error, useForm } from 'src/core/hooks/useForm';
 import { theme } from 'src/core/styles/theme';
 import ResumeUtil from 'src/core/utils/resume';
 import styled from 'styled-components';
+import { useToast } from 'src/core/hooks/useToast';
 
 interface Values {
   title: string | undefined;
@@ -25,6 +26,7 @@ interface Values {
 
 const ResumeWrite = () => {
   useCheckResume('WRITE');
+  const { fireToast } = useToast();
   const router: NextRouter = useRouter();
   const [pdfName, setPdfName] = useState<string>('');
   const [imagePreview, setImagePreview] = useState<string>('');
@@ -59,6 +61,7 @@ const ResumeWrite = () => {
           values.stack = ResumeUtil.convertStackToString(Number(values.stack));
           await resumeApi.makeResume(values);
           router.push('/');
+          fireToast({ content: ' 이력서 등록 성공 🦋 ', duration: 2000 });
         } catch (e: any) {
           console.error(e);
         }

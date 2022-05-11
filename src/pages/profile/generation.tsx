@@ -8,6 +8,7 @@ import userApi from 'src/core/apis/user/user.api';
 import { GENERATION_LIST } from 'src/core/constants/filter.constants';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { Error, useForm } from 'src/core/hooks/useForm';
+import { useToast } from 'src/core/hooks/useToast';
 import { infoAtom } from 'src/core/store/auth.store';
 import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
@@ -18,6 +19,7 @@ interface Values {
 
 const EditGeneration = () => {
   useCheckLogin();
+  const { fireToast } = useToast();
   const router: NextRouter = useRouter();
   const userInfo = useRecoilValue(infoAtom);
   const { values, errors, isLoading, setValues, handleSubmit } =
@@ -29,6 +31,7 @@ const EditGeneration = () => {
         try {
           await userApi.updateGeneration({ generation: values.generation! });
           router.push('/profile');
+          fireToast({ content: ' 기수변경 성공 🦋  ', duration: 2000 });
         } catch (e: any) {
           console.error(e);
         }

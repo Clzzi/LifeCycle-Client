@@ -5,6 +5,7 @@ import { ProfileEdit } from 'src/components/common/ProfileEdit';
 import userApi from 'src/core/apis/user/user.api';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { Error, useForm } from 'src/core/hooks/useForm';
+import { useToast } from 'src/core/hooks/useToast';
 import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
 
@@ -15,6 +16,7 @@ interface Values {
 
 const EditPassword = () => {
   useCheckLogin();
+  const { fireToast } = useToast();
   const router: NextRouter = useRouter();
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({
@@ -26,6 +28,7 @@ const EditPassword = () => {
         try {
           await userApi.updatePassword({ pw: values.newPassword! });
           router.push('/profile');
+          fireToast({ content: ' 비밀번호 변경 성공 🦋  ', duration: 2000 });
         } catch (e: any) {
           console.error(e);
         }

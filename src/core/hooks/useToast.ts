@@ -5,20 +5,18 @@ import { toastAtom } from '../store/common.store';
 
 export const useToast = () => {
   const [toasts, setToasts] = useRecoilState(toastAtom);
-
   const removeToast = useCallback(
-    (toastID: IToast['id']) =>
-      setToasts((prev) => prev.filter((toast) => toast.id !== toastID)),
+    (toastId: IToast['id']) => {
+      setToasts((prev) => prev.filter((toast) => toast.id !== toastId));
+    },
     [setToasts],
   );
 
   const fireToast = useCallback(
     (toast: IToast) => {
-      setToasts((prev) => [
-        ...prev,
-        { ...toast, id: String(new Date().getTime()) },
-      ]);
-      setTimeout(() => removeToast(toast.id), 600 + (toast.duration ?? 1000));
+      const id: string = String(new Date().getTime());
+      setToasts((prev) => [...prev, { ...toast, id }]);
+      setTimeout(() => removeToast(id), 600 + (toast.duration ?? 1000));
     },
     [removeToast, setToasts],
   );

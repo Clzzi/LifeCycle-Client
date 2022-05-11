@@ -15,9 +15,11 @@ import { Input } from 'src/components/common/Input';
 import { Button } from 'src/components/common/Button';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
+import { useToast } from 'src/core/hooks/useToast';
 
 const Login: NextPage = () => {
   const router: NextRouter = useRouter();
+  const { fireToast } = useToast();
   const theme: DefaultTheme = useTheme();
   const setUserInfo = useSetRecoilState(infoAtom);
   const { values, errors, setValues, handleSubmit } = useForm<LoginValues>({
@@ -32,6 +34,7 @@ const Login: NextPage = () => {
         TokenUtil.set(REFRESH_TOKEN_KEY, data.refreshToken);
         setUserInfo(data.user);
         router.push('/');
+        fireToast({ content: ' 안녕하세요 🙌 ', duration: 2000 });
       } catch (e: any) {
         console.error(e);
       }

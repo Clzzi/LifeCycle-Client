@@ -12,6 +12,7 @@ import resumeApi from 'src/core/apis/resume/resume.api';
 import { STACK_LIST } from 'src/core/constants/filter.constants';
 import { useCheckResume } from 'src/core/hooks/useCheckResume';
 import { Error, useForm } from 'src/core/hooks/useForm';
+import { useToast } from 'src/core/hooks/useToast';
 import { infoAtom } from 'src/core/store/auth.store';
 import { theme } from 'src/core/styles/theme';
 import ResumeUtil from 'src/core/utils/resume';
@@ -27,6 +28,7 @@ interface Values {
 
 const EditResume = () => {
   useCheckResume('EDIT');
+  const { fireToast } = useToast();
   const router: NextRouter = useRouter();
   const [pdfName, setPdfName] = useState<string>('');
   const [imagePreview, setImagePreview] = useState<string>('');
@@ -62,6 +64,7 @@ const EditResume = () => {
           values.stack = ResumeUtil.convertStackToString(Number(values.stack));
           const { data } = await resumeApi.updateResume(values);
           router.push(`/resume/${data.idx}`);
+          fireToast({ content: ' 이력서 수정 성공 🦋 ', duration: 2000 });
         } catch (e: any) {
           console.error(e);
         }

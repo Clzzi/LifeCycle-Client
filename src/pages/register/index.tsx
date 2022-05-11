@@ -13,8 +13,10 @@ import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { Label } from 'src/components/common/Label';
 import { RegisterValues } from 'src/types/auth.type';
 import { convertRegisterDto } from 'src/core/utils/auth';
+import { useToast } from 'src/core/hooks/useToast';
 
 const Register = () => {
+  const { fireToast } = useToast();
   const router: NextRouter = useRouter();
   const theme: DefaultTheme = useTheme();
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
@@ -31,6 +33,7 @@ const Register = () => {
         try {
           await authApi.register(convertRegisterDto(values));
           router.push('/login');
+          fireToast({ content: ' 회원가입 성공 🦋  ', duration: 2000 });
         } catch (e: any) {
           console.error(e);
         }

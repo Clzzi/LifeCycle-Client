@@ -13,7 +13,7 @@ import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import ResumeUtil from 'src/core/utils/resume';
 
