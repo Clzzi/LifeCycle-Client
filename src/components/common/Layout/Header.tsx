@@ -32,7 +32,6 @@ export const Header = () => {
           <Profile
             width="60px"
             height="60px"
-            margin="12px 0 0 0"
             generation={userInfo.generation}
             onClick={() => setIsVisibleModal(!isVisibleModal)}
           />
@@ -46,7 +45,6 @@ export const Header = () => {
               <Profile
                 width="40px"
                 height="40px"
-                margin="6px 0 0 0"
                 generation={userInfo.generation}
               />
               <div>
@@ -91,10 +89,10 @@ const Logo = styled.div`
 `;
 
 const DefaultProfile = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   background-image: url('/assets/unsigned-profile.svg');
-  background-size: 40px;
+  background-size: 60px;
   background-repeat: no-repeat;
   background-position: center center;
   cursor: pointer;
@@ -196,7 +194,6 @@ const LogOut = styled.div`
 const Profile = styled.div<{
   width: string;
   height: string;
-  margin: string;
   generation: number;
 }>`
   width: ${(props) => props.width};
@@ -205,6 +202,5 @@ const Profile = styled.div<{
   background-size: ${(props) => props.width};
   background-repeat: no-repeat;
   background-position: center center;
-  margin: ${(props) => props.margin};
   cursor: pointer;
 `;

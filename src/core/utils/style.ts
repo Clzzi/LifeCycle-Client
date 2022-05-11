@@ -22,7 +22,7 @@ export const handleProfileImg = (generation: number): string => {
     case 0:
       return 'url("/assets/unsigned-profile.svg")';
     case 1:
-      return 'url("/assets/Pig.svg")';
+      return 'url("/assets/Koala.svg")';
     case 2:
       return 'url("/assets/Chicken.svg")';
     case 3:
