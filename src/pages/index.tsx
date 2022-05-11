@@ -13,7 +13,7 @@ import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import ResumeUtil from 'src/core/utils/resume';
 
@@ -32,19 +32,19 @@ const Main = (): JSX.Element => {
     stackFilter: 0,
   });
 
-  const { isLoading, error, data, isFetching } = useQuery<
-    ResumesResponse,
-    Error,
-    IResume[]
-  >(['resumes', filter], () => resumeApi.getResumes(), {
-    select: (data) => {
-      return ResumeUtil.filterResume(
-        filter.generationFilter,
-        filter.stackFilter,
-        data.data,
-      );
+  const { error, data } = useQuery<ResumesResponse, Error, IResume[]>(
+    ['resumes', filter],
+    () => resumeApi.getResumes(),
+    {
+      select: (data) => {
+        return ResumeUtil.filterResume(
+          filter.generationFilter,
+          filter.stackFilter,
+          data.data,
+        );
+      },
     },
-  });
+  );
 
   if (error) router.push('/404');
 
@@ -104,32 +104,34 @@ const Main = (): JSX.Element => {
             />
           </SelectBoxes>
         </TopWrapper>
-        <Contents>
-          {data?.map((v) => {
-            return (
-              <Card
-                key={v.idx}
-                thumbnail={v.thumbnail}
-                title={v.title}
-                company={v.company}
-                stack={v.stack}
-                generation={v.user.generation}
-                name={v.user.name}
-                idx={v.idx}
-              />
-            );
-          })}
-        </Contents>
+        {data && data.length ? (
+          <Contents>
+            {data?.map((v) => {
+              return (
+                <Card
+                  key={v.idx}
+                  thumbnail={v.thumbnail}
+                  title={v.title}
+                  company={v.company}
+                  stack={v.stack}
+                  generation={v.user.generation}
+                  name={v.user.name}
+                  idx={v.idx}
+                />
+              );
+            })}
+          </Contents>
+        ) : (
+          <NoCard>
+            <div>이력서가 없습니다</div>
+          </NoCard>
+        )}
       </Container>
     </>
   );
 };
 
 export default Main;
-
-// 스켈레톤 UI
-// 아이템 없을때 처리
-// 드래그, 선택 처리
 
 const Banner = styled.article`
   width: 100%;
@@ -170,6 +172,21 @@ const Contents = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-row-gap: 50px;
   grid-column-gap: 30px;
+`;
+
+const NoCard = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  & > div {
+    font-size: ${({ theme }) => theme.fonts.font28};
+    color: ${({ theme }) => theme.colors.Main1};
+    font-weight: bolder;
+  }
 `;
 
 export async function getStaticProps() {

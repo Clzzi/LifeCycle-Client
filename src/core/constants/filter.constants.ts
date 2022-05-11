@@ -39,19 +39,19 @@ export const STACK_LIST = [
     value: 0,
   },
   {
-    name: '프론트엔드',
+    name: '웹',
     value: 1,
   },
   {
-    name: '백엔드',
+    name: '안드로이드',
     value: 2,
   },
   {
-    name: '안드로이드',
+    name: 'IOS',
     value: 3,
   },
   {
-    name: 'IOS',
+    name: '서버',
     value: 4,
   },
   {
@@ -61,5 +61,13 @@ export const STACK_LIST = [
   {
     name: '임베디드',
     value: 6,
+  },
+  {
+    name: '3D 모델링',
+    value: 7,
+  },
+  {
+    name: '기타',
+    value: 8,
   },
 ];
