@@ -52,81 +52,83 @@ const Main = (): JSX.Element => {
     <>
       <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
       <Banner />
-      <Container>
-        <TopWrapper>
-          <Button
-            width="126px"
-            height="38px"
-            content={userInfo.resume ? '내 이력서 보기' : '이력서 등록하기'}
-            fontSize={theme.fonts.font14}
-            color={theme.colors.White900}
-            borderRadius="999px"
-            backgroundColor={theme.colors.Main1}
-            customStyle={{
-              visibility: userInfo.generation ? 'visible' : 'hidden',
-            }}
-            handleClick={() =>
-              router.push(
-                userInfo.resume
-                  ? `/resume/${userInfo.resume.idx}`
-                  : '/resume/write',
-              )
-            }
-          />
-          <SelectBoxes>
-            <SelectBox
-              content={STACK_LIST}
+      <Wrapper>
+        <Container>
+          <TopWrapper>
+            <Button
               width="126px"
               height="38px"
-              border={`2px solid ${theme.colors.Main1}`}
-              value={filter.stackFilter}
-              name="stackFilter"
-              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                setFilter({
-                  ...filter,
-                  [e.target.name]: Number(e.target.value),
-                })
+              content={userInfo.resume ? '내 이력서 보기' : '이력서 등록하기'}
+              fontSize={theme.fonts.font14}
+              color={theme.colors.White900}
+              borderRadius="999px"
+              backgroundColor={theme.colors.Main1}
+              customStyle={{
+                visibility: userInfo.generation ? 'visible' : 'hidden',
+              }}
+              handleClick={() =>
+                router.push(
+                  userInfo.resume
+                    ? `/resume/${userInfo.resume.idx}`
+                    : '/resume/write',
+                )
               }
             />
-            <SelectBox
-              value={filter.generationFilter}
-              content={GENERATION_LIST}
-              width="126px"
-              height="38px"
-              border={`2px solid ${theme.colors.Main1}`}
-              name="generationFilter"
-              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                setFilter({
-                  ...filter,
-                  [e.target.name]: Number(e.target.value),
-                })
-              }
-            />
-          </SelectBoxes>
-        </TopWrapper>
-        {data && data.length ? (
-          <Contents>
-            {data?.map((v) => {
-              return (
-                <Card
-                  key={v.idx}
-                  thumbnail={v.thumbnail}
-                  title={v.title}
-                  company={v.company}
-                  stack={v.stack}
-                  generation={v.user.generation}
-                  name={v.user.name}
-                  idx={v.idx}
-                />
-              );
-            })}
-          </Contents>
-        ) : (
-          <NoCard>
-            <div>이력서가 없습니다</div>
-          </NoCard>
-        )}
-      </Container>
+            <SelectBoxes>
+              <SelectBox
+                content={STACK_LIST}
+                width="126px"
+                height="38px"
+                border={`2px solid ${theme.colors.Main1}`}
+                value={filter.stackFilter}
+                name="stackFilter"
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  setFilter({
+                    ...filter,
+                    [e.target.name]: Number(e.target.value),
+                  })
+                }
+              />
+              <SelectBox
+                value={filter.generationFilter}
+                content={GENERATION_LIST}
+                width="126px"
+                height="38px"
+                border={`2px solid ${theme.colors.Main1}`}
+                name="generationFilter"
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  setFilter({
+                    ...filter,
+                    [e.target.name]: Number(e.target.value),
+                  })
+                }
+              />
+            </SelectBoxes>
+          </TopWrapper>
+          {data && data.length ? (
+            <Contents>
+              {data?.map((v) => {
+                return (
+                  <Card
+                    key={v.idx}
+                    thumbnail={v.thumbnail}
+                    title={v.title}
+                    company={v.company}
+                    stack={v.stack}
+                    generation={v.user.generation}
+                    name={v.user.name}
+                    idx={v.idx}
+                  />
+                );
+              })}
+            </Contents>
+          ) : (
+            <NoCard>
+              <div>이력서가 없습니다</div>
+            </NoCard>
+          )}
+        </Container>
+      </Wrapper>
     </>
   );
 };
@@ -146,6 +148,15 @@ const Container = styled.section`
   width: 100%;
   max-width: 1920px;
   padding: 0px 215px;
+`;
+
+const Wrapper = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
 `;
 
 const TopWrapper = styled.div`
