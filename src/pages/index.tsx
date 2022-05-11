@@ -128,7 +128,7 @@ const Main = (): JSX.Element => {
 export default Main;
 
 // 스켈레톤 UI
-// 로딩 처리
+// 아이템 없을때 처리
 // 드래그, 선택 처리
 
 const Banner = styled.article`

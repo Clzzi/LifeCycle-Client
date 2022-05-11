@@ -54,6 +54,7 @@ const EditGeneration = () => {
       <ProfileEdit
         title="기수 변경"
         subTitle="기수를 변경합니다"
+        isLoading={isLoading}
         onSave={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
           handleSubmit(e)
         }>

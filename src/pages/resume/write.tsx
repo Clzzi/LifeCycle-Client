@@ -207,6 +207,7 @@ const ResumeWrite = () => {
             color={theme.colors.White900}
             borderRadius="2px"
             backgroundColor={theme.colors.Main1}
+            isLoading={isLoading}
             handleClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
               handleSubmit(e)
             }

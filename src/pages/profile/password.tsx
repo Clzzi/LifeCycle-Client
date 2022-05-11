@@ -55,6 +55,7 @@ const EditPassword = () => {
       <ProfileEdit
         title="비밀번호 변경"
         subTitle="비밀번호를 변경합니다"
+        isLoading={isLoading}
         onSave={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
           handleSubmit(e)
         }>

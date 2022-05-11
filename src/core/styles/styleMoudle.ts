@@ -20,13 +20,24 @@ export const fadeOut = keyframes`
   }
 `;
 
-export const ShowLeftToRight = keyframes`
+export const showLeftToRight = keyframes`
   0% {
   width: 0%;
   }
 
   100% {
     width: 100%;
+  }
+`;
+
+export const loading = keyframes`
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 `;
 

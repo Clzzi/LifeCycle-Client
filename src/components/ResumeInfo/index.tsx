@@ -29,14 +29,18 @@ export const ResumeInfo = ({
   const { fireToast } = useToast();
   const router: NextRouter = useRouter();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
 
   const handleDeleteResume = useCallback(async () => {
     try {
+      setDeleteLoading(true);
       await resumeApi.deleteResume();
       router.push('/');
       fireToast({ content: ' 이력서 삭제 성공 🦋 ', duration: 2000 });
     } catch (e: any) {
       console.error(e);
+    } finally {
+      setDeleteLoading(false);
     }
   }, [router, fireToast]);
 
@@ -135,6 +139,7 @@ export const ResumeInfo = ({
               width="102px"
               height="38px"
               content="삭제"
+              isLoading={deleteLoading}
               fontSize={theme.fonts.font14}
               color={theme.colors.White900}
               borderRadius="4px"

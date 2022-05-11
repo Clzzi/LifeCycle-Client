@@ -64,7 +64,7 @@ const SubText = styled.span`
 `;
 
 const Line = styled.div`
-  animation: ${M.ShowLeftToRight} 1s ease-out;
+  animation: ${M.showLeftToRight} 1s ease-out;
   margin: 4px 0px 12px 0px;
   background-color: ${({ theme }) => theme.colors.Main1};
   width: 100%;

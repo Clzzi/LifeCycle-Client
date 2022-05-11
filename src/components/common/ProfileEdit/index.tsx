@@ -11,6 +11,7 @@ interface Props {
   children: ReactNode;
   onSave: (e?: any) => void | Promise<void>;
   customStyle?: CSSProperties;
+  isLoading: boolean;
 }
 
 export const ProfileEdit = ({
@@ -19,6 +20,7 @@ export const ProfileEdit = ({
   subTitle,
   title,
   customStyle,
+  isLoading,
 }: Props) => {
   const router: NextRouter = useRouter();
   return (
@@ -45,6 +47,7 @@ export const ProfileEdit = ({
           borderRadius="4px"
           backgroundColor={theme.colors.Main1}
           handleClick={onSave}
+          isLoading={isLoading}
         />
         <Button
           width="102px"

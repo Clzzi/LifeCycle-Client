@@ -221,6 +221,7 @@ const EditResume = () => {
             width="102px"
             height="38px"
             content="수정"
+            isLoading={isLoading}
             fontSize={theme.fonts.font14}
             color={theme.colors.White900}
             borderRadius="2px"
