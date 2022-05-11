@@ -1,4 +1,4 @@
-import React, { FormEvent, MouseEvent, useEffect, useState } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 
 export type Error<T> = { [P in keyof T]?: string };
 
@@ -39,6 +39,7 @@ export const useForm = <T, H extends HTMLElement = HTMLButtonElement>({
 
     if (!Object.values(submitErrors).every((v) => v === '')) {
       setErrors(submitErrors);
+      setIsLoading(false);
       return;
     }
 

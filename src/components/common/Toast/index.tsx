@@ -5,6 +5,7 @@ import { ToastItem } from './ToastItem';
 
 export const Toast = () => {
   const toasts = useRecoilValue(toastAtom);
+
   return (
     <ToastList>
       {toasts.map((toast) => (

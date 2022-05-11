@@ -52,13 +52,6 @@ const Container = styled.main`
   align-items: center;
 `;
 
-const TopWrapper = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
 const Title = styled.div`
   font-weight: bold;
   font-size: ${({ theme }) => theme.fonts.font22};

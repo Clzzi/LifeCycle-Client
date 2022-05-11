@@ -1,6 +1,6 @@
 import { NextRouter, useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
-import { handleProfileImg, pxToRem } from 'src/core/utils/style';
+import { handleProfileImg } from 'src/core/utils/style';
 import styled from 'styled-components';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import { useClickAway } from 'src/core/hooks/useClickAway';
@@ -32,7 +32,6 @@ export const Header = () => {
           <Profile
             width="60px"
             height="60px"
-            margin="12px 0 0 0"
             generation={userInfo.generation}
             onClick={() => setIsVisibleModal(!isVisibleModal)}
           />
@@ -46,7 +45,6 @@ export const Header = () => {
               <Profile
                 width="40px"
                 height="40px"
-                margin="6px 0 0 0"
                 generation={userInfo.generation}
               />
               <div>
@@ -91,10 +89,10 @@ const Logo = styled.div`
 `;
 
 const DefaultProfile = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   background-image: url('/assets/unsigned-profile.svg');
-  background-size: 40px;
+  background-size: 60px;
   background-repeat: no-repeat;
   background-position: center center;
   cursor: pointer;
@@ -114,7 +112,7 @@ const Info = styled.div`
   background-color: ${({ theme }) => theme.colors.Black300};
   right: 0;
   top: 0;
-  margin: 54px 214px 0px 0px;
+  margin: 62px 222px 0px 0px;
 `;
 
 const InfoProfile = styled.div`
@@ -149,6 +147,10 @@ const InfoSetting = styled.div`
   align-items: center;
   text-align: center;
   cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.Gray900};
+  }
   & > div {
     background-image: url('/assets/Settings.svg');
     background-size: 24px;
@@ -172,6 +174,10 @@ const LogOut = styled.div`
   align-items: center;
   text-align: center;
   cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.Gray900};
+  }
   & > div {
     background-image: url('/assets/LogOut.svg');
     background-size: 24px;
@@ -188,7 +194,6 @@ const LogOut = styled.div`
 const Profile = styled.div<{
   width: string;
   height: string;
-  margin: string;
   generation: number;
 }>`
   width: ${(props) => props.width};
@@ -197,6 +202,5 @@ const Profile = styled.div<{
   background-size: ${(props) => props.width};
   background-repeat: no-repeat;
   background-position: center center;
-  margin: ${(props) => props.margin};
   cursor: pointer;
 `;

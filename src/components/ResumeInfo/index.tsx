@@ -1,6 +1,7 @@
 import { NextRouter, useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import resumeApi from 'src/core/apis/resume/resume.api';
+import { useToast } from 'src/core/hooks/useToast';
 import { Tag } from 'src/core/styles/shareStyle';
 import { theme } from 'src/core/styles/theme';
 import { handleProfileImg } from 'src/core/utils/style';
@@ -25,17 +26,23 @@ export const ResumeInfo = ({
   title,
   isMyResume,
 }: Props) => {
+  const { fireToast } = useToast();
   const router: NextRouter = useRouter();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
 
   const handleDeleteResume = useCallback(async () => {
     try {
+      setDeleteLoading(true);
       await resumeApi.deleteResume();
       router.push('/');
+      fireToast({ content: ' 이력서 삭제 성공 🦋 ', duration: 2000 });
     } catch (e: any) {
       console.error(e);
+    } finally {
+      setDeleteLoading(false);
     }
-  }, [router]);
+  }, [router, fireToast]);
 
   return (
     <>
@@ -132,6 +139,7 @@ export const ResumeInfo = ({
               width="102px"
               height="38px"
               content="삭제"
+              isLoading={deleteLoading}
               fontSize={theme.fonts.font14}
               color={theme.colors.White900}
               borderRadius="4px"

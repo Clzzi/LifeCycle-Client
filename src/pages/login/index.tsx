@@ -15,38 +15,42 @@ import { Input } from 'src/components/common/Input';
 import { Button } from 'src/components/common/Button';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
+import { useToast } from 'src/core/hooks/useToast';
 
 const Login: NextPage = () => {
   const router: NextRouter = useRouter();
+  const { fireToast } = useToast();
   const theme: DefaultTheme = useTheme();
   const setUserInfo = useSetRecoilState(infoAtom);
-  const { values, errors, setValues, handleSubmit } = useForm<LoginValues>({
-    initialValue: {
-      id: undefined,
-      pw: undefined,
-    },
-    onSubmit: async (values) => {
-      try {
-        const { data } = await authApi.login(values);
-        TokenUtil.set(ACCESS_TOKEN_KEY, data.token);
-        TokenUtil.set(REFRESH_TOKEN_KEY, data.refreshToken);
-        setUserInfo(data.user);
-        router.push('/');
-      } catch (e: any) {
-        console.error(e);
-      }
-    },
-    validate: ({ id, pw }) => {
-      const errors: Error<LoginValues> = {};
-      if (id !== undefined && id.length === 0) {
-        errors.id = ' ID를 입력해주세요';
-      }
-      if (pw !== undefined && pw.length === 0) {
-        errors.pw = ' PW를 입력해주세요';
-      }
-      return errors;
-    },
-  });
+  const { isLoading, values, errors, setValues, handleSubmit } =
+    useForm<LoginValues>({
+      initialValue: {
+        id: undefined,
+        pw: undefined,
+      },
+      onSubmit: async (values) => {
+        try {
+          const { data } = await authApi.login(values);
+          TokenUtil.set(ACCESS_TOKEN_KEY, data.token);
+          TokenUtil.set(REFRESH_TOKEN_KEY, data.refreshToken);
+          setUserInfo(data.user);
+          router.push('/');
+          fireToast({ content: ' 안녕하세요 🙌 ', duration: 2000 });
+        } catch (e: any) {
+          console.error(e);
+        }
+      },
+      validate: ({ id, pw }) => {
+        const errors: Error<LoginValues> = {};
+        if (id !== undefined && id.length === 0) {
+          errors.id = ' ID를 입력해주세요';
+        }
+        if (pw !== undefined && pw.length === 0) {
+          errors.pw = ' PW를 입력해주세요';
+        }
+        return errors;
+      },
+    });
 
   return (
     <Wrapper>
@@ -95,7 +99,7 @@ const Login: NextPage = () => {
               setValues({ ...values, [e.target.name]: e.target.value.trim() });
             }}
             handleKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
-              if (e.key === 'Enter') handleSubmit(e);
+              if (!isLoading && e.key === 'Enter') handleSubmit(e);
             }}
             width="100%"
             height="56px"
@@ -103,6 +107,7 @@ const Login: NextPage = () => {
         </InputContainer>
         <ButtonContainer>
           <Button
+            isLoading={isLoading}
             width="488px"
             height="56px"
             content="로그인"

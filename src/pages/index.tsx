@@ -13,7 +13,7 @@ import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import ResumeUtil from 'src/core/utils/resume';
 
@@ -46,7 +46,6 @@ const Main = (): JSX.Element => {
     },
   });
 
-  if (isFetching) console.log('asdf');
   if (error) router.push('/404');
 
   return (
@@ -129,8 +128,8 @@ const Main = (): JSX.Element => {
 export default Main;
 
 // 스켈레톤 UI
-// 성공 / 에러 처리
-// 로딩 처리
+// 아이템 없을때 처리
+// 드래그, 선택 처리
 
 const Banner = styled.article`
   width: 100%;
