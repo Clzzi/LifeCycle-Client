@@ -13,9 +13,10 @@ import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import ResumeUtil from 'src/core/utils/resume';
+import { Banner } from 'src/components/Banner';
 
 interface Filter {
   stackFilter: number;
@@ -134,15 +135,6 @@ const Main = (): JSX.Element => {
 };
 
 export default Main;
-
-const Banner = styled.article`
-  width: 100%;
-  height: 256px;
-  background: url('/assets/Banner.svg') no-repeat center;
-  cursor: pointer;
-  margin: -4px 0px 32px 0px;
-  background-size: 100%;
-`;
 
 const Container = styled.section`
   width: 100%;
