@@ -100,12 +100,27 @@ const ContentTitle = styled.span`
   width: 220px;
   text-align: start;
   color: ${({ theme }) => theme.colors.White900};
+
+  ${({ theme }) => theme.medias.smallDesktop} {
+    width: 142px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    width: 100px;
+  }
 `;
 
 const Content = styled.span`
   width: 370px;
   text-align: start;
   color: ${({ theme }) => theme.colors.White600};
+  ${({ theme }) => theme.medias.smallDesktop} {
+    width: 218px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    width: 180px;
+  }
 `;
 
 const Link = styled.a`

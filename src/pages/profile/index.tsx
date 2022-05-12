@@ -50,6 +50,14 @@ const Container = styled.main`
   justify-content: start;
   text-align: center;
   align-items: center;
+
+  ${({ theme }) => theme.medias.smallDesktop} {
+    width: 550px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    width: 470px;
+  }
 `;
 
 const Title = styled.div`
