@@ -23,7 +23,8 @@ export const Banner = () => {
 const StyledBanner = styled.article`
   width: 100%;
   height: 256px;
-  background: url('/assets/Banner.svg') no-repeat;
+  background: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/Banner.svg')
+    no-repeat;
   background-position: center center;
   cursor: pointer;
   margin: -4px 0px 32px 0px;

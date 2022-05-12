@@ -102,7 +102,7 @@ const Container = styled.div`
 const Logo = styled.div`
   width: 132px;
   height: 38.87px;
-  background-image: url('/assets/Logo.svg');
+  background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/Logo.svg');
   background-repeat: no-repeat;
   cursor: pointer;
 `;
@@ -110,7 +110,7 @@ const Logo = styled.div`
 const DefaultProfile = styled.div`
   width: 60px;
   height: 60px;
-  background-image: url('/assets/unsigned-profile.svg');
+  background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/unsigned-profile.svg');
   background-size: 60px;
   background-repeat: no-repeat;
   background-position: center center;
@@ -171,7 +171,7 @@ const InfoSetting = styled.div`
     background-color: ${({ theme }) => theme.colors.Gray900};
   }
   & > div {
-    background-image: url('/assets/Settings.svg');
+    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/Settings.svg');
     background-size: 24px;
     width: 24px;
     height: 24px;
@@ -198,7 +198,7 @@ const LogOut = styled.div`
     background-color: ${({ theme }) => theme.colors.Gray900};
   }
   & > div {
-    background-image: url('/assets/LogOut.svg');
+    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/LogOut.svg');
     background-size: 24px;
     width: 24px;
     height: 24px;

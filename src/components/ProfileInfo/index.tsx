@@ -128,7 +128,7 @@ const Link = styled.a`
   text-align: end;
   color: ${({ theme }) => theme.colors.Main2};
   &::after {
-    content: url('/assets/RightArrow.svg');
+    content: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/RightArrow.svg');
     width: 24px;
     height: 24px;
     vertical-align: middle;

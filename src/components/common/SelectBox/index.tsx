@@ -83,7 +83,7 @@ const Icon = styled.div`
   width: 14px;
   height: 8px;
   margin-right: 4px;
-  background-image: url('/assets/SelectBoxArrow.svg');
+  background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/SelectBoxArrow.svg');
   background-repeat: no-repeat;
   cursor: pointer;
 `;

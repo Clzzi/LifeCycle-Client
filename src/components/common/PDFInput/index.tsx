@@ -97,6 +97,6 @@ const Input = styled.label`
     width: 24px;
     height: 24px;
     background-size: 24px;
-    background-image: url('/assets/PDFUpload.svg');
+    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/PDFUpload.svg');
   }
 `;

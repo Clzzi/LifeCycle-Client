@@ -300,7 +300,7 @@ const PreviewDim = styled.div`
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
-      content: url('/assets/Delete.svg');
+      content: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/Delete.svg');
     }
   }
 `;

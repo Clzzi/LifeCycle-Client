@@ -59,7 +59,7 @@ const ScrollBtn = styled.div`
   & > div {
     width: 24px;
     height: 24px;
-    background-image: url('/assets/UpArrow.svg');
+    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/UpArrow.svg');
   }
 `;
 

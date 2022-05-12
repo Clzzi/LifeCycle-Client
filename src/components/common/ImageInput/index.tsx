@@ -87,6 +87,6 @@ const Input = styled.label`
     width: 100px;
     height: 100px;
     background-size: 100px;
-    background-image: url('/assets/ImageUpLoad.svg');
+    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/ImageUpLoad.svg');
   }
 `;
