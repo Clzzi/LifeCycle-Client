@@ -110,38 +110,16 @@ const Main = (): JSX.Element => {
             <Contents>
               {data?.map((v) => {
                 return (
-                  <>
-                    <Card
-                      key={v.idx}
-                      thumbnail={v.thumbnail}
-                      title={v.title}
-                      company={v.company}
-                      stack={v.stack}
-                      generation={v.user.generation}
-                      name={v.user.name}
-                      idx={v.idx}
-                    />
-                    <Card
-                      key={v.idx}
-                      thumbnail={v.thumbnail}
-                      title={v.title}
-                      company={v.company}
-                      stack={v.stack}
-                      generation={v.user.generation}
-                      name={v.user.name}
-                      idx={v.idx}
-                    />
-                    <Card
-                      key={v.idx}
-                      thumbnail={v.thumbnail}
-                      title={v.title}
-                      company={v.company}
-                      stack={v.stack}
-                      generation={v.user.generation}
-                      name={v.user.name}
-                      idx={v.idx}
-                    />
-                  </>
+                  <Card
+                    key={v.idx}
+                    thumbnail={v.thumbnail}
+                    title={v.title}
+                    company={v.company}
+                    stack={v.stack}
+                    generation={v.user.generation}
+                    name={v.user.name}
+                    idx={v.idx}
+                  />
                 );
               })}
             </Contents>

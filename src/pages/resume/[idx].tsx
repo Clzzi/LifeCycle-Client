@@ -116,4 +116,7 @@ const Container = styled.main`
   width: 1200px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
