@@ -2,6 +2,7 @@ import { NextRouter, useRouter } from 'next/router';
 import { Tag } from 'src/core/styles/shareStyle';
 import { ellipsisLine } from 'src/core/styles/styleMoudle';
 import { theme } from 'src/core/styles/theme';
+import { pxToRem } from 'src/core/utils/style';
 import styled from 'styled-components';
 
 interface Props {
@@ -65,7 +66,7 @@ export const Card = ({
 };
 
 const Wrapper = styled.a`
-  width: 350px;
+  width: ${pxToRem(350)};
   height: 260px;
   border-radius: 12px;
   display: inline-flex;
@@ -87,6 +88,11 @@ const Wrapper = styled.a`
     & > .thumbnail {
       width: 110%;
     }
+  }
+
+  ${({ theme }) => theme.medias.smallDesktop} {
+    width: 295px;
+    height: 220px;
   }
 `;
 

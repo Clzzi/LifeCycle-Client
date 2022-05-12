@@ -26,45 +26,47 @@ export const Header = () => {
 
   return (
     <Wrapper>
-      <Logo onClick={() => router.push('/')} />
-      <div ref={ref}>
-        {userInfo.generation ? (
-          <Profile
-            width="60px"
-            height="60px"
-            generation={userInfo.generation}
-            onClick={() => setIsVisibleModal(!isVisibleModal)}
-          />
-        ) : (
-          <DefaultProfile onClick={() => router.push('/login')} />
-        )}
+      <Container>
+        <Logo onClick={() => router.push('/')} />
+        <div ref={ref}>
+          {userInfo.generation ? (
+            <Profile
+              width="60px"
+              height="60px"
+              generation={userInfo.generation}
+              onClick={() => setIsVisibleModal(!isVisibleModal)}
+            />
+          ) : (
+            <DefaultProfile onClick={() => router.push('/login')} />
+          )}
 
-        {isVisibleModal && userInfo.name && (
-          <Info>
-            <InfoProfile>
-              <Profile
-                width="40px"
-                height="40px"
-                generation={userInfo.generation}
-              />
-              <div>
-                <div>{userInfo.generation}기</div>
-                <span>{userInfo.name}</span>
-              </div>
-            </InfoProfile>
+          {isVisibleModal && userInfo.name && (
+            <Info>
+              <InfoProfile>
+                <Profile
+                  width="40px"
+                  height="40px"
+                  generation={userInfo.generation}
+                />
+                <div>
+                  <div>{userInfo.generation}기</div>
+                  <span>{userInfo.name}</span>
+                </div>
+              </InfoProfile>
 
-            <InfoSetting onClick={onClickSetting}>
-              <div />
-              <span>설정</span>
-            </InfoSetting>
+              <InfoSetting onClick={onClickSetting}>
+                <div />
+                <span>설정</span>
+              </InfoSetting>
 
-            <LogOut onClick={onClickLogOut}>
-              <div />
-              <span>로그아웃</span>
-            </LogOut>
-          </Info>
-        )}
-      </div>
+              <LogOut onClick={onClickLogOut}>
+                <div />
+                <span>로그아웃</span>
+              </LogOut>
+            </Info>
+          )}
+        </div>
+      </Container>
     </Wrapper>
   );
 };
@@ -74,10 +76,27 @@ const Wrapper = styled.nav`
   width: 100vw;
   height: 4rem;
   background-color: ${({ theme }) => theme.colors.Black700};
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1920px;
+  height: 100%;
   padding: 0px 215px;
   text-align: center;
   align-items: center;
-  justify-content: space-between;
+  ${({ theme }) => theme.medias.smallDesktop} {
+    padding: 0px 97px;
+  }
+  ${({ theme }) => theme.medias.mobile} {
+    padding: 0px 38px;
+  }
 `;
 
 const Logo = styled.div`

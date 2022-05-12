@@ -1,5 +1,6 @@
 import { IResume } from 'src/types/resume.type';
 import { STACK_LIST } from '../constants/filter.constants';
+import { mediaSizes } from '../constants/media.constants';
 
 class ResumeUtil {
   constructor() {}
@@ -10,6 +11,42 @@ class ResumeUtil {
 
   convertStackToNumber(value: string): number {
     return STACK_LIST.find((v) => v.name === value)!.value;
+  }
+
+  calculatePDFWidth(width: number) {
+    if (width > 1200 || width === 0) {
+      return 1200;
+    } else if (width <= mediaSizes.smallDesktop && width > mediaSizes.mobile) {
+      return width - 150;
+    } else if (width <= mediaSizes.mobile) {
+      return width - 100;
+    } else {
+      return width - 200;
+    }
+  }
+
+  calculateResumeInfoButtonWidth(width: number) {
+    if (width > 900 || width === 0) {
+      return ['102px', '38px'];
+    } else if (width <= mediaSizes.smallDesktop && width > mediaSizes.mobile) {
+      return ['80px', '30px'];
+    } else if (width <= mediaSizes.mobile) {
+      return ['56px', '24px'];
+    } else {
+      return ['102px', '38px'];
+    }
+  }
+
+  calculateResumeInfoTagHeight(width: number) {
+    if (width > 900 || width === 0) {
+      return '28px';
+    } else if (width <= mediaSizes.smallDesktop && width > mediaSizes.mobile) {
+      return '22px';
+    } else if (width <= mediaSizes.mobile) {
+      return '18px';
+    } else {
+      return '28px';
+    }
   }
 
   filterResume(

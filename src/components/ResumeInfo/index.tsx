@@ -1,9 +1,11 @@
 import { NextRouter, useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import resumeApi from 'src/core/apis/resume/resume.api';
+import useResize from 'src/core/hooks/useResize';
 import { useToast } from 'src/core/hooks/useToast';
 import { Tag } from 'src/core/styles/shareStyle';
 import { theme } from 'src/core/styles/theme';
+import resume from 'src/core/utils/resume';
 import { handleProfileImg } from 'src/core/utils/style';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
@@ -26,6 +28,7 @@ export const ResumeInfo = ({
   title,
   isMyResume,
 }: Props) => {
+  const { size } = useResize();
   const { fireToast } = useToast();
   const router: NextRouter = useRouter();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -46,7 +49,7 @@ export const ResumeInfo = ({
 
   return (
     <>
-      <Wrapper>
+      <Wrapper width={size.width}>
         <ProfileAndBtns>
           <Profile generation={generation} />
           <Container>
@@ -56,8 +59,10 @@ export const ResumeInfo = ({
               {isMyResume ? (
                 <Buttons>
                   <Button
-                    width="102px"
-                    height="38px"
+                    width={resume.calculateResumeInfoButtonWidth(size.width)[0]}
+                    height={
+                      resume.calculateResumeInfoButtonWidth(size.width)[1]
+                    }
                     content="수정"
                     fontSize={theme.fonts.font14}
                     color={theme.colors.Black900}
@@ -66,8 +71,10 @@ export const ResumeInfo = ({
                     handleClick={() => router.push('/resume/edit')}
                   />
                   <Button
-                    width="102px"
-                    height="38px"
+                    width={resume.calculateResumeInfoButtonWidth(size.width)[0]}
+                    height={
+                      resume.calculateResumeInfoButtonWidth(size.width)[1]
+                    }
                     content="삭제"
                     fontSize={theme.fonts.font14}
                     color={theme.colors.Gray600}
@@ -87,7 +94,7 @@ export const ResumeInfo = ({
           <Tag
             type="GENERATION"
             maxWidth="330px"
-            height="28px"
+            height={resume.calculateResumeInfoTagHeight(size.width)}
             padding="0px 34px"
             borderRadius="4px"
             fontSize={theme.fonts.font16}>
@@ -96,7 +103,7 @@ export const ResumeInfo = ({
           <Tag
             type="STACK"
             maxWidth="330px"
-            height="28px"
+            height={resume.calculateResumeInfoTagHeight(size.width)}
             padding="0px 34px"
             borderRadius="4px"
             fontSize={theme.fonts.font16}>
@@ -105,7 +112,7 @@ export const ResumeInfo = ({
           <Tag
             type="COMPANY"
             maxWidth="330px"
-            height="28px"
+            height={resume.calculateResumeInfoTagHeight(size.width)}
             padding="0px 34px"
             borderRadius="4px"
             fontSize={theme.fonts.font16}>
@@ -183,11 +190,18 @@ const Desc = styled.div`
   margin-bottom: 26px;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ width: number }>`
+  width: ${(props) => resume.calculatePDFWidth(props.width)}px;
   max-width: 1200px;
   display: flex;
   flex-direction: column;
   margin: 60px 0px;
+  ${({ theme }) => theme.medias.smallDesktop} {
+    margin: 45px 0px;
+  }
+  ${({ theme }) => theme.medias.mobile} {
+    margin: 30px 0px;
+  }
 `;
 
 const ProfileAndBtns = styled.div`
@@ -208,6 +222,18 @@ const Profile = styled.div<{ generation: number }>`
   background-repeat: no-repeat;
   background-position: center center;
   margin-right: 12px;
+
+  ${({ theme }) => theme.medias.smallDesktop} {
+    width: 100px;
+    height: 100px;
+    background-size: 100px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    width: 80px;
+    height: 80px;
+    background-size: 80px;
+  }
 `;
 
 const Container = styled.div`
@@ -224,6 +250,12 @@ const Container = styled.div`
     font-size: ${({ theme }) => theme.fonts.font28};
     color: ${({ theme }) => theme.colors.White900};
     padding-bottom: 12px;
+    ${({ theme }) => theme.medias.smallDesktop} {
+      font-size: ${({ theme }) => theme.fonts.font24};
+    }
+    ${({ theme }) => theme.medias.mobile} {
+      font-size: ${({ theme }) => theme.fonts.font20};
+    }
   }
 `;
 
@@ -237,6 +269,12 @@ const GenerationAndBtns = styled.div`
   & > div {
     font-size: ${({ theme }) => theme.fonts.font22};
     color: ${({ theme }) => theme.colors.White900};
+    ${({ theme }) => theme.medias.smallDesktop} {
+      font-size: ${({ theme }) => theme.fonts.font20};
+    }
+    ${({ theme }) => theme.medias.mobile} {
+      font-size: ${({ theme }) => theme.fonts.font16};
+    }
   }
 `;
 

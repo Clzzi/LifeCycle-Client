@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { infoAtom } from 'src/core/store/auth.store';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
+import { ResumeDetailSkeleton } from 'src/components/Skeleton/ResumeDetail';
 
 const Resume = ({ idx }: { idx: number }) => {
   useCheckLogin();
@@ -50,7 +51,7 @@ const Resume = ({ idx }: { idx: number }) => {
   }, [data?.user.userId, userInfo.userId]);
 
   if (isLoading) {
-    return <div style={{ color: 'white' }}>loading....</div>;
+    return <ResumeDetailSkeleton />;
   }
 
   if (error) {
@@ -115,4 +116,7 @@ const Container = styled.main`
   width: 1200px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;

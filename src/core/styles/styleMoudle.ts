@@ -41,6 +41,20 @@ export const loading = keyframes`
   }
 `;
 
+export const skeletonAnimation = keyframes`
+    0% {
+        background-color: rgba(255,255,255,0.1);
+    }
+
+    50% {
+        background-color: rgba(255,255,255,0.2);
+    }
+
+    100% {
+        background-color: rgba(255,255,255,0.1);
+    }
+`;
+
 export const ellipsisLine = (line: number): FlattenSimpleInterpolation => css`
   max-width: 100%;
   overflow: hidden;

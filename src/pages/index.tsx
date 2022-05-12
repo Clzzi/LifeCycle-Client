@@ -16,6 +16,7 @@ import { IResume } from 'src/types/resume.type';
 import { ChangeEvent, useState } from 'react';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import ResumeUtil from 'src/core/utils/resume';
+import { Banner } from 'src/components/Banner';
 
 interface Filter {
   stackFilter: number;
@@ -32,7 +33,7 @@ const Main = (): JSX.Element => {
     stackFilter: 0,
   });
 
-  const { isLoading, error, data, isFetching } = useQuery<
+  const { error, data, isLoading } = useQuery<
     ResumesResponse,
     Error,
     IResume[]
@@ -52,98 +53,109 @@ const Main = (): JSX.Element => {
     <>
       <ScrollTop visible={showScrollVisible} onClick={onClickScrollTop} />
       <Banner />
-      <Container>
-        <TopWrapper>
-          <Button
-            width="126px"
-            height="38px"
-            content={userInfo.resume ? '내 이력서 보기' : '이력서 등록하기'}
-            fontSize={theme.fonts.font14}
-            color={theme.colors.White900}
-            borderRadius="999px"
-            backgroundColor={theme.colors.Main1}
-            customStyle={{
-              visibility: userInfo.generation ? 'visible' : 'hidden',
-            }}
-            handleClick={() =>
-              router.push(
-                userInfo.resume
-                  ? `/resume/${userInfo.resume.idx}`
-                  : '/resume/write',
-              )
-            }
-          />
-          <SelectBoxes>
-            <SelectBox
-              content={STACK_LIST}
+      <Wrapper>
+        <Container>
+          <TopWrapper>
+            <Button
               width="126px"
               height="38px"
-              border={`2px solid ${theme.colors.Main1}`}
-              value={filter.stackFilter}
-              name="stackFilter"
-              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                setFilter({
-                  ...filter,
-                  [e.target.name]: Number(e.target.value),
-                })
+              content={userInfo.resume ? '내 이력서 보기' : '이력서 등록하기'}
+              fontSize={theme.fonts.font14}
+              color={theme.colors.White900}
+              borderRadius="999px"
+              backgroundColor={theme.colors.Main1}
+              customStyle={{
+                visibility: userInfo.generation ? 'visible' : 'hidden',
+              }}
+              handleClick={() =>
+                router.push(
+                  userInfo.resume
+                    ? `/resume/${userInfo.resume.idx}`
+                    : '/resume/write',
+                )
               }
             />
-            <SelectBox
-              value={filter.generationFilter}
-              content={GENERATION_LIST}
-              width="126px"
-              height="38px"
-              border={`2px solid ${theme.colors.Main1}`}
-              name="generationFilter"
-              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                setFilter({
-                  ...filter,
-                  [e.target.name]: Number(e.target.value),
-                })
-              }
-            />
-          </SelectBoxes>
-        </TopWrapper>
-        <Contents>
-          {data?.map((v) => {
-            return (
-              <Card
-                key={v.idx}
-                thumbnail={v.thumbnail}
-                title={v.title}
-                company={v.company}
-                stack={v.stack}
-                generation={v.user.generation}
-                name={v.user.name}
-                idx={v.idx}
+            <SelectBoxes>
+              <SelectBox
+                content={STACK_LIST}
+                width="126px"
+                height="38px"
+                border={`2px solid ${theme.colors.Main1}`}
+                value={filter.stackFilter}
+                name="stackFilter"
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  setFilter({
+                    ...filter,
+                    [e.target.name]: Number(e.target.value),
+                  })
+                }
               />
-            );
-          })}
-        </Contents>
-      </Container>
+              <SelectBox
+                value={filter.generationFilter}
+                content={GENERATION_LIST}
+                width="126px"
+                height="38px"
+                border={`2px solid ${theme.colors.Main1}`}
+                name="generationFilter"
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  setFilter({
+                    ...filter,
+                    [e.target.name]: Number(e.target.value),
+                  })
+                }
+              />
+            </SelectBoxes>
+          </TopWrapper>
+          {!isLoading && data && data.length ? (
+            <Contents>
+              {data?.map((v) => {
+                return (
+                  <Card
+                    key={v.idx}
+                    thumbnail={v.thumbnail}
+                    title={v.title}
+                    company={v.company}
+                    stack={v.stack}
+                    generation={v.user.generation}
+                    name={v.user.name}
+                    idx={v.idx}
+                  />
+                );
+              })}
+            </Contents>
+          ) : (
+            <NoCard>
+              <div>이력서가 없습니다</div>
+            </NoCard>
+          )}
+        </Container>
+      </Wrapper>
     </>
   );
 };
 
 export default Main;
 
-// 스켈레톤 UI
-// 아이템 없을때 처리
-// 드래그, 선택 처리
-
-const Banner = styled.article`
-  width: 100%;
-  height: 256px;
-  background: url('/assets/Banner.svg') no-repeat center;
-  cursor: pointer;
-  margin: -4px 0px 32px 0px;
-  background-size: 100%;
-`;
-
 const Container = styled.section`
   width: 100%;
   max-width: 1920px;
   padding: 0px 215px;
+  ${({ theme }) => theme.medias.smallDesktop} {
+    padding: 0px 97px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    padding: 0px 38px;
+  }
+`;
+
+const Wrapper = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
 `;
 
 const TopWrapper = styled.div`
@@ -154,6 +166,18 @@ const TopWrapper = styled.div`
   text-align: center;
   align-items: center;
   margin-bottom: 40px;
+
+  ${({ theme }) => theme.medias.smallDesktop} {
+    margin-bottom: 30px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    row-gap: 12px;
+  }
 `;
 
 const SelectBoxes = styled.div`
@@ -167,9 +191,34 @@ const SelectBoxes = styled.div`
 
 const Contents = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(295px, 350px));
   grid-row-gap: 50px;
   grid-column-gap: 30px;
+  place-items: center;
+  justify-content: center;
+
+  ${({ theme }) => theme.medias.smallDesktop} {
+    grid-template-columns: repeat(auto-fill, 295px);
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    grid-template-columns: repeat(auto-fill, 295px);
+  }
+`;
+
+const NoCard = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  & > div {
+    font-size: ${({ theme }) => theme.fonts.font28};
+    color: ${({ theme }) => theme.colors.Main1};
+    font-weight: bolder;
+  }
 `;
 
 export async function getStaticProps() {
