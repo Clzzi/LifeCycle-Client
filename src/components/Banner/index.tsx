@@ -32,6 +32,14 @@ const StyledBanner = styled.article`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  ${({ theme }) => theme.medias.smallDesktop} {
+    height: 196px;
+    margin: -4px 0px 12px 0px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    height: 166px;
+  }
 `;
 
 const Wrapper = styled.section`
@@ -44,6 +52,14 @@ const Wrapper = styled.section`
   align-items: center;
   vertical-align: middle;
   padding: 0 215px;
+
+  ${({ theme }) => theme.medias.smallDesktop} {
+    padding: 0px 113px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    padding: 0px 38px;
+  }
 `;
 
 const Title = styled.div`
@@ -57,6 +73,18 @@ const Title = styled.div`
   text-underline-offset: -13px;
   display: inline-block;
   margin-right: 48px;
+  white-space: nowrap;
+  ${({ theme }) => theme.medias.smallDesktop} {
+    font-size: ${pxToRem(34)};
+    line-height: 42px;
+    margin-right: 36px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    font-size: ${({ theme }) => theme.fonts.font28};
+    line-height: 40px;
+    margin-right: 24px;
+  }
 `;
 
 const Desc = styled.div`
@@ -65,4 +93,14 @@ const Desc = styled.div`
   line-height: 22px;
   font-weight: 400;
   color: #e3e6ed;
+  white-space: nowrap;
+  ${({ theme }) => theme.medias.smallDesktop} {
+    font-size: ${({ theme }) => theme.fonts.font14};
+    line-height: 22px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    font-size: ${({ theme }) => theme.fonts.font12};
+    line-height: 20px;
+  }
 `;

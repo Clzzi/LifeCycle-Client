@@ -33,19 +33,19 @@ const Main = (): JSX.Element => {
     stackFilter: 0,
   });
 
-  const { error, data } = useQuery<ResumesResponse, Error, IResume[]>(
-    ['resumes', filter],
-    () => resumeApi.getResumes(),
-    {
-      select: (data) => {
-        return ResumeUtil.filterResume(
-          filter.generationFilter,
-          filter.stackFilter,
-          data.data,
-        );
-      },
+  const { error, data, isLoading } = useQuery<
+    ResumesResponse,
+    Error,
+    IResume[]
+  >(['resumes', filter], () => resumeApi.getResumes(), {
+    select: (data) => {
+      return ResumeUtil.filterResume(
+        filter.generationFilter,
+        filter.stackFilter,
+        data.data,
+      );
     },
-  );
+  });
 
   if (error) router.push('/404');
 
@@ -106,20 +106,42 @@ const Main = (): JSX.Element => {
               />
             </SelectBoxes>
           </TopWrapper>
-          {data && data.length ? (
+          {!isLoading && data && data.length ? (
             <Contents>
               {data?.map((v) => {
                 return (
-                  <Card
-                    key={v.idx}
-                    thumbnail={v.thumbnail}
-                    title={v.title}
-                    company={v.company}
-                    stack={v.stack}
-                    generation={v.user.generation}
-                    name={v.user.name}
-                    idx={v.idx}
-                  />
+                  <>
+                    <Card
+                      key={v.idx}
+                      thumbnail={v.thumbnail}
+                      title={v.title}
+                      company={v.company}
+                      stack={v.stack}
+                      generation={v.user.generation}
+                      name={v.user.name}
+                      idx={v.idx}
+                    />
+                    <Card
+                      key={v.idx}
+                      thumbnail={v.thumbnail}
+                      title={v.title}
+                      company={v.company}
+                      stack={v.stack}
+                      generation={v.user.generation}
+                      name={v.user.name}
+                      idx={v.idx}
+                    />
+                    <Card
+                      key={v.idx}
+                      thumbnail={v.thumbnail}
+                      title={v.title}
+                      company={v.company}
+                      stack={v.stack}
+                      generation={v.user.generation}
+                      name={v.user.name}
+                      idx={v.idx}
+                    />
+                  </>
                 );
               })}
             </Contents>
@@ -140,6 +162,13 @@ const Container = styled.section`
   width: 100%;
   max-width: 1920px;
   padding: 0px 215px;
+  ${({ theme }) => theme.medias.smallDesktop} {
+    padding: 0px 97px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    padding: 0px 38px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -159,6 +188,18 @@ const TopWrapper = styled.div`
   text-align: center;
   align-items: center;
   margin-bottom: 40px;
+
+  ${({ theme }) => theme.medias.smallDesktop} {
+    margin-bottom: 30px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    row-gap: 12px;
+  }
 `;
 
 const SelectBoxes = styled.div`
@@ -172,9 +213,19 @@ const SelectBoxes = styled.div`
 
 const Contents = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(295px, 350px));
   grid-row-gap: 50px;
   grid-column-gap: 30px;
+  place-items: center;
+  justify-content: center;
+
+  ${({ theme }) => theme.medias.smallDesktop} {
+    grid-template-columns: repeat(auto-fill, 295px);
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    grid-template-columns: repeat(auto-fill, 295px);
+  }
 `;
 
 const NoCard = styled.div`

@@ -91,6 +91,12 @@ const Container = styled.div`
   padding: 0px 215px;
   text-align: center;
   align-items: center;
+  ${({ theme }) => theme.medias.smallDesktop} {
+    padding: 0px 97px;
+  }
+  ${({ theme }) => theme.medias.mobile} {
+    padding: 0px 38px;
+  }
 `;
 
 const Logo = styled.div`
