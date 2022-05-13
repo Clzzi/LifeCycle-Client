@@ -1,4 +1,3 @@
-import { skeletonAnimation } from 'src/core/styles/styleMoudle';
 import styled from 'styled-components';
 
 export const ResumeDetailSkeleton = () => {
@@ -32,6 +31,7 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   text-align: center;
+  max-width: 1200px;
 `;
 
 const Info = styled.div`
