@@ -15,7 +15,7 @@ export const useAxiosInterceptor = () => {
   const { fireToast } = useToast();
 
   const errorHandler = (error: Response): void => {
-    fireToast({ content: ` ${error.message} 🔥 ` });
+    fireToast({ content: ` ${error.message} 🔥 `, duration: 2000 });
   };
 
   const responseHandler = (response: AxiosResponse): AxiosResponse => {

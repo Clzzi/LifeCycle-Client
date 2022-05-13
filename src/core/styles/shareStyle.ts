@@ -11,12 +11,9 @@ export const UnderLineText = styled.button`
   & > a {
     font-size: ${({ theme }) => theme.fonts.font14};
     color: ${({ theme }) => theme.colors.Gray500};
-    text-decoration: underline;
-    text-underline-position: under;
     &:hover {
+      text-underline-offset: 10px;
       color: ${({ theme }) => theme.colors.Gray500};
-      text-decoration: underline;
-      text-underline-position: under;
     }
   }
 `;

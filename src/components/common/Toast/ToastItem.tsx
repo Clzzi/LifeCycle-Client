@@ -14,11 +14,23 @@ export const ToastItem = (props: IToast) => {
     }, duration ?? 1000);
   });
   return (
-    <StyledToastItem bottom={bottom} isClosing={isClosing}>
-      {content}
-    </StyledToastItem>
+    <Wrapper>
+      <StyledToastItem bottom={bottom} isClosing={isClosing}>
+        {content}
+      </StyledToastItem>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+`;
 
 const StyledToastItem = styled.div<{ bottom?: number; isClosing: boolean }>`
   position: absolute;
