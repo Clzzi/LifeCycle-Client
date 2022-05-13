@@ -28,7 +28,7 @@ export const Header = () => {
     <Wrapper>
       <Container>
         <Logo onClick={() => router.push('/')} />
-        <div ref={ref}>
+        <div ref={ref} className="refDiv">
           {userInfo.generation ? (
             <Profile
               width="60px"
@@ -97,6 +97,10 @@ const Container = styled.div`
   ${({ theme }) => theme.medias.mobile} {
     padding: 0px 38px;
   }
+
+  .refDiv {
+    position: relative;
+  }
 `;
 
 const Logo = styled.div`
@@ -131,7 +135,7 @@ const Info = styled.div`
   background-color: ${({ theme }) => theme.colors.Black300};
   right: 0;
   top: 0;
-  margin: 62px 222px 0px 0px;
+  margin: 62px 2px 0px 0px;
 `;
 
 const InfoProfile = styled.div`

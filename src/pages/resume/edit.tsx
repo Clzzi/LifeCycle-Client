@@ -32,19 +32,27 @@ const EditResume = () => {
   const router: NextRouter = useRouter();
   const [pdfName, setPdfName] = useState<string>('');
   const [imagePreview, setImagePreview] = useState<string>('');
+  const [PDFLoading, setPDFLoading] = useState<boolean>(false);
+  const [imageLoading, setImageLoading] = useState<boolean>(false);
 
   const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      const formData = new FormData();
-      formData.append('files', e.target.files[0]);
-      const { data } = await resumeApi.upload(formData);
-
       if (e.target.files[0].type.startsWith('image')) {
+        setImageLoading(true);
+        const formData = new FormData();
+        formData.append('files', e.target.files[0]);
+        const { data } = await resumeApi.upload(formData);
         setImagePreview(data[0]);
         setValues({ ...values, thumbnail: data[0] });
+        setImageLoading(false);
       } else {
+        setPDFLoading(true);
+        const formData = new FormData();
+        formData.append('files', e.target.files[0]);
+        const { data } = await resumeApi.upload(formData);
         setPdfName(e.target.files![0].name);
         setValues({ ...values, content: data[0] });
+        setPDFLoading(false);
       }
     }
   };
@@ -126,6 +134,7 @@ const EditResume = () => {
           </PreviewDim>
         ) : (
           <ImageInput
+            isLoading={imageLoading}
             text="썸네일을 등록해주세요"
             width="100%"
             height="245px"
@@ -197,6 +206,7 @@ const EditResume = () => {
             />
           </Label>
           <PDFInput
+            isLoading={PDFLoading}
             placeholder="PDF파일"
             errorMessage={errors.content ? errors.content : ''}
             height="fit-content"

@@ -1,4 +1,5 @@
 import React, { ChangeEvent, CSSProperties, RefObject, useRef } from 'react';
+import { Loader } from 'src/core/styles/shareStyle';
 import styled from 'styled-components';
 import { Label } from '../Label';
 
@@ -18,11 +19,13 @@ interface Props {
   backgroundColor?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   text: string;
+  isLoading: boolean;
 }
 
 export const ImageInput = ({
   errorFontSize = '14px',
   errorMessage,
+  isLoading,
   name,
   onChange,
   backgroundColor,
@@ -49,6 +52,13 @@ export const ImageInput = ({
     color,
     border,
   };
+  if (isLoading) {
+    return (
+      <LoadingWrapper style={style}>
+        <Loader backgroundColor="transparent" fontSize="16%" />
+      </LoadingWrapper>
+    );
+  }
   return (
     <Label message={errorMessage} fontSize={errorFontSize}>
       <Input
@@ -89,4 +99,15 @@ const Input = styled.label`
     background-size: 100px;
     background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/ImageUpLoad.svg');
   }
+`;
+
+const LoadingWrapper = styled.div`
+  border: 2px dashed ${({ theme }) => theme.colors.Gray700};
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer !important;
 `;

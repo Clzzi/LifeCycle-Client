@@ -1,4 +1,5 @@
 import React, { ChangeEvent, CSSProperties, RefObject, useRef } from 'react';
+import { Loader } from 'src/core/styles/shareStyle';
 import styled from 'styled-components';
 import { Label } from '../Label';
 
@@ -18,10 +19,12 @@ interface Props {
   errorMessage: string | undefined;
   backgroundColor?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
 }
 
 export const PDFInput = ({
   errorMessage,
+  isLoading,
   height = '56px',
   name,
   onChange,
@@ -37,7 +40,6 @@ export const PDFInput = ({
   margin,
   padding,
 }: Props) => {
-  //application/pdf
   const ref: RefObject<HTMLInputElement> = useRef(null);
   const style: CSSProperties = {
     ...customStyle,
@@ -50,6 +52,7 @@ export const PDFInput = ({
     color,
     fontSize,
   };
+
   return (
     <Label message={errorMessage} fontSize={errorFontSize}>
       <Input
@@ -59,7 +62,13 @@ export const PDFInput = ({
         onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === ' ') ref.current?.click();
         }}>
-        {title && title.length ? title : placeholder}
+        {isLoading ? (
+          <LoadingText>파일 가져오는중 . . . </LoadingText>
+        ) : title && title.length ? (
+          title
+        ) : (
+          placeholder
+        )}
         <div />
       </Input>
 
@@ -99,4 +108,9 @@ const Input = styled.label`
     background-size: 24px;
     background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/PDFUpload.svg');
   }
+`;
+
+const LoadingText = styled.span`
+  font-size: ${({ theme }) => theme.fonts.font14};
+  color: ${({ theme }) => theme.colors.White900};
 `;
