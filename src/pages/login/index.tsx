@@ -174,12 +174,14 @@ const GoToSignUp = styled.button`
   & > a {
     font-size: ${({ theme }) => theme.fonts.font14};
     color: ${({ theme }) => theme.colors.Gray500};
-    text-decoration: underline;
-    text-underline-position: under;
+    text-decoration: underline ${({ theme }) => theme.colors.Gray500} !important;
+    text-underline-position: under ${({ theme }) => theme.colors.Gray500} !important;
+    text-underline-offset: 5.5px;
     &:hover {
       color: ${({ theme }) => theme.colors.Gray500};
-      text-decoration: underline;
-      text-underline-position: under;
+      text-decoration: underline ${({ theme }) => theme.colors.Gray500} !important;
+      text-underline-position: under ${({ theme }) => theme.colors.Gray500} !important;
+      text-underline-offset: 5.5px;
     }
   }
 `;
