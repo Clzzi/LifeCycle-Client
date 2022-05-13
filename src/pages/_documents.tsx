@@ -37,6 +37,15 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link
+            rel="preload"
+            as="style"
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+            rel="stylesheet"
+          />
           <meta charSet="utf-8" />
         </Head>
         <body>
