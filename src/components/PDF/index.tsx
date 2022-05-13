@@ -3,6 +3,8 @@ import { Document, Page } from 'react-pdf';
 import { useState } from 'react';
 import useResize from 'src/core/hooks/useResize';
 import ResumeUtil from 'src/core/utils/resume';
+import { pdfjs } from 'react-pdf';
+import { dragNone } from 'src/core/styles/styleMoudle';
 
 export const PDF = ({ file }: { file: string }) => {
   const { size } = useResize();
@@ -12,6 +14,9 @@ export const PDF = ({ file }: { file: string }) => {
     <Wrapper>
       <div onContextMenu={(e) => e.preventDefault()}>
         <Document
+          options={{
+            standardFontDataUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts/`,
+          }}
           file={file}
           loading={<SkeletonContent className="animated" />}
           onLoadSuccess={({ numPages }) => setNumPages(numPages)}>
@@ -22,6 +27,7 @@ export const PDF = ({ file }: { file: string }) => {
                 pageNumber={page}
                 key={page}
                 width={ResumeUtil.calculatePDFWidth(size.width)}
+                className="page"
               />
             ))}
         </Document>
@@ -31,6 +37,7 @@ export const PDF = ({ file }: { file: string }) => {
 };
 
 const Wrapper = styled.section`
+  ${dragNone}
   max-width: 1200px;
   height: fit-content;
   border-radius: 12px;
@@ -46,6 +53,12 @@ const Wrapper = styled.section`
 
   ${({ theme }) => theme.medias.mobile} {
     padding: 0px 38px;
+  }
+  .page {
+    margin-bottom: 60px;
+  }
+  .annotationLayer {
+    display: none;
   }
 `;
 

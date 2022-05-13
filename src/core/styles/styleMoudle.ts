@@ -65,3 +65,12 @@ export const ellipsisLine = (line: number): FlattenSimpleInterpolation => css`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: ${line};
 `;
+
+export const dragNone = css`
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`;

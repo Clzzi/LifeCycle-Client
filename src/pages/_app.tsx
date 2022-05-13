@@ -5,10 +5,10 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { theme } from 'src/core/styles/theme';
 import { GlobalStyle } from 'src/core/styles/globalStyle';
 import { Layout } from 'src/components/common/Layout/Layout';
-import { pdfjs } from 'react-pdf';
 import React from 'react';
 import { RecoilRoot } from 'recoil';
 import { Toast } from 'src/components/common/Toast';
+import { pdfjs } from 'react-pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
