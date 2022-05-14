@@ -1,13 +1,8 @@
 import { reset } from 'styled-reset';
-import { skeletonAnimation } from './styleMoudle';
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
-
-  .animated {
-    animation: ${skeletonAnimation} 1.8s infinite ease-in-out;
-  }
 
   *, *::before, *::after {
     box-sizing: border-box;

@@ -5,19 +5,19 @@ export const ResumeDetailSkeleton = () => {
     <Container>
       <Info>
         <ProfileWrap>
-          <Profile className="animated" />
+          <Profile />
           <NameAndGeneration>
-            <Name className="animated" />
-            <Generation className="animated" />
+            <Name />
+            <Generation />
           </NameAndGeneration>
         </ProfileWrap>
         <Tags>
-          <Tag width="100px" className="animated" />
-          <Tag width="160px" className="animated" />
-          <Tag width="200px" className="animated" />
+          <Tag width="100px" />
+          <Tag width="160px" />
+          <Tag width="200px" />
         </Tags>
       </Info>
-      <Contents className="animated" />
+      <Contents />
     </Container>
   );
 };
@@ -109,4 +109,5 @@ const Contents = styled.section`
   height: 70%;
   background-color: 'transparent';
   border-radius: 4px;
+  background-color: ${({ theme }) => theme.colors.Gray700};
 `;
