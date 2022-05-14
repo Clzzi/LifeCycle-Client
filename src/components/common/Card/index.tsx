@@ -1,4 +1,3 @@
-import { NextRouter, useRouter } from 'next/router';
 import { Tag } from 'src/core/styles/shareStyle';
 import { ellipsisLine } from 'src/core/styles/styleMoudle';
 import { theme } from 'src/core/styles/theme';
@@ -24,9 +23,8 @@ export const Card = ({
   title,
   idx,
 }: Props) => {
-  const router: NextRouter = useRouter();
   return (
-    <Wrapper tabIndex={0} onClick={() => router.push(`/resume/${idx}`)}>
+    <Wrapper tabIndex={0} href={`/resume/${idx}`}>
       <Thumbnail src={thumbnail} className="thumbnail" />
       <Content>
         <Text>{title}</Text>

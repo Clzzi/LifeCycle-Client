@@ -4,7 +4,6 @@ import { useState } from 'react';
 import useResize from 'src/core/hooks/useResize';
 import ResumeUtil from 'src/core/utils/resume';
 import { pdfjs } from 'react-pdf';
-import { dragNone } from 'src/core/styles/styleMoudle';
 
 export const PDF = ({ file }: { file: string }) => {
   const { size } = useResize();
@@ -37,7 +36,6 @@ export const PDF = ({ file }: { file: string }) => {
 };
 
 const Wrapper = styled.main`
-  ${dragNone}
   max-width: 1200px;
   height: fit-content;
   border-radius: 12px;
