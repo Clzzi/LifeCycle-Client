@@ -7,12 +7,9 @@ import { Layout } from 'src/components/common/Layout/Layout';
 import React, { useState } from 'react';
 import { RecoilRoot } from 'recoil';
 import { Toast } from 'src/components/common/Toast';
-import { pdfjs } from 'react-pdf';
 import { DefaultSeo } from 'next-seo';
 import { DEFAULT_SEO } from 'src/core/constants/seo.constants';
 import Favicon from 'src/components/Favicon';
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());

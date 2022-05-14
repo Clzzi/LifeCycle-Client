@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { Document, Page } from 'react-pdf';
 import { useState } from 'react';
 import useResize from 'src/core/hooks/useResize';
 import ResumeUtil from 'src/core/utils/resume';
-import { pdfjs } from 'react-pdf';
+import { pdfjs, Document, Page } from 'react-pdf';
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const PDF = ({ file }: { file: string }) => {
   const { size } = useResize();

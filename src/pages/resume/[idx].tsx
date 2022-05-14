@@ -7,7 +7,7 @@ import { dehydrate, QueryClient, useQuery } from 'react-query';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { AResumeResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { infoAtom } from 'src/core/store/auth.store';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
@@ -44,7 +44,7 @@ const Resume = ({ idx }: { idx: number }) => {
     },
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (data?.user.userId === userInfo.userId) {
       setIsMyResume(true);
     } else {
