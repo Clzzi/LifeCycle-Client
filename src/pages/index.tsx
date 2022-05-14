@@ -17,6 +17,7 @@ import { ChangeEvent, useState } from 'react';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import ResumeUtil from 'src/core/utils/resume';
 import { Banner } from 'src/components/Banner';
+import ResumeCard from 'src/components/Skeleton/ResumeCard';
 
 interface Filter {
   stackFilter: number;
@@ -33,11 +34,12 @@ const Main = (): JSX.Element => {
     stackFilter: 0,
   });
 
-  const { error, data, isLoading } = useQuery<
+  const { error, data, isFetching } = useQuery<
     ResumesResponse,
     Error,
     IResume[]
   >(['resumes', filter], () => resumeApi.getResumes(), {
+    refetchOnWindowFocus: false,
     select: (data) => {
       return ResumeUtil.filterResume(
         filter.generationFilter,
@@ -46,6 +48,51 @@ const Main = (): JSX.Element => {
       );
     },
   });
+
+  const Cards = () => {
+    return (
+      <Contents>
+        {data?.map((v) => {
+          return (
+            <Card
+              key={v.idx}
+              thumbnail={v.thumbnail}
+              title={v.title}
+              company={v.company}
+              stack={v.stack}
+              generation={v.user.generation}
+              name={v.user.name}
+              idx={v.idx}
+            />
+          );
+        })}
+      </Contents>
+    );
+  };
+
+  const LoadingCards = () => {
+    return (
+      <Contents>
+        <ResumeCard />
+        <ResumeCard />
+        <ResumeCard />
+        <ResumeCard />
+        <ResumeCard />
+        <ResumeCard />
+        <ResumeCard />
+        <ResumeCard />
+        <ResumeCard />
+      </Contents>
+    );
+  };
+
+  const NoResume = () => {
+    return (
+      <NoCard>
+        <div>이력서가 없습니다</div>
+      </NoCard>
+    );
+  };
 
   if (error) router.push('/404');
 
@@ -106,33 +153,22 @@ const Main = (): JSX.Element => {
               />
             </SelectBoxes>
           </TopWrapper>
-          {!isLoading && data && data.length ? (
-            <Contents>
-              {data?.map((v) => {
-                return (
-                  <Card
-                    key={v.idx}
-                    thumbnail={v.thumbnail}
-                    title={v.title}
-                    company={v.company}
-                    stack={v.stack}
-                    generation={v.user.generation}
-                    name={v.user.name}
-                    idx={v.idx}
-                  />
-                );
-              })}
-            </Contents>
+          {isFetching ? (
+            <LoadingCards />
+          ) : data && data.length ? (
+            <Cards />
           ) : (
-            <NoCard>
-              <div>이력서가 없습니다</div>
-            </NoCard>
+            <NoResume />
           )}
         </Container>
       </Wrapper>
     </>
   );
 };
+
+// TODO: E2E 테스트
+// TODO: 최적화
+// TODO: SEO
 
 export default Main;
 

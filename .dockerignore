@@ -1,5 +1,11 @@
+# build
 .next
+
+# git
 .git
+.gitignore
+
+# package
 node_modules
 .yarn/*
 !.yarn/cache
@@ -8,8 +14,9 @@ node_modules
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# testing
 cypress/videos
 cypress/screenshots
 .nyc_output
-.gitignore
 cypress

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { NextRouter, useRouter } from 'next/router';
 import { Button } from 'src/components/common/Button';
 import { ImageInput } from 'src/components/common/ImageInput';
@@ -30,27 +30,43 @@ const ResumeWrite = () => {
   const router: NextRouter = useRouter();
   const [pdfName, setPdfName] = useState<string>('');
   const [imagePreview, setImagePreview] = useState<string>('');
-  const [PDFLoading, setPDFLoading] = useState<boolean>(false);
-  const [imageLoading, setImageLoading] = useState<boolean>(false);
+  const [uploadLoading, setUploadLoading] = useState<{
+    pdf: boolean;
+    image: boolean;
+  }>({ image: false, pdf: false });
 
-  const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      if (e.target.files[0].type.startsWith('image')) {
-        setImageLoading(true);
-        const formData = new FormData();
-        formData.append('files', e.target.files[0]);
-        const { data } = await resumeApi.upload(formData);
-        setImagePreview(data[0]);
-        setValues({ ...values, thumbnail: data[0] });
-        setImageLoading(false);
+  const handleSetUploadLoading = useCallback(
+    (isImage: boolean, value: boolean): void => {
+      if (isImage) {
+        setUploadLoading((prev) => ({ ...prev, image: value }));
       } else {
-        setPDFLoading(true);
+        setUploadLoading((prev) => ({ ...prev, pdf: value }));
+      }
+    },
+    [],
+  );
+
+  const onChangeFile = async (
+    e: ChangeEvent<HTMLInputElement>,
+  ): Promise<void> => {
+    if (e.target.files?.length) {
+      const isImage: boolean = e.target.files[0].type.startsWith('image');
+      try {
+        handleSetUploadLoading(isImage, true);
         const formData = new FormData();
         formData.append('files', e.target.files[0]);
         const { data } = await resumeApi.upload(formData);
-        setPdfName(e.target.files![0].name);
-        setValues({ ...values, content: data[0] });
-        setPDFLoading(false);
+        if (isImage) {
+          setImagePreview(data[0]);
+          setValues({ ...values, thumbnail: data[0] });
+        } else {
+          setPdfName(e.target.files![0].name);
+          setValues({ ...values, content: data[0] });
+        }
+      } catch (e: any) {
+        console.error(e);
+      } finally {
+        handleSetUploadLoading(isImage, false);
       }
     }
   };
@@ -89,11 +105,11 @@ const ResumeWrite = () => {
           errors.stack = '기술분야를 선택해주세요';
         }
 
-        return errors;
+        return { ...errors };
       },
     });
 
-  const onDeleteImage = useCallback(() => {
+  const onDeleteImage = useCallback((): void => {
     setValues({ ...values, thumbnail: '' });
     setImagePreview('');
   }, [setValues, setImagePreview, values]);
@@ -127,7 +143,7 @@ const ResumeWrite = () => {
             backgroundColor="transparent"
             onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeFile(e)}
             margin="60px 0px"
-            isLoading={imageLoading}
+            isLoading={uploadLoading.image}
           />
         )}
         <Inputs>
@@ -206,7 +222,7 @@ const ResumeWrite = () => {
               alignItems: 'center',
               textAlign: 'start',
             }}
-            isLoading={PDFLoading}
+            isLoading={uploadLoading.pdf}
           />
         </Inputs>
         <Buttons>
@@ -293,7 +309,8 @@ const PreviewDim = styled.div`
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
-      content: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/Delete.svg');
+      background-image: ${() =>
+        `url(${ResumeUtil.makeS3Url('/assets/Delete.svg')})`};
     }
   }
 `;

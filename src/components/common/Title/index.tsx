@@ -49,6 +49,7 @@ export const Title = ({
 };
 
 const Wrapper = styled.div`
+  ${M.dragNone};
   display: flex;
   flex-direction: column;
   align-items: flex-start;

@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
 import { Loader } from 'src/core/styles/shareStyle';
+import { dragNone } from 'src/core/styles/styleMoudle';
 import styled from 'styled-components';
 
 interface Props {
@@ -47,6 +48,7 @@ export const Button = ({
 };
 
 const StyledButton = styled.button`
+  ${dragNone};
   position: relative;
   border: none;
   cursor: pointer;

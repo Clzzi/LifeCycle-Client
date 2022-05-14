@@ -46,7 +46,7 @@ const EditPassword = () => {
         if (newPassword !== re_newPassword) {
           errors.re_newPassword = '비밀번호가 다릅니다';
         }
-        return errors;
+        return { ...errors };
       },
     });
 
@@ -61,6 +61,7 @@ const EditPassword = () => {
         }>
         <Inputs>
           <Input
+            isAutoFocus={true}
             value={values.newPassword}
             errorMessage={errors.newPassword ? errors.newPassword : ''}
             placeholder="새 비밀번호"

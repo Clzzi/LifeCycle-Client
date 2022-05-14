@@ -1,6 +1,6 @@
+import TokenUtil from './token';
 import { RegisterValues } from 'src/types/auth.type';
 import { ACCESS_TOKEN_KEY } from '../constants/api.constants';
-import TokenUtil from './token';
 
 export const convertRegisterDto = (values: RegisterValues) => {
   return {

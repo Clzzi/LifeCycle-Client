@@ -16,6 +16,7 @@ import { Button } from 'src/components/common/Button';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { useToast } from 'src/core/hooks/useToast';
+import { dragNone } from 'src/core/styles/styleMoudle';
 
 const Login: NextPage = () => {
   const router: NextRouter = useRouter();
@@ -48,7 +49,7 @@ const Login: NextPage = () => {
         if (pw !== undefined && pw.length === 0) {
           errors.pw = ' PW를 입력해주세요';
         }
-        return errors;
+        return { ...errors };
       },
     });
 
@@ -129,6 +130,7 @@ const Login: NextPage = () => {
 };
 
 const Wrapper = styled.section`
+  ${dragNone};
   width: 100%;
   height: calc(100vh - 56px);
   display: flex;

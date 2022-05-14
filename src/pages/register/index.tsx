@@ -14,6 +14,7 @@ import { Label } from 'src/components/common/Label';
 import { RegisterValues } from 'src/types/auth.type';
 import { convertRegisterDto } from 'src/core/utils/auth';
 import { useToast } from 'src/core/hooks/useToast';
+import { dragNone } from 'src/core/styles/styleMoudle';
 
 const Register = () => {
   const { fireToast } = useToast();
@@ -153,7 +154,6 @@ const Register = () => {
           fontSize={theme.fonts.font14}>
           <CheckBoxContainer>
             <CheckBox
-              className="test"
               checked={
                 typeof values.isTermsCheck === 'boolean'
                   ? (values.isTermsCheck as boolean)
@@ -183,6 +183,7 @@ const Register = () => {
             color={theme.colors.White900}
             borderRadius="999px"
             backgroundColor={theme.colors.Main1}
+            isLoading={isLoading}
             handleClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
               handleSubmit(e)
             }
@@ -217,6 +218,7 @@ const Register = () => {
 export default Register;
 
 const Wrapper = styled.section`
+  ${dragNone};
   width: 100%;
   height: calc(100vh - 56px);
   display: flex;

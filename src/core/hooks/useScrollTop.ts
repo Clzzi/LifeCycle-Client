@@ -7,14 +7,14 @@ export const useScrollTop = () => {
   const [showScrollVisible, setShowScrollVisible] = useState<boolean>(false);
 
   const handleScroll = useThrottle(
-    useCallback(() => {
+    useCallback((): void => {
       if (scrollY > 500) setShowScrollVisible(true);
       else setShowScrollVisible(false);
     }, [scrollY]),
     100,
   );
 
-  const onClickScrollTop = useCallback(() => {
+  const onClickScrollTop = useCallback((): void => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 

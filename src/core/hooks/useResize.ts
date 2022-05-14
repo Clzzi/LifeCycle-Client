@@ -7,12 +7,12 @@ const useResize = () => {
     height: 0,
   });
 
-  const updateWidth = useThrottle(() => {
+  const updateWidth = useThrottle((): void => {
     setSize({ width: window.innerWidth, height: window.innerHeight });
   }, 500);
 
   useLayoutEffect(() => {
-    updateWidth();
+    updateWidth(); // get scroll position on first load
     window.addEventListener('resize', updateWidth, {
       passive: true,
     });

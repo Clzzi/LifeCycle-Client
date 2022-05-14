@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 export const useScroll = () => {
   const [scrollY, setScrollY] = useState<number>(0);
 
-  const onScroll = useThrottle(() => {
+  const onScroll = useThrottle((): void => {
     setScrollY(window.pageYOffset);
   }, 300);
 

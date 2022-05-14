@@ -30,34 +30,50 @@ const EditResume = () => {
   useCheckResume('EDIT');
   const { fireToast } = useToast();
   const router: NextRouter = useRouter();
+  const userInfo = useRecoilValue(infoAtom);
   const [pdfName, setPdfName] = useState<string>('');
   const [imagePreview, setImagePreview] = useState<string>('');
-  const [PDFLoading, setPDFLoading] = useState<boolean>(false);
-  const [imageLoading, setImageLoading] = useState<boolean>(false);
+  const [uploadLoading, setUploadLoading] = useState<{
+    pdf: boolean;
+    image: boolean;
+  }>({ image: false, pdf: false });
 
-  const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      if (e.target.files[0].type.startsWith('image')) {
-        setImageLoading(true);
-        const formData = new FormData();
-        formData.append('files', e.target.files[0]);
-        const { data } = await resumeApi.upload(formData);
-        setImagePreview(data[0]);
-        setValues({ ...values, thumbnail: data[0] });
-        setImageLoading(false);
+  const handleSetUploadLoading = useCallback(
+    (isImage: boolean, value: boolean): void => {
+      if (isImage) {
+        setUploadLoading((prev) => ({ ...prev, image: value }));
       } else {
-        setPDFLoading(true);
+        setUploadLoading((prev) => ({ ...prev, pdf: value }));
+      }
+    },
+    [],
+  );
+
+  const onChangeFile = async (
+    e: ChangeEvent<HTMLInputElement>,
+  ): Promise<void> => {
+    if (e.target.files?.length) {
+      const isImage: boolean = e.target.files[0].type.startsWith('image');
+      try {
+        handleSetUploadLoading(isImage, true);
         const formData = new FormData();
         formData.append('files', e.target.files[0]);
         const { data } = await resumeApi.upload(formData);
-        setPdfName(e.target.files![0].name);
-        setValues({ ...values, content: data[0] });
-        setPDFLoading(false);
+        if (isImage) {
+          setImagePreview(data[0]);
+          setValues({ ...values, thumbnail: data[0] });
+        } else {
+          setPdfName(e.target.files![0].name);
+          setValues({ ...values, content: data[0] });
+        }
+      } catch (e: any) {
+        console.error(e);
+      } finally {
+        handleSetUploadLoading(isImage, false);
       }
     }
   };
 
-  const userInfo = useRecoilValue(infoAtom);
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<Values>({
       initialValue: {
@@ -92,11 +108,11 @@ const EditResume = () => {
           errors.stack = '기술분야를 선택해주세요';
         }
 
-        return errors;
+        return { ...errors };
       },
     });
 
-  const onDeleteImage = useCallback(() => {
+  const onDeleteImage = useCallback((): void => {
     setValues({ ...values, thumbnail: '' });
     setImagePreview('');
   }, [setValues, setImagePreview, values]);
@@ -134,7 +150,7 @@ const EditResume = () => {
           </PreviewDim>
         ) : (
           <ImageInput
-            isLoading={imageLoading}
+            isLoading={uploadLoading.image}
             text="썸네일을 등록해주세요"
             width="100%"
             height="245px"
@@ -206,7 +222,7 @@ const EditResume = () => {
             />
           </Label>
           <PDFInput
-            isLoading={PDFLoading}
+            isLoading={uploadLoading.pdf}
             placeholder="PDF파일"
             errorMessage={errors.content ? errors.content : ''}
             height="fit-content"
@@ -310,7 +326,7 @@ const PreviewDim = styled.div`
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
-      content: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/Delete.svg');
+      content: ${() => `url(${ResumeUtil.makeS3Url('/assets/Delete.svg')})`};
     }
   }
 `;

@@ -5,7 +5,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { theme } from 'src/core/styles/theme';
 import { GlobalStyle } from 'src/core/styles/globalStyle';
 import { Layout } from 'src/components/common/Layout/Layout';
-import React from 'react';
+import React, { useState } from 'react';
 import { RecoilRoot } from 'recoil';
 import { Toast } from 'src/components/common/Toast';
 import { pdfjs } from 'react-pdf';
@@ -13,7 +13,7 @@ import { pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = React.useState(() => new QueryClient());
+  const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>

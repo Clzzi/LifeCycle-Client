@@ -2,14 +2,13 @@ import { KeyboardEvent } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  className: string;
   checked: boolean;
   onClick: () => void | Promise<void>;
 }
 
-export const CheckBox = ({ checked, className, onClick, ...props }: Props) => {
+export const CheckBox = ({ checked, onClick, ...props }: Props) => {
   return (
-    <Container className={className}>
+    <Container>
       <DisableBox
         type="checkbox"
         defaultChecked={checked}

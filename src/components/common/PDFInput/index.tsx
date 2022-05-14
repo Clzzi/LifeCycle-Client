@@ -1,7 +1,7 @@
 import React, { ChangeEvent, CSSProperties, RefObject, useRef } from 'react';
-import { Loader } from 'src/core/styles/shareStyle';
 import styled from 'styled-components';
 import { Label } from '../Label';
+import ResumeUtil from 'src/core/utils/resume';
 
 interface Props {
   placeholder: string;
@@ -106,7 +106,8 @@ const Input = styled.label`
     width: 24px;
     height: 24px;
     background-size: 24px;
-    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/PDFUpload.svg');
+    background-image: ${() =>
+      `url(${ResumeUtil.makeS3Url('/assets/PDFUpload.svg')})`};
   }
 `;
 

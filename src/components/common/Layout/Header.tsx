@@ -1,10 +1,12 @@
 import { NextRouter, useRouter } from 'next/router';
-import { useCallback, useState } from 'react';
+import { KeyboardEvent, useCallback, useState } from 'react';
 import { handleProfileImg } from 'src/core/utils/style';
 import styled from 'styled-components';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import { useClickAway } from 'src/core/hooks/useClickAway';
 import TokenUtil from 'src/core/utils/token';
+import ResumeUtil from 'src/core/utils/resume';
+import { dragNone } from 'src/core/styles/styleMoudle';
 
 export const Header = () => {
   const router: NextRouter = useRouter();
@@ -12,12 +14,12 @@ export const Header = () => {
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
   const ref = useClickAway<HTMLDivElement>(() => setIsVisibleModal(false));
 
-  const onClickSetting = useCallback(() => {
+  const onClickSetting = useCallback((): void => {
     router.push('/profile');
     setIsVisibleModal(false);
   }, [router]);
 
-  const onClickLogOut = useCallback(() => {
+  const onClickLogOut = useCallback((): void => {
     router.push('/');
     TokenUtil.remove();
     setIsVisibleModal(false);
@@ -27,14 +29,24 @@ export const Header = () => {
   return (
     <Wrapper>
       <Container>
-        <Logo onClick={() => router.push('/')} />
+        <Logo
+          onClick={() => router.push('/')}
+          tabIndex={0}
+          onKeyPress={(e: KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === ' ') router.push('/');
+          }}
+        />
         <div ref={ref} className="refDiv">
           {userInfo.generation ? (
             <Profile
+              tabIndex={0}
               width="60px"
               height="60px"
               generation={userInfo.generation}
               onClick={() => setIsVisibleModal(!isVisibleModal)}
+              onKeyPress={(e: KeyboardEvent<HTMLDivElement>) => {
+                if (e.key === ' ') setIsVisibleModal(!isVisibleModal);
+              }}
             />
           ) : (
             <DefaultProfile onClick={() => router.push('/login')} />
@@ -54,12 +66,22 @@ export const Header = () => {
                 </div>
               </InfoProfile>
 
-              <InfoSetting onClick={onClickSetting}>
+              <InfoSetting
+                onClick={onClickSetting}
+                tabIndex={0}
+                onKeyPress={(e: KeyboardEvent<HTMLDivElement>) => {
+                  if (e.key === ' ') onClickSetting();
+                }}>
                 <div />
                 <span>설정</span>
               </InfoSetting>
 
-              <LogOut onClick={onClickLogOut}>
+              <LogOut
+                onClick={onClickLogOut}
+                tabIndex={0}
+                onKeyPress={(e: KeyboardEvent<HTMLDivElement>) => {
+                  if (e.key === ' ') onClickSetting();
+                }}>
                 <div />
                 <span>로그아웃</span>
               </LogOut>
@@ -106,7 +128,7 @@ const Container = styled.div`
 const Logo = styled.div`
   width: 132px;
   height: 38.87px;
-  background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/Logo.svg');
+  background-image: ${() => `url(${ResumeUtil.makeS3Url('/assets/Logo.svg')})`};
   background-repeat: no-repeat;
   cursor: pointer;
 `;
@@ -114,7 +136,8 @@ const Logo = styled.div`
 const DefaultProfile = styled.div`
   width: 60px;
   height: 60px;
-  background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/unsigned-profile.svg');
+  background-image: ${() =>
+    `url(${ResumeUtil.makeS3Url('/assets/unsigned-profile.svg')})`};
   background-size: 60px;
   background-repeat: no-repeat;
   background-position: center center;
@@ -122,6 +145,7 @@ const DefaultProfile = styled.div`
 `;
 
 const Info = styled.div`
+  ${dragNone};
   width: 200px;
   height: fit-content;
   border-radius: 4px;
@@ -175,7 +199,8 @@ const InfoSetting = styled.div`
     background-color: ${({ theme }) => theme.colors.Gray900};
   }
   & > div {
-    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/Settings.svg');
+    background-image: ${() =>
+      `url(${ResumeUtil.makeS3Url('/assets/Settings.svg')})`};
     background-size: 24px;
     width: 24px;
     height: 24px;
@@ -202,7 +227,8 @@ const LogOut = styled.div`
     background-color: ${({ theme }) => theme.colors.Gray900};
   }
   & > div {
-    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/LogOut.svg');
+    background-image: ${() =>
+      `url(${ResumeUtil.makeS3Url('/assets/LogOut.svg')})`};
     background-size: 24px;
     width: 24px;
     height: 24px;

@@ -10,6 +10,7 @@ import customAxios from '../libs/axios/customAxios';
 import TokenUtil from 'src/core/utils/token';
 import Auth from 'src/core/apis/auth/auth.api';
 import { Response } from 'src/types/common.type';
+import { TokenReissuanceResponse } from '../apis/auth/auth.param';
 
 export const useAxiosInterceptor = () => {
   const { fireToast } = useToast();
@@ -34,7 +35,7 @@ export const useAxiosInterceptor = () => {
 
       if (decode.exp < nowDate) {
         try {
-          const data: any = await Auth.tokenReissuance({
+          const data: TokenReissuanceResponse = await Auth.tokenReissuance({
             refreshToken: usingRefreshToken,
           });
           TokenUtil.set(ACCESS_TOKEN_KEY, data.data);

@@ -22,7 +22,7 @@ export const ResumeDetailSkeleton = () => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.main`
   width: 100vw;
   padding: 0px 215px;
   height: 100vh;
@@ -34,7 +34,7 @@ const Container = styled.section`
   max-width: 1200px;
 `;
 
-const Info = styled.div`
+const Info = styled.article`
   width: 100%;
   height: 22%;
   display: flex;
@@ -104,7 +104,7 @@ const Tag = styled.div<{ width: string }>`
   border-radius: 4px;
 `;
 
-const Contents = styled.div`
+const Contents = styled.section`
   width: 100%;
   height: 70%;
   background-color: 'transparent';
