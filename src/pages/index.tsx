@@ -166,13 +166,13 @@ const Main = (): JSX.Element => {
   );
 };
 
-// TODO: E2E 테스트
-// TODO: 최적화
-// TODO: SEO
+// TODO: E2E 테스트 -> 마지막에
+// TODO: 최적화 -> 마지막에
+// TODO: 웹표준 및 웹접근성 -> 지금
 
 export default Main;
 
-const Container = styled.section`
+const Container = styled.div`
   width: 100%;
   max-width: 1920px;
   padding: 0px 215px;

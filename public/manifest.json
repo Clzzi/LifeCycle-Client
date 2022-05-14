@@ -1,0 +1,21 @@
+{
+  "name": "lifecycle",
+  "short_name": "lifecycle",
+  "icons": [
+    {
+      "src": "https://s3.console.aws.amazon.com/s3/object/lifecycle-s3?region=ap-northeast-2&prefix=assets/Favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://s3.console.aws.amazon.com/s3/object/lifecycle-s3?region=ap-northeast-2&prefix=assets/Favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "dispaly": "standlone",
+  "orientation": "landscape",
+  "background_color": "#000",
+  "theme_color": "#000",
+  "start_url": "/"
+}
