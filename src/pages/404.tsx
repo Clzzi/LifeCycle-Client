@@ -1,6 +1,6 @@
 import { NextRouter, useRouter } from 'next/router';
-import { Button } from 'src/components/common/Button';
 import { theme } from 'src/core/styles/theme';
+import Button from 'src/components/common/Button';
 import styled from 'styled-components';
 
 const NotFound = () => {

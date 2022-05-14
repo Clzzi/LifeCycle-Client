@@ -12,11 +12,11 @@ import { NextRouter, useRouter } from 'next/router';
 import { infoAtom } from 'src/core/store/auth.store';
 import { Title } from 'src/components/common/Title';
 import { Input } from 'src/components/common/Input';
-import { Button } from 'src/components/common/Button';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { useToast } from 'src/core/hooks/useToast';
 import { dragNone } from 'src/core/styles/styleMoudle';
+import Button from 'src/components/common/Button';
 
 const Login: NextPage = () => {
   const router: NextRouter = useRouter();

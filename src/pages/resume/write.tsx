@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
 import { NextRouter, useRouter } from 'next/router';
-import { Button } from 'src/components/common/Button';
+import Button from 'src/components/common/Button';
 import { ImageInput } from 'src/components/common/ImageInput';
 import { Input } from 'src/components/common/Input';
 import { Label } from 'src/components/common/Label';
 import { PDFInput } from 'src/components/common/PDFInput';
-import { SelectBox } from 'src/components/common/SelectBox';
+import SelectBox from 'src/components/common/SelectBox';
 import { Title } from 'src/components/common/Title';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { STACK_LIST } from 'src/core/constants/filter.constants';

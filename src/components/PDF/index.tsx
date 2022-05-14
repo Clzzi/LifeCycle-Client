@@ -5,7 +5,7 @@ import useResize from 'src/core/hooks/useResize';
 import ResumeUtil from 'src/core/utils/resume';
 import { pdfjs } from 'react-pdf';
 
-export const PDF = ({ file }: { file: string }) => {
+const PDF = ({ file }: { file: string }) => {
   const { size } = useResize();
   const [numPages, setNumPages] = useState<number>(0);
 
@@ -34,6 +34,8 @@ export const PDF = ({ file }: { file: string }) => {
     </Wrapper>
   );
 };
+
+export default PDF;
 
 const Wrapper = styled.main`
   max-width: 1200px;

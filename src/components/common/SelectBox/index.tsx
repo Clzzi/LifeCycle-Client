@@ -24,7 +24,7 @@ interface Props {
   value: number | undefined | string;
 }
 
-export const SelectBox = ({
+const SelectBox = ({
   content,
   backgroundColor = 'transparent',
   border = `2px solid ${theme.colors.Main1}`,
@@ -61,6 +61,8 @@ export const SelectBox = ({
     </Wrapper>
   );
 };
+
+export default SelectBox;
 
 const Wrapper = styled.div`
   ${dragNone};

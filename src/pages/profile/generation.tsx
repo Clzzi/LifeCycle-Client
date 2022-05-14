@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Label } from 'src/components/common/Label';
 import { ProfileEdit } from 'src/components/common/ProfileEdit';
-import { SelectBox } from 'src/components/common/SelectBox';
+import SelectBox from 'src/components/common/SelectBox';
 import userApi from 'src/core/apis/user/user.api';
 import { GENERATION_LIST } from 'src/core/constants/filter.constants';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';

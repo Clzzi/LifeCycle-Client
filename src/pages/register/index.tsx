@@ -1,6 +1,5 @@
 import { NextRouter, useRouter } from 'next/router';
 import React, { ChangeEvent, useState } from 'react';
-import { Button } from 'src/components/common/Button';
 import { CheckBox } from 'src/components/common/CheckBox';
 import { Input } from 'src/components/common/Input';
 import { Modal } from 'src/components/common/Modal';
@@ -14,6 +13,7 @@ import { Label } from 'src/components/common/Label';
 import { RegisterValues } from 'src/types/auth.type';
 import { convertRegisterDto } from 'src/core/utils/auth';
 import { useToast } from 'src/core/hooks/useToast';
+import Button from 'src/components/common/Button';
 import { dragNone } from 'src/core/styles/styleMoudle';
 
 const Register = () => {

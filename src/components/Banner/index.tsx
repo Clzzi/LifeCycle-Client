@@ -3,7 +3,7 @@ import ResumeUtil from 'src/core/utils/resume';
 import { pxToRem } from 'src/core/utils/style';
 import styled from 'styled-components';
 
-export const Banner = () => {
+const Banner = () => {
   return (
     <StyledBanner>
       <Wrapper>
@@ -21,6 +21,8 @@ export const Banner = () => {
     </StyledBanner>
   );
 };
+
+export default Banner;
 
 const StyledBanner = styled.aside`
   ${dragNone};

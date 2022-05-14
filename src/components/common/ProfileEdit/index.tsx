@@ -2,7 +2,7 @@ import { NextRouter, useRouter } from 'next/router';
 import { CSSProperties, ReactNode } from 'react';
 import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
-import { Button } from '../Button';
+import Button from '../Button';
 import { Title } from '../Title';
 
 interface Props {

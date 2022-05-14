@@ -4,20 +4,22 @@ import {
 } from 'src/core/constants/filter.constants';
 import { NextRouter, useRouter } from 'next/router';
 import { Card } from 'src/components/common/Card';
-import { Button } from 'src/components/common/Button';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
-import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
 import { ChangeEvent, useState } from 'react';
-import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import ResumeUtil from 'src/core/utils/resume';
-import { Banner } from 'src/components/Banner';
 import ResumeCard from 'src/components/Skeleton/ResumeCard';
-import { ScrollTop } from 'src/components/common/ScrollTop';
+import dynamic from 'next/dynamic';
+import { useGetInfo } from 'src/core/hooks/useGetInfo';
+
+const SelectBox = dynamic(() => import('src/components/common/SelectBox'));
+const Button = dynamic(() => import('src/components/common/Button'));
+const Banner = dynamic(() => import('src/components/Banner'));
+const ScrollTop = dynamic(() => import('src/components/common/ScrollTop'));
 
 interface Filter {
   stackFilter: number;
@@ -165,10 +167,6 @@ const Main = (): JSX.Element => {
     </>
   );
 };
-
-// TODO: E2E 테스트 -> 마지막에
-// TODO: 최적화 -> 마지막에
-// TODO: 웹표준 및 웹접근성 -> 지금
 
 export default Main;
 

@@ -16,7 +16,7 @@ interface Props {
   isLoading?: boolean;
 }
 
-export const Button = ({
+const Button = ({
   content,
   backgroundColor,
   borderRadius,
@@ -46,6 +46,8 @@ export const Button = ({
     </StyledButton>
   );
 };
+
+export default Button;
 
 const StyledButton = styled.button`
   ${dragNone};

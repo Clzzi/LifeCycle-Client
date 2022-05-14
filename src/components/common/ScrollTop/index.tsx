@@ -8,7 +8,7 @@ interface Props {
   onClick: () => void;
 }
 
-export const ScrollTop = ({ visible, onClick }: Props) => {
+const ScrollTop = ({ visible, onClick }: Props) => {
   const [focusVisible, setFocusVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -32,6 +32,8 @@ export const ScrollTop = ({ visible, onClick }: Props) => {
     </Wrapper>
   );
 };
+
+export default ScrollTop;
 
 const Wrapper = styled.div`
   width: fit-content;

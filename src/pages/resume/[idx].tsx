@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 import { ResumeInfo } from 'src/components/ResumeInfo';
-import { PDF } from 'src/components/PDF';
 import { GetStaticProps } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 import { useScrollTop } from 'src/core/hooks/useScrollTop';
-import { ScrollTop } from 'src/components/common/ScrollTop';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { AResumeResponse } from 'src/core/apis/resume/resume.param';
@@ -14,6 +12,10 @@ import { useRecoilValue } from 'recoil';
 import { infoAtom } from 'src/core/store/auth.store';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { ResumeDetailSkeleton } from 'src/components/Skeleton/ResumeDetail';
+import dynamic from 'next/dynamic';
+
+const PDF = dynamic(() => import('src/components/PDF'));
+const ScrollTop = dynamic(() => import('src/components/common/ScrollTop'));
 
 const Resume = ({ idx }: { idx: number }) => {
   useCheckLogin();
