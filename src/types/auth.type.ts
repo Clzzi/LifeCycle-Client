@@ -1,3 +1,5 @@
+import { IResume } from './resume.type';
+
 export interface RegisterValues {
   id: string | undefined;
   pw: string | undefined;
@@ -20,15 +22,7 @@ export interface IUser {
   userId: string;
   name: string;
   generation: number;
-  resume: {
-    idx: number;
-    createdAt: string;
-    title: string;
-    company: string;
-    stack: string;
-    thumbnail: string;
-    content: string;
-  };
+  resume: Omit<IResume, 'user'>;
 }
 
 export interface ILogin extends IToken {

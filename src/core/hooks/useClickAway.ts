@@ -10,8 +10,9 @@ export const useClickAway = <T extends HTMLElement>(
   useEffect(() => {
     savedHandler.current = handler;
   }, [handler]);
+
   useEffect(() => {
-    const el = ref.current;
+    const el: T | null = ref.current;
     const handleEvent = (e: Event): void => {
       if (el && !el.contains(e.target as Node)) savedHandler.current(e);
     };

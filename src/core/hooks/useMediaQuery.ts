@@ -1,15 +1,9 @@
 import { useEffect, useState } from 'react';
 import { TMediaQuerySize } from '../constants/media.constants';
-
-const makeQuery = (size: number, type: TMediaQuerySize): string => {
-  if (type === 'max') {
-    return `(max-width: ${size}px)`;
-  }
-  return `(min-width:${size}px)`;
-};
+import { makeMediaQuery } from '../utils/style';
 
 export const useMediaQuery = (size: number, type: TMediaQuerySize) => {
-  const query: string = makeQuery(size, type);
+  const query: string = makeMediaQuery(size, type);
   const [matches, setMatches] = useState<boolean>(false);
 
   useEffect(() => {
