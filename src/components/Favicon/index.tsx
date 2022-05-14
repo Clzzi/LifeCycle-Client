@@ -38,6 +38,11 @@ const Favicon = () => {
         rel="dns-prefetch"
         href="https://lifecycle-s3.s3.ap-northeast-2.amazonaws.com"
       />
+      <link rel="preconnect" href="http://34.125.196.189:8080" />
+      <link
+        rel="preconnect"
+        href="https://lifecycle-s3.s3.ap-northeast-2.amazonaws.com"
+      />
     </>
   );
 };
