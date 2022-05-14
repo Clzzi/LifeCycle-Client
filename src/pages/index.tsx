@@ -7,7 +7,6 @@ import { Card } from 'src/components/common/Card';
 import { Button } from 'src/components/common/Button';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { useScrollTop } from 'src/core/hooks/useScrollTop';
-import { ScrollTop } from 'src/components/common/ScrollTop';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { SelectBox } from 'src/components/common/SelectBox';
 import styled, { DefaultTheme, useTheme } from 'styled-components';
@@ -18,6 +17,7 @@ import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import ResumeUtil from 'src/core/utils/resume';
 import { Banner } from 'src/components/Banner';
 import ResumeCard from 'src/components/Skeleton/ResumeCard';
+import { ScrollTop } from 'src/components/common/ScrollTop';
 
 interface Filter {
   stackFilter: number;
