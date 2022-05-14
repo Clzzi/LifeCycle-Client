@@ -2,6 +2,7 @@ import React, { ChangeEvent, CSSProperties, RefObject, useRef } from 'react';
 import { Loader } from 'src/core/styles/shareStyle';
 import styled from 'styled-components';
 import { Label } from '../Label';
+import ResumeUtil from 'src/core/utils/resume';
 
 interface Props {
   width?: string;
@@ -52,6 +53,7 @@ export const ImageInput = ({
     color,
     border,
   };
+
   if (isLoading) {
     return (
       <LoadingWrapper style={style}>
@@ -97,7 +99,7 @@ const Input = styled.label`
     width: 100px;
     height: 100px;
     background-size: 100px;
-    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/ImageUpLoad.svg');
+    background-image: ${() => `url(${ResumeUtil.makeS3Url('/assets/ImageUpLoad.svg')})`};
   }
 `;
 

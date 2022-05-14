@@ -1,6 +1,8 @@
 import { ChangeEvent, CSSProperties } from 'react';
 import { theme } from 'src/core/styles/theme';
 import styled from 'styled-components';
+import ResumeUtil from 'src/core/utils/resume';
+import { dragNone } from 'src/core/styles/styleMoudle';
 
 interface Options {
   name: string;
@@ -61,6 +63,7 @@ export const SelectBox = ({
 };
 
 const Wrapper = styled.div`
+  ${dragNone};
   position: relative;
   display: flex;
   flex-direction: row;
@@ -83,7 +86,8 @@ const Icon = styled.div`
   width: 14px;
   height: 8px;
   margin-right: 4px;
-  background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/SelectBoxArrow.svg');
+  background-image: ${() =>
+    `url(${ResumeUtil.makeS3Url('/assets/SelectBoxArrow.svg')})`};
   background-repeat: no-repeat;
   cursor: pointer;
 `;

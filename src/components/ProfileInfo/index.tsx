@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ResumeUtil from 'src/core/utils/resume';
 
 interface Content {
   title: string;
@@ -35,7 +36,7 @@ export const ProfileInfo = ({ contents, title }: Props) => {
   );
 };
 
-const Board = styled.div`
+const Board = styled.main`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -59,7 +60,7 @@ const Title = styled.div`
   padding: 10px 20px;
 `;
 
-const ContentBoard = styled.div`
+const ContentBoard = styled.section`
   width: 100%;
   height: 72px;
   padding: 23px 12px 23px 20px;
@@ -128,7 +129,7 @@ const Link = styled.a`
   text-align: end;
   color: ${({ theme }) => theme.colors.Main2};
   &::after {
-    content: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/RightArrow.svg');
+    content: ${() => `url(${ResumeUtil.makeS3Url('/assets/RightArrow.svg')})`};
     width: 24px;
     height: 24px;
     vertical-align: middle;

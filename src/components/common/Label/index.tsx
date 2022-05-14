@@ -1,4 +1,5 @@
 import { HTMLAttributes, ReactNode } from 'react';
+import { dragNone } from 'src/core/styles/styleMoudle';
 import styled, { CSSProperties } from 'styled-components';
 
 interface Props extends HTMLAttributes<HTMLInputElement> {
@@ -20,6 +21,7 @@ export const Label = ({ children, message, fontSize, customStyle }: Props) => {
 };
 
 const Container = styled.div`
+  ${dragNone};
   display: flex;
   flex-direction: column;
   width: 100%;

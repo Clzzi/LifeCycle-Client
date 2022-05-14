@@ -5,7 +5,7 @@ import useResize from 'src/core/hooks/useResize';
 import { useToast } from 'src/core/hooks/useToast';
 import { Tag } from 'src/core/styles/shareStyle';
 import { theme } from 'src/core/styles/theme';
-import resume from 'src/core/utils/resume';
+import ResumeUtil from 'src/core/utils/resume';
 import { handleProfileImg } from 'src/core/utils/style';
 import styled from 'styled-components';
 import { Button } from '../common/Button';
@@ -34,7 +34,7 @@ export const ResumeInfo = ({
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
 
-  const handleDeleteResume = useCallback(async () => {
+  const handleDeleteResume = useCallback(async (): Promise<void> => {
     try {
       setDeleteLoading(true);
       await resumeApi.deleteResume();
@@ -59,9 +59,11 @@ export const ResumeInfo = ({
               {isMyResume ? (
                 <Buttons>
                   <Button
-                    width={resume.calculateResumeInfoButtonWidth(size.width)[0]}
+                    width={
+                      ResumeUtil.calculateResumeInfoButtonWidth(size.width)[0]
+                    }
                     height={
-                      resume.calculateResumeInfoButtonWidth(size.width)[1]
+                      ResumeUtil.calculateResumeInfoButtonWidth(size.width)[1]
                     }
                     content="수정"
                     fontSize={theme.fonts.font14}
@@ -71,9 +73,11 @@ export const ResumeInfo = ({
                     handleClick={() => router.push('/resume/edit')}
                   />
                   <Button
-                    width={resume.calculateResumeInfoButtonWidth(size.width)[0]}
+                    width={
+                      ResumeUtil.calculateResumeInfoButtonWidth(size.width)[0]
+                    }
                     height={
-                      resume.calculateResumeInfoButtonWidth(size.width)[1]
+                      ResumeUtil.calculateResumeInfoButtonWidth(size.width)[1]
                     }
                     content="삭제"
                     fontSize={theme.fonts.font14}
@@ -94,7 +98,7 @@ export const ResumeInfo = ({
           <Tag
             type="GENERATION"
             maxWidth="330px"
-            height={resume.calculateResumeInfoTagHeight(size.width)}
+            height={ResumeUtil.calculateResumeInfoTagHeight(size.width)}
             padding="0px 34px"
             borderRadius="4px"
             fontSize={theme.fonts.font16}>
@@ -103,7 +107,7 @@ export const ResumeInfo = ({
           <Tag
             type="STACK"
             maxWidth="330px"
-            height={resume.calculateResumeInfoTagHeight(size.width)}
+            height={ResumeUtil.calculateResumeInfoTagHeight(size.width)}
             padding="0px 34px"
             borderRadius="4px"
             fontSize={theme.fonts.font16}>
@@ -112,7 +116,7 @@ export const ResumeInfo = ({
           <Tag
             type="COMPANY"
             maxWidth="330px"
-            height={resume.calculateResumeInfoTagHeight(size.width)}
+            height={ResumeUtil.calculateResumeInfoTagHeight(size.width)}
             padding="0px 34px"
             borderRadius="4px"
             fontSize={theme.fonts.font16}>
@@ -120,6 +124,7 @@ export const ResumeInfo = ({
           </Tag>
         </Tags>
       </Wrapper>
+
       <Modal
         onClose={() => setModalVisible(false)}
         visible={modalVisible}
@@ -160,7 +165,7 @@ export const ResumeInfo = ({
   );
 };
 
-const ModalContainer = styled.section`
+const ModalContainer = styled.article`
   width: 100%;
   height: 100%;
   display: flex;
@@ -190,8 +195,8 @@ const Desc = styled.div`
   margin-bottom: 26px;
 `;
 
-const Wrapper = styled.div<{ width: number }>`
-  width: ${(props) => resume.calculatePDFWidth(props.width)}px;
+const Wrapper = styled.main<{ width: number }>`
+  width: ${(props) => ResumeUtil.calculatePDFWidth(props.width)}px;
   max-width: 1200px;
   display: flex;
   flex-direction: column;
@@ -204,7 +209,7 @@ const Wrapper = styled.div<{ width: number }>`
   }
 `;
 
-const ProfileAndBtns = styled.div`
+const ProfileAndBtns = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -236,7 +241,7 @@ const Profile = styled.div<{ generation: number }>`
   }
 `;
 
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

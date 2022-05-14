@@ -1,3 +1,5 @@
+import { dragNone } from 'src/core/styles/styleMoudle';
+import ResumeUtil from 'src/core/utils/resume';
 import { pxToRem } from 'src/core/utils/style';
 import styled from 'styled-components';
 
@@ -20,11 +22,13 @@ export const Banner = () => {
   );
 };
 
-const StyledBanner = styled.article`
+const StyledBanner = styled.aside`
+  ${dragNone};
   width: 100%;
   height: 256px;
-  background: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/Banner.svg')
-    no-repeat;
+  background-image: ${() =>
+    `url(${ResumeUtil.makeS3Url('/assets/Banner.svg')})`};
+  background-repeat: no-repeat;
   background-position: center center;
   cursor: pointer;
   margin: -4px 0px 32px 0px;
@@ -43,7 +47,7 @@ const StyledBanner = styled.article`
   }
 `;
 
-const Wrapper = styled.section`
+const Wrapper = styled.div`
   width: 100%;
   max-width: 1920px;
   display: flex;

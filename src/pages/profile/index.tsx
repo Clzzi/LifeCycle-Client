@@ -1,11 +1,13 @@
 import { ProfileInfo } from 'src/components/ProfileInfo';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
+import { dragNone } from 'src/core/styles/styleMoudle';
 import styled from 'styled-components';
 
 const Profile = () => {
   useCheckLogin();
   const { userInfo } = useGetInfo();
+
   return (
     <Wrapper>
       <Container>
@@ -44,6 +46,7 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.main`
+  ${dragNone};
   width: 780px;
   display: flex;
   flex-direction: column;

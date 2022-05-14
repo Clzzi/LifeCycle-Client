@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useKeyDown } from 'src/core/hooks/useKeyDown';
+import ResumeUtil from 'src/core/utils/resume';
 
 interface Props {
   visible: boolean;
@@ -59,7 +60,8 @@ const ScrollBtn = styled.div`
   & > div {
     width: 24px;
     height: 24px;
-    background-image: url('http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/assets/UpArrow.svg');
+    background-image: ${() =>
+      `url(${ResumeUtil.makeS3Url('/assets/UpArrow.svg')})`};
   }
 `;
 
