@@ -46,12 +46,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
             rel="stylesheet"
           />
-          <meta charSet="utf-8" />
-          <link rel="dns-prefetch" href="http://34.125.196.189:8080" />
-          <link
-            rel="dns-prefetch"
-            href="https://lifecycle-s3.s3.ap-northeast-2.amazonaws.com"
-          />
         </Head>
         <body>
           <Main />

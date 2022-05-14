@@ -32,6 +32,12 @@ const Favicon = () => {
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="author" content="Clzzi" />
       <meta name="keywords" content="개발자, 포트폴리오, 이력서, 대소고" />
+      <meta charSet="utf-8" />
+      <link rel="dns-prefetch" href="http://34.125.196.189:8080" />
+      <link
+        rel="dns-prefetch"
+        href="https://lifecycle-s3.s3.ap-northeast-2.amazonaws.com"
+      />
     </>
   );
 };
