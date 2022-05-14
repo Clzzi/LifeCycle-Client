@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
@@ -9,6 +8,9 @@ import React, { useState } from 'react';
 import { RecoilRoot } from 'recoil';
 import { Toast } from 'src/components/common/Toast';
 import { pdfjs } from 'react-pdf';
+import { DefaultSeo } from 'next-seo';
+import { DEFAULT_SEO } from 'src/core/constants/seo.constants';
+import Favicon from 'src/components/Favicon';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -18,10 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <title>lifecycle</title>
-        </Head>
+        <Favicon />
+        <DefaultSeo {...DEFAULT_SEO} />
         <RecoilRoot>
           <ThemeProvider theme={theme}>
             <Layout>

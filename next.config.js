@@ -1,12 +1,14 @@
 /** @type {import('next').NextConfig} */
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: false,
   assetPrefix:
-    process.env.NEXT_PUBLIC_NODE_ENV === 'production'
-      ? 'http://lifecycle.kro.kr'
-      : '',
+    process.env.NODE_ENV === 'production' ? 'http://lifecycle.kro.kr' : '',
   webpack(conf) {
     conf.module.rules.push({
       test: /\.svg$/,
@@ -21,4 +23,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer({ nextConfig });

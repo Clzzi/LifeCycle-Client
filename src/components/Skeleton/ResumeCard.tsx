@@ -8,9 +8,9 @@ const ResumeCard = () => {
       <Content>
         <Text />
         <Tags>
-          <Tag width="120px" />
-          <Tag width="100px" />
-          <Tag width="80px" />
+          <Tag width="120px" data-name="width" />
+          <Tag width="100px" data-name="width" />
+          <Tag width="80px" data-name="width" />
         </Tags>
       </Content>
     </Wrapper>
