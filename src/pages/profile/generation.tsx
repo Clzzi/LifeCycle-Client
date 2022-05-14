@@ -41,7 +41,7 @@ const EditGeneration = () => {
         if (generation !== undefined && generation === 0) {
           errors.generation = '바꿀 기수를 선택해주세요';
         }
-        return errors;
+        return {...errors};
       },
     });
 

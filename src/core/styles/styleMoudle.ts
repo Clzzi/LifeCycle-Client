@@ -1,10 +1,9 @@
-import { css, FlattenSimpleInterpolation, keyframes } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 
 export const fadeIn = keyframes`
   0% {
   opacity: 0;
   }
-
   100% {
     opacity: 1;
   }
@@ -14,7 +13,6 @@ export const fadeOut = keyframes`
   0% {
   opacity: 1;
   }
-
   100% {
     opacity: 0;
   }
@@ -24,7 +22,6 @@ export const showLeftToRight = keyframes`
   0% {
   width: 0%;
   }
-
   100% {
     width: 100%;
   }
@@ -45,17 +42,15 @@ export const skeletonAnimation = keyframes`
     0% {
         background-color: rgba(255,255,255,0.1);
     }
-
     50% {
         background-color: rgba(255,255,255,0.2);
     }
-
     100% {
         background-color: rgba(255,255,255,0.1);
     }
 `;
 
-export const ellipsisLine = (line: number): FlattenSimpleInterpolation => css`
+export const ellipsisLine = (line: number) => css`
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;

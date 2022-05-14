@@ -36,7 +36,7 @@ export const PDF = ({ file }: { file: string }) => {
   );
 };
 
-const Wrapper = styled.section`
+const Wrapper = styled.main`
   ${dragNone}
   max-width: 1200px;
   height: fit-content;

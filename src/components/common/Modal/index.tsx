@@ -32,7 +32,7 @@ export const Modal = ({
   }, [width, height, borderRadius, backgroundColor, customStyle]);
 
   useEffect(() => {
-    if (visible === true) {
+    if (visible) {
       document.body.style.cssText = `
         position: fixed; 
         top: -${window.scrollY}px;

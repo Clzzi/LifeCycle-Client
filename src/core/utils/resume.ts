@@ -49,12 +49,17 @@ class ResumeUtil {
     }
   }
 
+  makeS3Url(path: string): string {
+    return `http://lifecycle-s3.s3.ap-northeast-2.amazonaws.com${path}`;
+  }
+
   filterResume(
     generation: number,
     stack: number,
     resumes: IResume[],
   ): IResume[] {
     let data: IResume[] = resumes;
+
     if (generation > 0) {
       const filteredData: IResume[] = data.filter(
         (v) => v.user.generation === generation,

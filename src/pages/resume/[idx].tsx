@@ -9,7 +9,7 @@ import { dehydrate, QueryClient, useQuery } from 'react-query';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { AResumeResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { infoAtom } from 'src/core/store/auth.store';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
@@ -20,8 +20,8 @@ const Resume = ({ idx }: { idx: number }) => {
   const router: NextRouter = useRouter();
   const userInfo = useRecoilValue(infoAtom);
   const [isIdx, setIsIdx] = useState<boolean>(false);
-  const [isMyResume, setIsMyResume] = useState<boolean>(false);
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
+  const [isMyResume, setIsMyResume] = useState<boolean>(false);
 
   useEffect(() => {
     if (idx) {
@@ -42,7 +42,7 @@ const Resume = ({ idx }: { idx: number }) => {
     },
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (data?.user.userId === userInfo.userId) {
       setIsMyResume(true);
     } else {
@@ -50,13 +50,8 @@ const Resume = ({ idx }: { idx: number }) => {
     }
   }, [data?.user.userId, userInfo.userId]);
 
-  if (isLoading) {
-    return <ResumeDetailSkeleton />;
-  }
-
-  if (error) {
-    router.push('/404');
-  }
+  if (isLoading) return <ResumeDetailSkeleton />;
+  if (error) router.push('/404');
 
   return (
     <Wrapper>
