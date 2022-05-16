@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { handleTagColor } from '../utils/style';
 import { loading } from './styleMoudle';
 

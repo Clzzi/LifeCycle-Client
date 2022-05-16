@@ -13,15 +13,16 @@ import { infoAtom } from 'src/core/store/auth.store';
 import { Title } from 'src/components/common/Title';
 import { Input } from 'src/components/common/Input';
 import { Error, useForm } from 'src/core/hooks/useForm';
-import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { useToast } from 'src/core/hooks/useToast';
 import { dragNone } from 'src/core/styles/styleMoudle';
 import Button from 'src/components/common/Button';
+import { Theme, useTheme } from '@emotion/react';
+import styled from '@emotion/styled';
 
 const Login: NextPage = () => {
   const router: NextRouter = useRouter();
   const { fireToast } = useToast();
-  const theme: DefaultTheme = useTheme();
+  const theme: Theme = useTheme();
   const setUserInfo = useSetRecoilState(infoAtom);
   const { isLoading, values, errors, setValues, handleSubmit } =
     useForm<LoginValues>({

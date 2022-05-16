@@ -11,7 +11,7 @@ import { Error, useForm } from 'src/core/hooks/useForm';
 import { useToast } from 'src/core/hooks/useToast';
 import { infoAtom } from 'src/core/store/auth.store';
 import { theme } from 'src/core/styles/theme';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 interface Values {
   generation: number | undefined;

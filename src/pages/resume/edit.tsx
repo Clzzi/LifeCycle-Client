@@ -18,7 +18,7 @@ import { useToast } from 'src/core/hooks/useToast';
 import { infoAtom } from 'src/core/store/auth.store';
 import { theme } from 'src/core/styles/theme';
 import ResumeUtil from 'src/core/utils/resume';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 interface Values {
   title: string | undefined;

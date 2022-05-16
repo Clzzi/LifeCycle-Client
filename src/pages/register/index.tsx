@@ -8,18 +8,19 @@ import authApi from 'src/core/apis/auth/auth.api';
 import { TERM_MESSAGE } from 'src/core/constants/register.constants';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { UnderLineText } from 'src/core/styles/shareStyle';
-import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { Label } from 'src/components/common/Label';
 import { RegisterValues } from 'src/types/auth.type';
 import { convertRegisterDto } from 'src/core/utils/auth';
 import { useToast } from 'src/core/hooks/useToast';
 import Button from 'src/components/common/Button';
 import { dragNone } from 'src/core/styles/styleMoudle';
+import { Theme, useTheme } from '@emotion/react';
+import styled from '@emotion/styled';
 
 const Register = () => {
   const { fireToast } = useToast();
   const router: NextRouter = useRouter();
-  const theme: DefaultTheme = useTheme();
+  const theme: Theme = useTheme();
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
   const { values, errors, isLoading, setValues, handleSubmit } =
     useForm<RegisterValues>({

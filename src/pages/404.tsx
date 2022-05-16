@@ -1,7 +1,7 @@
 import { NextRouter, useRouter } from 'next/router';
 import { theme } from 'src/core/styles/theme';
 import Button from 'src/components/common/Button';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const NotFound = () => {
   const router: NextRouter = useRouter();

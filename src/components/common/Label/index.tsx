@@ -1,6 +1,6 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import styled from '@emotion/styled';
+import { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 import { dragNone } from 'src/core/styles/styleMoudle';
-import styled, { CSSProperties } from 'styled-components';
 
 interface Props extends HTMLAttributes<HTMLInputElement> {
   children: ReactNode;

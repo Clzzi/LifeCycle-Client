@@ -7,14 +7,19 @@ import { Card } from 'src/components/common/Card';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
-import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, memo, useCallback, useState } from 'react';
 import ResumeUtil from 'src/core/utils/resume';
 import ResumeCard from 'src/components/Skeleton/ResumeCard';
 import dynamic from 'next/dynamic';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
+// import ScrollTop from 'src/components/common/ScrollTop';
+// import Banner from 'src/components/Banner';
+// import Button from 'src/components/common/Button';
+// import SelectBox from 'src/components/common/SelectBox';
+import { Theme, useTheme } from '@emotion/react';
+import styled from '@emotion/styled';
 
 const SelectBox = dynamic(() => import('src/components/common/SelectBox'));
 const Button = dynamic(() => import('src/components/common/Button'));
@@ -29,7 +34,7 @@ interface Filter {
 const Main = (): JSX.Element => {
   const { userInfo } = useGetInfo();
   const router: NextRouter = useRouter();
-  const theme: DefaultTheme = useTheme();
+  const theme: Theme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
   const [filter, setFilter] = useState<Filter>({
     generationFilter: 0,
@@ -51,10 +56,10 @@ const Main = (): JSX.Element => {
     },
   });
 
-  const Cards = () => {
+  const Cards = useCallback(() => {
     return (
       <Contents>
-        {data?.map((v) => {
+        {data?.map((v: any) => {
           return (
             <Card
               key={v.idx}
@@ -70,9 +75,9 @@ const Main = (): JSX.Element => {
         })}
       </Contents>
     );
-  };
+  }, [data]);
 
-  const LoadingCards = () => {
+  const LoadingCards = useCallback(() => {
     return (
       <Contents>
         <ResumeCard />
@@ -86,15 +91,15 @@ const Main = (): JSX.Element => {
         <ResumeCard />
       </Contents>
     );
-  };
+  }, []);
 
-  const NoResume = () => {
+  const NoResume = useCallback(() => {
     return (
       <NoCard>
         <div>이력서가 없습니다</div>
       </NoCard>
     );
-  };
+  }, []);
 
   if (error) router.push('/404');
 
@@ -168,7 +173,7 @@ const Main = (): JSX.Element => {
   );
 };
 
-export default Main;
+export default memo(Main);
 
 const Container = styled.div`
   width: 100%;
@@ -194,6 +199,7 @@ const Wrapper = styled.div`
 
 const TopWrapper = styled.div`
   width: 100%;
+  height: 38px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -224,6 +230,7 @@ const SelectBoxes = styled.div`
 `;
 
 const Contents = styled.div`
+  min-height: 260px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(295px, 350px));
   grid-row-gap: 50px;
@@ -255,10 +262,9 @@ const NoCard = styled.div`
   }
 `;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery('resumes', () => resumeApi.getResumes());
-
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

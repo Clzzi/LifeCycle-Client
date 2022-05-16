@@ -22,7 +22,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      {visible && <Header />}
+      <Header visible={true} />
       {children}
     </>
   );

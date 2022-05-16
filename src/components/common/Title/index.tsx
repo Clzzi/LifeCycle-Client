@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import * as M from 'src/core/styles/styleMoudle';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { ChangeEvent, CSSProperties } from 'react';
 import { theme } from 'src/core/styles/theme';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import ResumeUtil from 'src/core/utils/resume';
 import { dragNone } from 'src/core/styles/styleMoudle';
 

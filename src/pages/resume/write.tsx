@@ -13,7 +13,7 @@ import { useCheckResume } from 'src/core/hooks/useCheckResume';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { theme } from 'src/core/styles/theme';
 import ResumeUtil from 'src/core/utils/resume';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { useToast } from 'src/core/hooks/useToast';
 import imageCompression from 'browser-image-compression';
 import { IMAGE_OPTIMIZE_OPTIONS } from 'src/core/constants/resume.constants';

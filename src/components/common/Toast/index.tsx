@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { toastAtom } from 'src/core/store/common.store';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { ToastItem } from './ToastItem';
 
 export const Toast = () => {

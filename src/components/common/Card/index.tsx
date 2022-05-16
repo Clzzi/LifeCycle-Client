@@ -3,7 +3,7 @@ import { Tag } from 'src/core/styles/shareStyle';
 import { ellipsisLine } from 'src/core/styles/styleMoudle';
 import { theme } from 'src/core/styles/theme';
 import { pxToRem } from 'src/core/utils/style';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 interface Props {
   thumbnail: string;
@@ -29,6 +29,7 @@ export const Card = ({
       <Image
         loader={() => thumbnail}
         blurDataURL={thumbnail}
+        unoptimized={true}
         placeholder="blur"
         src={thumbnail}
         width={350}
@@ -38,6 +39,7 @@ export const Card = ({
         className="thumbnail"
         objectPosition="top"
         priority
+        layout="fixed"
       />
       <Content>
         <Text>{title}</Text>
