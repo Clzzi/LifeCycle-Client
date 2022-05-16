@@ -27,7 +27,6 @@ export const Card = ({
   return (
     <Wrapper tabIndex={0} href={`/resume/${idx}`}>
       <Image
-        loader={() => thumbnail}
         blurDataURL={thumbnail}
         placeholder="blur"
         src={thumbnail}
