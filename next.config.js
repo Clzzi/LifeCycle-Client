@@ -6,7 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: false,
+  swcMinify: true,
   assetPrefix:
     process.env.NODE_ENV === 'production' ? 'http://lifecycle.kro.kr' : '',
   webpack(conf) {

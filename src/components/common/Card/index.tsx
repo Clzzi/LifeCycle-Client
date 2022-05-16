@@ -91,6 +91,12 @@ const Wrapper = styled.a`
   & > span > .thumbnail {
     transition: 0.3s;
   }
+
+  & > span > span > img {
+    width: 350px !important;
+    height: 165px !important;
+  }
+
   &:hover {
     & > span > .thumbnail {
       transform: scale(1.1);
