@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Tag } from 'src/core/styles/shareStyle';
 import { ellipsisLine } from 'src/core/styles/styleMoudle';
 import { theme } from 'src/core/styles/theme';
@@ -25,7 +26,19 @@ export const Card = ({
 }: Props) => {
   return (
     <Wrapper tabIndex={0} href={`/resume/${idx}`}>
-      <Thumbnail src={thumbnail} className="thumbnail" />
+      <Image
+        loader={() => thumbnail}
+        blurDataURL={thumbnail}
+        placeholder="blur"
+        src={thumbnail}
+        width={350}
+        height={165}
+        alt="thumbnail"
+        objectFit="cover"
+        className="thumbnail"
+        objectPosition="top"
+        priority
+      />
       <Content>
         <Text>{title}</Text>
         <Tags>
@@ -75,16 +88,19 @@ const Wrapper = styled.a`
   cursor: pointer;
   overflow: hidden;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  & > span > .thumbnail {
+    transition: 0.3s;
+  }
   &:hover {
-    & > .thumbnail {
-      width: 110%;
+    & > span > .thumbnail {
+      transform: scale(1.1);
     }
   }
 
   &:focus {
     outline: 1.5px solid ${({ theme }) => theme.colors.Main1};
-    & > .thumbnail {
-      width: 110%;
+    & > span > .thumbnail {
+      transform: scale(1.1);
     }
   }
 
@@ -92,20 +108,6 @@ const Wrapper = styled.a`
     width: 295px;
     height: 220px;
   }
-`;
-
-const Thumbnail = styled.div<{ src: string }>`
-  background-image: ${({ src }) => `url(${src})`};
-  transition: 0.3s;
-  width: 100%;
-  border-top-right-radius: 12px;
-  border-top-left-radius: 12px;
-  height: 165px;
-  background-size: cover;
-  -ms-background-size: cover;
-  -o-background-size: cover;
-  -moz-background-size: cover;
-  -webkit-background-size: cover;
 `;
 
 const Content = styled.div`
