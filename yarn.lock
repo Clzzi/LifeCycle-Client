@@ -1569,7 +1569,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/babel-plugin@npm:^11.7.1":
+"@emotion/babel-plugin@npm:^11.7.1, @emotion/babel-plugin@npm:^11.9.2":
   version: 11.9.2
   resolution: "@emotion/babel-plugin@npm:11.9.2"
   dependencies:
@@ -4370,6 +4370,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"emotion-reset@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "emotion-reset@npm:3.0.1"
+  peerDependencies:
+    "@emotion/react": ">=11"
+  checksum: 788cfbf6f31fadd22da2d61558c5f7b30da3d355d646c28e0b48f453bdd6d86dd3c55d0d8f55e3cf37c09446d597ac1ada4273244c4141467024a70b1e178fa8
+  languageName: node
+  linkType: hard
+
 "encoding@npm:^0.1.13":
   version: 0.1.13
   resolution: "encoding@npm:0.1.13"
@@ -6444,6 +6453,7 @@ __metadata:
   resolution: "lifecycle-client@workspace:."
   dependencies:
     "@cypress/code-coverage": ^3.9.12
+    "@emotion/babel-plugin": ^11.9.2
     "@emotion/react": ^11.9.0
     "@emotion/styled": ^11.8.1
     "@next/bundle-analyzer": ^12.1.6
@@ -6460,6 +6470,7 @@ __metadata:
     cypress: ^9.5.4
     cypress-react-selector: ^2.3.16
     dayjs: ^1.11.0
+    emotion-reset: ^3.0.1
     eslint: 8.12.0
     eslint-config-next: 12.1.4
     eslint-plugin-cypress: ^2.12.1
