@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { useKeyDown } from 'src/core/hooks/useKeyDown';
 import ResumeUtil from 'src/core/utils/resume';

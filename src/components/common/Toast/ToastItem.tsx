@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fadeIn, fadeOut } from 'src/core/styles/styleMoudle';
 import { IToast } from 'src/types/common.type';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const ToastItem = (props: IToast) => {
   const { content, bottom, duration } = props;

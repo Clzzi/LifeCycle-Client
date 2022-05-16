@@ -2,7 +2,7 @@ import { ProfileInfo } from 'src/components/ProfileInfo';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import { dragNone } from 'src/core/styles/styleMoudle';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const Profile = () => {
   useCheckLogin();

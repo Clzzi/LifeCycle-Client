@@ -3,7 +3,15 @@ const Favicon = () => {
     <>
       <meta name="apple-mobile-web-app-title" content="lifecycle" />
       <meta name="application-name" content="lifecycle" />
-
+      {/* <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+          rel="stylesheet"
+        /> */}
       <link
         rel="apple-touch-icon"
         sizes="76x76"
@@ -29,7 +37,10 @@ const Favicon = () => {
       />
       <meta name="msapplication-TileColor" content="#123550" />
       <meta name="theme-color" content="#000000" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
       <meta name="author" content="Clzzi" />
       <meta name="keywords" content="개발자, 포트폴리오, 이력서, 대소고" />
       <meta charSet="utf-8" />

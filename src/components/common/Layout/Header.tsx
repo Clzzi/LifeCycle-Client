@@ -1,14 +1,14 @@
 import { NextRouter, useRouter } from 'next/router';
 import { KeyboardEvent, useCallback, useState } from 'react';
 import { handleProfileImg } from 'src/core/utils/style';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import { useClickAway } from 'src/core/hooks/useClickAway';
 import TokenUtil from 'src/core/utils/token';
 import ResumeUtil from 'src/core/utils/resume';
 import { dragNone } from 'src/core/styles/styleMoudle';
 
-export const Header = () => {
+export const Header = ({ visible }: { visible: boolean }) => {
   const router: NextRouter = useRouter();
   const { userInfo, resetUserInfo } = useGetInfo();
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
@@ -27,7 +27,7 @@ export const Header = () => {
   }, [resetUserInfo, router]);
 
   return (
-    <Wrapper>
+    <Wrapper visible={visible}>
       <Container>
         <Logo
           onClick={() => router.push('/')}
@@ -93,14 +93,15 @@ export const Header = () => {
   );
 };
 
-const Wrapper = styled.nav`
+const Wrapper = styled.nav<{ visible: boolean }>`
   display: flex;
   width: 100vw;
-  height: 4rem;
+  height: 65px;
   background-color: ${({ theme }) => theme.colors.Black700};
   text-align: center;
   align-items: center;
   justify-content: center;
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
 `;
 
 const Container = styled.div`

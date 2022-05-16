@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { useState } from 'react';
 import useResize from 'src/core/hooks/useResize';
 import ResumeUtil from 'src/core/utils/resume';

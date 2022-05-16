@@ -1,5 +1,5 @@
 import { pxToRem } from 'src/core/utils/style';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const ResumeCard = () => {
   return (

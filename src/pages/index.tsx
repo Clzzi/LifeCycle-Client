@@ -7,54 +7,63 @@ import { Card } from 'src/components/common/Card';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
-import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import ResumeUtil from 'src/core/utils/resume';
 import ResumeCard from 'src/components/Skeleton/ResumeCard';
 import dynamic from 'next/dynamic';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
+import ScrollTop from 'src/components/common/ScrollTop';
+import Banner from 'src/components/Banner';
+import Button from 'src/components/common/Button';
+import SelectBox from 'src/components/common/SelectBox';
+import { Theme, useTheme } from '@emotion/react';
+import styled from '@emotion/styled';
 
-const SelectBox = dynamic(() => import('src/components/common/SelectBox'));
-const Button = dynamic(() => import('src/components/common/Button'));
-const Banner = dynamic(() => import('src/components/Banner'));
-const ScrollTop = dynamic(() => import('src/components/common/ScrollTop'));
+// const SelectBox = dynamic(() => import('src/components/common/SelectBox'));
+// const Button = dynamic(() => import('src/components/common/Button'));
+// const Banner = dynamic(() => import('src/components/Banner'));
+// const ScrollTop = dynamic(() => import('src/components/common/ScrollTop'));
 
 interface Filter {
   stackFilter: number;
   generationFilter: number;
 }
 
-const Main = (): JSX.Element => {
+const Main = ({ dehydratedState }: any): JSX.Element => {
   const { userInfo } = useGetInfo();
   const router: NextRouter = useRouter();
-  const theme: DefaultTheme = useTheme();
+  const theme: Theme = useTheme();
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
   const [filter, setFilter] = useState<Filter>({
     generationFilter: 0,
     stackFilter: 0,
   });
 
-  const { error, data, isFetching } = useQuery<
-    ResumesResponse,
-    Error,
-    IResume[]
-  >(['resumes', filter], () => resumeApi.getResumes(), {
-    refetchOnWindowFocus: false,
-    select: (data) => {
-      return ResumeUtil.filterResume(
-        filter.generationFilter,
-        filter.stackFilter,
-        data.data,
-      );
-    },
-  });
+  useEffect(() => {
+    console.log(dehydratedState.queries[0].state.data.data);
+  }, [dehydratedState]);
 
-  const Cards = () => {
+  // const { error, data, isFetching } = useQuery<
+  //   ResumesResponse,
+  //   Error,
+  //   IResume[]
+  // >(['resumes', filter], () => resumeApi.getResumes(), {
+  //   refetchOnWindowFocus: false,
+  //   select: (data) => {
+  //     return ResumeUtil.filterResume(
+  //       filter.generationFilter,
+  //       filter.stackFilter,
+  //       data.data,
+  //     );
+  //   },
+  // });
+
+  const Cards = useCallback(() => {
     return (
       <Contents>
-        {data?.map((v) => {
+        {dehydratedState.queries[0].state.data.data?.map((v: any) => {
           return (
             <Card
               key={v.idx}
@@ -70,9 +79,9 @@ const Main = (): JSX.Element => {
         })}
       </Contents>
     );
-  };
+  }, [dehydratedState.queries]);
 
-  const LoadingCards = () => {
+  const LoadingCards = useCallback(() => {
     return (
       <Contents>
         <ResumeCard />
@@ -86,17 +95,17 @@ const Main = (): JSX.Element => {
         <ResumeCard />
       </Contents>
     );
-  };
+  }, []);
 
-  const NoResume = () => {
+  const NoResume = useCallback(() => {
     return (
       <NoCard>
         <div>이력서가 없습니다</div>
       </NoCard>
     );
-  };
+  }, []);
 
-  if (error) router.push('/404');
+  // if (error) router.push('/404');
 
   return (
     <>
@@ -155,20 +164,14 @@ const Main = (): JSX.Element => {
               />
             </SelectBoxes>
           </TopWrapper>
-          {isFetching ? (
-            <LoadingCards />
-          ) : data && data.length ? (
-            <Cards />
-          ) : (
-            <NoResume />
-          )}
+          {false ? <LoadingCards /> : true ? <Cards /> : <NoResume />}
         </Container>
       </Wrapper>
     </>
   );
 };
 
-export default Main;
+export default memo(Main);
 
 const Container = styled.div`
   width: 100%;
@@ -194,6 +197,7 @@ const Wrapper = styled.div`
 
 const TopWrapper = styled.div`
   width: 100%;
+  height: 38px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -224,6 +228,7 @@ const SelectBoxes = styled.div`
 `;
 
 const Contents = styled.div`
+  min-height: 260px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(295px, 350px));
   grid-row-gap: 50px;
@@ -255,10 +260,9 @@ const NoCard = styled.div`
   }
 `;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery('resumes', () => resumeApi.getResumes());
-
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

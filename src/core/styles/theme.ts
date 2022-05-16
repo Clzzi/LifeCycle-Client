@@ -7,5 +7,3 @@ export const theme = {
   medias,
   fonts,
 };
-
-export type Theme = typeof theme;

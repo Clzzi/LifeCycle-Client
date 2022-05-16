@@ -1,7 +1,7 @@
 import { NextRouter, useRouter } from 'next/router';
 import { CSSProperties, ReactNode } from 'react';
 import { theme } from 'src/core/styles/theme';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Button from '../Button';
 import { Title } from '../Title';
 

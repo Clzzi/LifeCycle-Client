@@ -7,7 +7,7 @@ import { Tag } from 'src/core/styles/shareStyle';
 import { theme } from 'src/core/styles/theme';
 import ResumeUtil from 'src/core/utils/resume';
 import { handleProfileImg } from 'src/core/utils/style';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Button from '../common/Button';
 import { Modal } from '../common/Modal';
 

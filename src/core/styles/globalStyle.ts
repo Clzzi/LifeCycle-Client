@@ -1,53 +1,54 @@
-import { reset } from 'styled-reset';
-import { createGlobalStyle } from 'styled-components';
+import { css } from '@emotion/react';
 
-export const GlobalStyle = createGlobalStyle`
-  ${reset}
-
-  *, *::before, *::after {
+export const global = css`
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 
   html {
+    display: block;
+    font-display: optional;
     font-size: 16px;
-    background-color: #28292A;
+    background-color: #28292a;
+    color-scheme: dark;
   }
 
   ol,
-    ul {
-      list-style: none;
-    }
-    input {
-      outline: none;
-      &:focus {
-        outline: none;
-      }
-    }
-
-    * {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      font-family:  'Noto Sans KR', sans-serif !important;
-    }
-
-    a {
-      text-decoration: none;
+  ul {
+    list-style: none;
+  }
+  input {
+    outline: none;
+    &:focus {
       outline: none;
     }
+  }
 
-    a:hover,
-    a:active,
-    :visited,
-    :link {
-      text-decoration: none;
-    }
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif !important;
+  }
 
-    body {
-      background-color: #28292A;
-      width: 100%;
-      height: 100vh;
-      min-height: 100vh;
-      max-width: 100vw;
-    }
+  a {
+    text-decoration: none;
+    outline: none;
+  }
+
+  a:hover,
+  a:active,
+  :visited,
+  :link {
+    text-decoration: none;
+  }
+
+  body {
+    background-color: #28292a;
+    touch-action: auto;
+    display: block;
+    height: auto;
+  }
 `;

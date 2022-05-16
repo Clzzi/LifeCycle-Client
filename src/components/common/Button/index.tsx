@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 import { Loader } from 'src/core/styles/shareStyle';
 import { dragNone } from 'src/core/styles/styleMoudle';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 interface Props {
   width?: string;

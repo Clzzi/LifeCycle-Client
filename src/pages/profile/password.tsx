@@ -7,7 +7,7 @@ import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { useToast } from 'src/core/hooks/useToast';
 import { theme } from 'src/core/styles/theme';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 interface Values {
   newPassword: string | undefined;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { ResumeInfo } from 'src/components/ResumeInfo';
 import { GetStaticProps } from 'next';
 import { NextRouter, useRouter } from 'next/router';

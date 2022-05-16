@@ -1,7 +1,7 @@
 import { dragNone } from 'src/core/styles/styleMoudle';
 import ResumeUtil from 'src/core/utils/resume';
 import { pxToRem } from 'src/core/utils/style';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 const Banner = () => {
   return (
@@ -26,8 +26,9 @@ export default Banner;
 
 const StyledBanner = styled.aside`
   ${dragNone};
-  width: 100%;
+  width: 100vw;
   height: 256px;
+  min-height: 166px;
   background-image: ${() =>
     `url(${ResumeUtil.makeS3Url('/assets/Banner.svg')})`};
   background-repeat: no-repeat;
@@ -50,8 +51,9 @@ const StyledBanner = styled.aside`
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   max-width: 1920px;
+  height: 256px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

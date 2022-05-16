@@ -1,6 +1,6 @@
 import { useClickAway } from 'src/core/hooks/useClickAway';
 import { CSSProperties, ReactNode, RefObject, useEffect, useMemo } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 interface Props {
   children?: ReactNode;
