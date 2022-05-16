@@ -8,8 +8,10 @@ import { Label } from 'src/components/common/Label';
 import { PDFInput } from 'src/components/common/PDFInput';
 import SelectBox from 'src/components/common/SelectBox';
 import { Title } from 'src/components/common/Title';
+import imageCompression from 'browser-image-compression';
 import resumeApi from 'src/core/apis/resume/resume.api';
 import { STACK_LIST } from 'src/core/constants/filter.constants';
+import { IMAGE_OPTIMIZE_OPTIONS } from 'src/core/constants/resume.constants';
 import { useCheckResume } from 'src/core/hooks/useCheckResume';
 import { Error, useForm } from 'src/core/hooks/useForm';
 import { useToast } from 'src/core/hooks/useToast';
@@ -49,6 +51,14 @@ const EditResume = () => {
     [],
   );
 
+  const optimizeImage = useCallback(async (file: File) => {
+    try {
+      return await imageCompression(file, IMAGE_OPTIMIZE_OPTIONS);
+    } catch (e: any) {
+      console.error(e);
+    }
+  }, []);
+
   const onChangeFile = async (
     e: ChangeEvent<HTMLInputElement>,
   ): Promise<void> => {
@@ -57,7 +67,8 @@ const EditResume = () => {
       try {
         handleSetUploadLoading(isImage, true);
         const formData = new FormData();
-        formData.append('files', e.target.files[0]);
+        const optimizedFIle = await optimizeImage(e.target.files[0]);
+        formData.append('files', optimizedFIle!);
         const { data } = await resumeApi.upload(formData);
         if (isImage) {
           setImagePreview(data[0]);

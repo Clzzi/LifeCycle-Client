@@ -46,6 +46,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/styled-components", "npm:5.1.24"],\
             ["axios", "npm:0.27.2"],\
             ["babel-plugin-styled-components", "virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:2.0.6"],\
+            ["browser-image-compression", "npm:2.0.0"],\
             ["cypress", "npm:9.5.4"],\
             ["cypress-react-selector", "npm:2.3.16"],\
             ["dayjs", "npm:1.11.0"],\
@@ -5744,6 +5745,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["browser-image-compression", [\
+        ["npm:2.0.0", {\
+          "packageLocation": "./.yarn/cache/browser-image-compression-npm-2.0.0-d41d5989f6-c95b3ad5d6.zip/node_modules/browser-image-compression/",\
+          "packageDependencies": [\
+            ["browser-image-compression", "npm:2.0.0"],\
+            ["uzip", "npm:0.20201231.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["browser-pack", [\
         ["npm:6.1.0", {\
           "packageLocation": "./.yarn/cache/browser-pack-npm-6.1.0-67557e011b-9e5993d3ee.zip/node_modules/browser-pack/",\
@@ -9751,6 +9762,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/styled-components", "npm:5.1.24"],\
             ["axios", "npm:0.27.2"],\
             ["babel-plugin-styled-components", "virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:2.0.6"],\
+            ["browser-image-compression", "npm:2.0.0"],\
             ["cypress", "npm:9.5.4"],\
             ["cypress-react-selector", "npm:2.3.16"],\
             ["dayjs", "npm:1.11.0"],\
@@ -13206,6 +13218,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/uuid-npm-8.3.2-eca0baba53-5575a8a75c.zip/node_modules/uuid/",\
           "packageDependencies": [\
             ["uuid", "npm:8.3.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["uzip", [\
+        ["npm:0.20201231.0", {\
+          "packageLocation": "./.yarn/cache/uzip-npm-0.20201231.0-122f770c6a-34253f4c3d.zip/node_modules/uzip/",\
+          "packageDependencies": [\
+            ["uzip", "npm:0.20201231.0"]\
           ],\
           "linkType": "HARD"\
         }]\
