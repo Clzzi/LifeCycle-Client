@@ -37,10 +37,7 @@ const Favicon = () => {
       />
       <meta name="msapplication-TileColor" content="#123550" />
       <meta name="theme-color" content="#000000" />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1"
-      />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="author" content="Clzzi" />
       <meta name="keywords" content="개발자, 포트폴리오, 이력서, 대소고" />
       <meta charSet="utf-8" />
