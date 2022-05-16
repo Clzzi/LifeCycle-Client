@@ -9,22 +9,22 @@ import { useScrollTop } from 'src/core/hooks/useScrollTop';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { ResumesResponse } from 'src/core/apis/resume/resume.param';
 import { IResume } from 'src/types/resume.type';
-import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, memo, useCallback, useState } from 'react';
 import ResumeUtil from 'src/core/utils/resume';
 import ResumeCard from 'src/components/Skeleton/ResumeCard';
 import dynamic from 'next/dynamic';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
-import ScrollTop from 'src/components/common/ScrollTop';
-import Banner from 'src/components/Banner';
-import Button from 'src/components/common/Button';
-import SelectBox from 'src/components/common/SelectBox';
+// import ScrollTop from 'src/components/common/ScrollTop';
+// import Banner from 'src/components/Banner';
+// import Button from 'src/components/common/Button';
+// import SelectBox from 'src/components/common/SelectBox';
 import { Theme, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-// const SelectBox = dynamic(() => import('src/components/common/SelectBox'));
-// const Button = dynamic(() => import('src/components/common/Button'));
-// const Banner = dynamic(() => import('src/components/Banner'));
-// const ScrollTop = dynamic(() => import('src/components/common/ScrollTop'));
+const SelectBox = dynamic(() => import('src/components/common/SelectBox'));
+const Button = dynamic(() => import('src/components/common/Button'));
+const Banner = dynamic(() => import('src/components/Banner'));
+const ScrollTop = dynamic(() => import('src/components/common/ScrollTop'));
 
 interface Filter {
   stackFilter: number;
@@ -41,24 +41,20 @@ const Main = ({ dehydratedState }: any): JSX.Element => {
     stackFilter: 0,
   });
 
-  useEffect(() => {
-    console.log(dehydratedState.queries[0].state.data.data);
-  }, [dehydratedState]);
-
-  // const { error, data, isFetching } = useQuery<
-  //   ResumesResponse,
-  //   Error,
-  //   IResume[]
-  // >(['resumes', filter], () => resumeApi.getResumes(), {
-  //   refetchOnWindowFocus: false,
-  //   select: (data) => {
-  //     return ResumeUtil.filterResume(
-  //       filter.generationFilter,
-  //       filter.stackFilter,
-  //       data.data,
-  //     );
-  //   },
-  // });
+  const { error, data, isFetching } = useQuery<
+    ResumesResponse,
+    Error,
+    IResume[]
+  >(['resumes', filter], () => resumeApi.getResumes(), {
+    refetchOnWindowFocus: false,
+    select: (data) => {
+      return ResumeUtil.filterResume(
+        filter.generationFilter,
+        filter.stackFilter,
+        data.data,
+      );
+    },
+  });
 
   const Cards = useCallback(() => {
     return (
@@ -105,7 +101,7 @@ const Main = ({ dehydratedState }: any): JSX.Element => {
     );
   }, []);
 
-  // if (error) router.push('/404');
+  if (error) router.push('/404');
 
   return (
     <>
