@@ -73,6 +73,7 @@ const Login: NextPage = () => {
             errorMessage={errors.id ? errors.id : ''}
             placeholder="ID"
             type="text"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
@@ -92,6 +93,7 @@ const Login: NextPage = () => {
             placeholder="PW"
             type="password"
             backgroundColor={theme.colors.White400}
+            color={theme.colors.Black900}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
             errorFontSize={theme.fonts.font14}

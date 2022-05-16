@@ -80,6 +80,7 @@ const Register = () => {
             errorMessage={errors.id ? errors.id : ''}
             placeholder="ID"
             type="text"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
@@ -98,6 +99,7 @@ const Register = () => {
             errorMessage={errors.pw ? errors.pw : ''}
             placeholder="PW"
             type="password"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
@@ -115,6 +117,7 @@ const Register = () => {
             errorMessage={errors.name ? errors.name : ''}
             placeholder="이름"
             type="text"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
@@ -132,6 +135,7 @@ const Register = () => {
             errorMessage={errors.generation ? errors.generation : ''}
             placeholder="기수"
             type="number"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
@@ -284,6 +288,7 @@ const TermMsg = styled.div`
   margin-bottom: 22px;
   font-size: ${({ theme }) => theme.fonts.font16};
   line-height: 1.3;
+  color: ${({ theme }) => theme.colors.Black900};
   & > p {
     text-align: start;
     word-break: keep-all;
