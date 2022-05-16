@@ -31,7 +31,7 @@ interface Filter {
   generationFilter: number;
 }
 
-const Main = ({ dehydratedState }: any): JSX.Element => {
+const Main = (): JSX.Element => {
   const { userInfo } = useGetInfo();
   const router: NextRouter = useRouter();
   const theme: Theme = useTheme();
@@ -59,7 +59,7 @@ const Main = ({ dehydratedState }: any): JSX.Element => {
   const Cards = useCallback(() => {
     return (
       <Contents>
-        {dehydratedState.queries[0].state.data.data?.map((v: any) => {
+        {data?.map((v: any) => {
           return (
             <Card
               key={v.idx}
@@ -75,7 +75,7 @@ const Main = ({ dehydratedState }: any): JSX.Element => {
         })}
       </Contents>
     );
-  }, [dehydratedState.queries]);
+  }, [data]);
 
   const LoadingCards = useCallback(() => {
     return (
@@ -160,7 +160,13 @@ const Main = ({ dehydratedState }: any): JSX.Element => {
               />
             </SelectBoxes>
           </TopWrapper>
-          {false ? <LoadingCards /> : true ? <Cards /> : <NoResume />}
+          {isFetching ? (
+            <LoadingCards />
+          ) : data && data.length ? (
+            <Cards />
+          ) : (
+            <NoResume />
+          )}
         </Container>
       </Wrapper>
     </>
