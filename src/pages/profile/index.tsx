@@ -1,12 +1,13 @@
 import { ProfileInfo } from 'src/components/ProfileInfo';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
-import { useGetInfo } from 'src/core/hooks/useGetInfo';
 import { dragNone } from 'src/core/styles/styleMoudle';
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
+import { infoAtom } from 'src/core/store/auth.store';
 
 const Profile = () => {
   useCheckLogin();
-  const { userInfo } = useGetInfo();
+  const userInfo = useRecoilValue(infoAtom);
 
   return (
     <Wrapper>

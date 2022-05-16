@@ -13,13 +13,14 @@ import { ChangeEvent, memo, useCallback, useState } from 'react';
 import ResumeUtil from 'src/core/utils/resume';
 import ResumeCard from 'src/components/Skeleton/ResumeCard';
 import dynamic from 'next/dynamic';
-import { useGetInfo } from 'src/core/hooks/useGetInfo';
 // import ScrollTop from 'src/components/common/ScrollTop';
 // import Banner from 'src/components/Banner';
 // import Button from 'src/components/common/Button';
 // import SelectBox from 'src/components/common/SelectBox';
 import { Theme, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
+import { infoAtom } from 'src/core/store/auth.store';
 
 const SelectBox = dynamic(() => import('src/components/common/SelectBox'));
 const Button = dynamic(() => import('src/components/common/Button'));
@@ -32,9 +33,9 @@ interface Filter {
 }
 
 const Main = (): JSX.Element => {
-  const { userInfo } = useGetInfo();
-  const router: NextRouter = useRouter();
   const theme: Theme = useTheme();
+  const router: NextRouter = useRouter();
+  const userInfo = useRecoilValue(infoAtom);
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
   const [filter, setFilter] = useState<Filter>({
     generationFilter: 0,
