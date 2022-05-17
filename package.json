@@ -42,7 +42,6 @@
     "recoil": "0.7.2"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.9.12",
     "@emotion/babel-plugin": "^11.9.2",
     "@svgr/webpack": "^6.2.1",
     "@testing-library/cypress": "^8.0.2",
