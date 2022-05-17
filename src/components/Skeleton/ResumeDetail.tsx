@@ -31,7 +31,14 @@ const Container = styled.main`
   justify-content: center;
   align-items: center;
   text-align: center;
-  max-width: 1200px;
+  max-width: 1920px;
+  ${({ theme }) => theme.medias.smallDesktop} {
+    padding: 0px 97px;
+  }
+
+  ${({ theme }) => theme.medias.mobile} {
+    padding: 0px 38px;
+  }
 `;
 
 const Info = styled.article`
@@ -58,7 +65,7 @@ const Profile = styled.div`
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.Gray700};
+  background-color: ${({ theme }) => theme.colors.Black300};
   margin-right: 12px;
 `;
 
@@ -75,15 +82,15 @@ const NameAndGeneration = styled.div`
 const Name = styled.div`
   width: 100%;
   height: 40px;
-  background-color: ${({ theme }) => theme.colors.Gray700};
+  background-color: ${({ theme }) => theme.colors.Black300};
   border-radius: 4px;
 `;
 
 const Generation = styled.div`
-  width: 500px;
+  width: 100%;
   height: 40px;
   border-radius: 4px;
-  background-color: ${({ theme }) => theme.colors.Gray700};
+  background-color: ${({ theme }) => theme.colors.Black300};
 `;
 
 const Tags = styled.div`
@@ -100,7 +107,7 @@ const Tags = styled.div`
 const Tag = styled.div<{ width: string }>`
   width: ${(props) => props.width};
   height: 30px;
-  background-color: ${({ theme }) => theme.colors.Gray700};
+  background-color: ${({ theme }) => theme.colors.Black300};
   border-radius: 4px;
 `;
 
@@ -109,5 +116,5 @@ const Contents = styled.section`
   height: 70%;
   background-color: 'transparent';
   border-radius: 4px;
-  background-color: ${({ theme }) => theme.colors.Gray700};
+  background-color: ${({ theme }) => theme.colors.Black300};
 `;
