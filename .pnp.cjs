@@ -48,6 +48,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["axios", "npm:0.27.2"],\
             ["browser-image-compression", "npm:2.0.0"],\
             ["cypress", "npm:9.5.4"],\
+            ["cypress-file-upload", "virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:5.0.8"],\
             ["cypress-react-selector", "npm:2.3.16"],\
             ["cypress-wait-until", "npm:1.7.2"],\
             ["dayjs", "npm:1.11.0"],\
@@ -4639,6 +4640,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["cypress-file-upload", [\
+        ["npm:5.0.8", {\
+          "packageLocation": "./.yarn/cache/cypress-file-upload-npm-5.0.8-7b294a183e-9c70ca7e0b.zip/node_modules/cypress-file-upload/",\
+          "packageDependencies": [\
+            ["cypress-file-upload", "npm:5.0.8"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:5.0.8", {\
+          "packageLocation": "./.yarn/__virtual__/cypress-file-upload-virtual-339d7770cc/0/cache/cypress-file-upload-npm-5.0.8-7b294a183e-9c70ca7e0b.zip/node_modules/cypress-file-upload/",\
+          "packageDependencies": [\
+            ["cypress-file-upload", "virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:5.0.8"],\
+            ["@types/cypress", "npm:1.1.3"],\
+            ["cypress", "npm:9.5.4"]\
+          ],\
+          "packagePeers": [\
+            "@types/cypress",\
+            "cypress"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["cypress-react-selector", [\
         ["npm:2.3.16", {\
           "packageLocation": "./.yarn/cache/cypress-react-selector-npm-2.3.16-9abd1110f4-85c83f6c4c.zip/node_modules/cypress-react-selector/",\
@@ -6841,6 +6864,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["axios", "npm:0.27.2"],\
             ["browser-image-compression", "npm:2.0.0"],\
             ["cypress", "npm:9.5.4"],\
+            ["cypress-file-upload", "virtual:2cbe30608452728e41249c6da58d5167a2bb56a082ef452d68e8707ebbe3fc9ec8ec0566cac2ab422b72e9ef4c3b62a1ceba026714087cced7c573885f3e25c5#npm:5.0.8"],\
             ["cypress-react-selector", "npm:2.3.16"],\
             ["cypress-wait-until", "npm:1.7.2"],\
             ["dayjs", "npm:1.11.0"],\

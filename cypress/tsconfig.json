@@ -8,7 +8,8 @@
       "cypress",
       "@testing-library/cypress",
       "node",
-      "cypress-react-selector"
+      "cypress-react-selector",
+      "cypress-file-upload"
     ]
   },
   "include": ["**/*.ts", "plugins/index.ts"]

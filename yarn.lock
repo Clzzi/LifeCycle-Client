@@ -3040,6 +3040,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cypress-file-upload@npm:^5.0.8":
+  version: 5.0.8
+  resolution: "cypress-file-upload@npm:5.0.8"
+  peerDependencies:
+    cypress: ">3.0.0"
+  checksum: 9c70ca7e0bb137d0ec0b8d38987219ce15b26ac3a40e3ed4e78e6ad4690392eab905586848eec6ad8edd42ee480e68ccc63007b2ebd0a02f4b3eca116ff017e3
+  languageName: node
+  linkType: hard
+
 "cypress-react-selector@npm:^2.3.16":
   version: 2.3.16
   resolution: "cypress-react-selector@npm:2.3.16"
@@ -4854,6 +4863,7 @@ __metadata:
     axios: ^0.27.2
     browser-image-compression: ^2.0.0
     cypress: ^9.5.4
+    cypress-file-upload: ^5.0.8
     cypress-react-selector: ^2.3.16
     cypress-wait-until: ^1.7.2
     dayjs: ^1.11.0
