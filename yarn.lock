@@ -3049,6 +3049,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cypress-wait-until@npm:^1.7.2":
+  version: 1.7.2
+  resolution: "cypress-wait-until@npm:1.7.2"
+  checksum: e3fe3c35ef8cfda39fb8919ae63a238bd580a98f5c02120306b32d6502ddfa9bfc3afde733cd9b282035b9f67e8386bd6c58bd59ca5fd2ea65291e6d9bac1ed7
+  languageName: node
+  linkType: hard
+
 "cypress@npm:*, cypress@npm:^9.5.4":
   version: 9.5.4
   resolution: "cypress@npm:9.5.4"
@@ -4848,6 +4855,7 @@ __metadata:
     browser-image-compression: ^2.0.0
     cypress: ^9.5.4
     cypress-react-selector: ^2.3.16
+    cypress-wait-until: ^1.7.2
     dayjs: ^1.11.0
     emotion-reset: ^3.0.1
     eslint: 8.12.0

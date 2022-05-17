@@ -53,6 +53,7 @@
     "@types/react-pdf": "^5.0.9",
     "cypress": "^9.5.4",
     "cypress-react-selector": "^2.3.16",
+    "cypress-wait-until": "^1.7.2",
     "dayjs": "^1.11.0",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.4",
