@@ -1,5 +1,5 @@
 import { NextRouter, useRouter } from 'next/router';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { CheckBox } from 'src/components/common/CheckBox';
 import { Input } from 'src/components/common/Input';
 import { Modal } from 'src/components/common/Modal';
@@ -61,6 +61,13 @@ const Register = () => {
       },
     });
 
+  const onChangeValue = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      setValues({ ...values, [e.target.name]: e.target.value.trim() });
+    },
+    [values, setValues],
+  );
+
   return (
     <Wrapper>
       <Container>
@@ -88,9 +95,7 @@ const Register = () => {
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="id"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValues({ ...values, [e.target.name]: e.target.value })
-            }
+            onChange={onChangeValue}
             width="100%"
             height="56px"
           />
@@ -106,9 +111,7 @@ const Register = () => {
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="pw"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValues({ ...values, [e.target.name]: e.target.value })
-            }
+            onChange={onChangeValue}
             width="100%"
             height="56px"
           />
@@ -124,9 +127,7 @@ const Register = () => {
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="name"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValues({ ...values, [e.target.name]: e.target.value })
-            }
+            onChange={onChangeValue}
             width="100%"
             height="56px"
           />
@@ -142,12 +143,7 @@ const Register = () => {
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="generation"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValues({
-                ...values,
-                [e.target.name]: e.target.value,
-              })
-            }
+            onChange={onChangeValue}
             width="100%"
             height="56px"
             max={7}

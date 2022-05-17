@@ -1,5 +1,5 @@
 import { NextRouter, useRouter } from 'next/router';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 import { Input } from 'src/components/common/Input';
 import { ProfileEdit } from 'src/components/common/ProfileEdit';
 import userApi from 'src/core/apis/user/user.api';
@@ -50,6 +50,13 @@ const EditPassword = () => {
       },
     });
 
+  const onChangeValue = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      setValues({ ...values, [e.target.name]: e.target.value.trim() });
+    },
+    [values, setValues],
+  );
+
   return (
     <Wrapper>
       <ProfileEdit
@@ -73,9 +80,7 @@ const EditPassword = () => {
             color={theme.colors.White900}
             padding="6px 12px"
             name="newPassword"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
-            }}
+            onChange={onChangeValue}
             width="100%"
             height="56px"
           />
@@ -91,9 +96,7 @@ const EditPassword = () => {
             color={theme.colors.White900}
             padding="6px 12px"
             name="re_newPassword"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value });
-            }}
+            onChange={onChangeValue}
             width="100%"
             height="56px"
           />
