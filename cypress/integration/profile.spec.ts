@@ -1,5 +1,5 @@
 describe('프로필 설정', () => {
-  before(() => {
+  beforeEach(() => {
     cy.intercept({
       method: 'POST',
       url: 'http://34.125.196.189:8080/user/login',
@@ -12,9 +12,7 @@ describe('프로필 설정', () => {
     cy.intercept('PUT', 'http://34.125.196.189:8080/user/update/generation', {
       fixture: 'generation.json',
     }).as('EditGeneration');
-  });
 
-  beforeEach(() => {
     cy.visit('/login');
     cy.clearLocalStorage();
     cy.get('input[name=id]').type('test');

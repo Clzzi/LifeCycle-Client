@@ -60,12 +60,14 @@ const ResumeWrite = () => {
     e: ChangeEvent<HTMLInputElement>,
   ): Promise<void> => {
     if (e.target.files?.length) {
+      console.log(e.target.files[0]);
       const isImage: boolean = e.target.files[0].type.startsWith('image');
+      console.log(isImage);
       try {
         handleSetUploadLoading(isImage, true);
         const formData = new FormData();
         const optimizedFIle = await optimizeImage(e.target.files[0]);
-        formData.append('files', optimizedFIle!);
+        formData.append('files', isImage ? optimizedFIle! : e.target.files[0]);
         const { data } = await resumeApi.upload(formData);
         if (isImage) {
           setImagePreview(data[0]);
