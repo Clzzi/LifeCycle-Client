@@ -17,3 +17,10 @@ export const checkToken = (): boolean => {
   }
   return false;
 };
+
+export const CheckRouter = (path: string): boolean => {
+  if (path === '/login' || path === '/register' || path === '/404') {
+    return false;
+  }
+  return true;
+};

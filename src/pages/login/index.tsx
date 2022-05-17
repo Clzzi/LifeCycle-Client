@@ -3,7 +3,7 @@ import {
   REFRESH_TOKEN_KEY,
 } from 'src/core/constants/api.constants';
 import type { NextPage } from 'next';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 import TokenUtil from 'src/core/utils/token';
 import { LoginValues } from 'src/types/auth.type';
@@ -20,10 +20,11 @@ import { Theme, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const Login: NextPage = () => {
-  const router: NextRouter = useRouter();
   const { fireToast } = useToast();
   const theme: Theme = useTheme();
+  const router: NextRouter = useRouter();
   const setUserInfo = useSetRecoilState(infoAtom);
+
   const { isLoading, values, errors, setValues, handleSubmit } =
     useForm<LoginValues>({
       initialValue: {
@@ -54,6 +55,13 @@ const Login: NextPage = () => {
       },
     });
 
+  const onChangeValue = useCallback(
+    (e: ChangeEvent<HTMLInputElement>):void => {
+      setValues({ ...values, [e.target.name]: e.target.value.trim() });
+    },
+    [values, setValues],
+  );
+
   return (
     <Wrapper>
       <Container>
@@ -73,6 +81,7 @@ const Login: NextPage = () => {
             errorMessage={errors.id ? errors.id : ''}
             placeholder="ID"
             type="text"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
@@ -80,9 +89,7 @@ const Login: NextPage = () => {
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="id"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value.trim() });
-            }}
+            onChange={onChangeValue}
             width="100%"
             height="56px"
           />
@@ -92,14 +99,13 @@ const Login: NextPage = () => {
             placeholder="PW"
             type="password"
             backgroundColor={theme.colors.White400}
+            color={theme.colors.Black900}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="pw"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setValues({ ...values, [e.target.name]: e.target.value.trim() });
-            }}
+            onChange={onChangeValue}
             handleKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
               if (!isLoading && e.key === 'Enter') handleSubmit(e);
             }}

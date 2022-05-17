@@ -52,7 +52,12 @@ const Resume = ({ idx }: { idx: number }) => {
     }
   }, [data?.user.userId, userInfo.userId]);
 
-  if (isLoading) return <ResumeDetailSkeleton />;
+  if (isLoading)
+    return (
+      <Wrapper>
+        <ResumeDetailSkeleton />
+      </Wrapper>
+    );
   if (error) router.push('/404');
 
   return (
@@ -106,6 +111,7 @@ const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow-x: hidden;
 `;
 
 const Container = styled.main`

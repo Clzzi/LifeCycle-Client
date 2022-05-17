@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { NextRouter, useRouter } from 'next/router';
 import ResumeUtil from 'src/core/utils/resume';
 
 interface Content {
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const ProfileInfo = ({ contents, title }: Props) => {
+  const router: NextRouter = useRouter();
   return (
     <Board>
       <Title>{title}</Title>
@@ -26,7 +28,9 @@ export const ProfileInfo = ({ contents, title }: Props) => {
                 <Content>{content.content}</Content>
               </ContentLeft>
               <ContentRight>
-                <Link href={content.link}>{content.linkTitle}</Link>
+                <Link onClick={() => router.push(content.link)}>
+                  {content.linkTitle}
+                </Link>
               </ContentRight>
             </div>
           </ContentBoard>
@@ -128,6 +132,7 @@ const Link = styled.a`
   width: 158px;
   text-align: end;
   color: ${({ theme }) => theme.colors.Main2};
+  cursor: pointer;
   &::after {
     content: ${() => `url(${ResumeUtil.makeS3Url('/assets/RightArrow.svg')})`};
     width: 24px;

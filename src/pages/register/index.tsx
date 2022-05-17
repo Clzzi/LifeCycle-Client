@@ -1,5 +1,5 @@
 import { NextRouter, useRouter } from 'next/router';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { CheckBox } from 'src/components/common/CheckBox';
 import { Input } from 'src/components/common/Input';
 import { Modal } from 'src/components/common/Modal';
@@ -61,6 +61,13 @@ const Register = () => {
       },
     });
 
+  const onChangeValue = useCallback(
+    (e: ChangeEvent<HTMLInputElement>): void => {
+      setValues({ ...values, [e.target.name]: e.target.value.trim() });
+    },
+    [values, setValues],
+  );
+
   return (
     <Wrapper>
       <Container>
@@ -80,6 +87,7 @@ const Register = () => {
             errorMessage={errors.id ? errors.id : ''}
             placeholder="ID"
             type="text"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
@@ -87,9 +95,7 @@ const Register = () => {
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="id"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValues({ ...values, [e.target.name]: e.target.value })
-            }
+            onChange={onChangeValue}
             width="100%"
             height="56px"
           />
@@ -98,15 +104,14 @@ const Register = () => {
             errorMessage={errors.pw ? errors.pw : ''}
             placeholder="PW"
             type="password"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="pw"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValues({ ...values, [e.target.name]: e.target.value })
-            }
+            onChange={onChangeValue}
             width="100%"
             height="56px"
           />
@@ -115,15 +120,14 @@ const Register = () => {
             errorMessage={errors.name ? errors.name : ''}
             placeholder="이름"
             type="text"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="name"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValues({ ...values, [e.target.name]: e.target.value })
-            }
+            onChange={onChangeValue}
             width="100%"
             height="56px"
           />
@@ -132,18 +136,14 @@ const Register = () => {
             errorMessage={errors.generation ? errors.generation : ''}
             placeholder="기수"
             type="number"
+            color={theme.colors.Black900}
             backgroundColor={theme.colors.White400}
             borderRadius="5px"
             fontSize={theme.fonts.font16}
             errorFontSize={theme.fonts.font14}
             padding="6px 12px"
             name="generation"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setValues({
-                ...values,
-                [e.target.name]: e.target.value,
-              })
-            }
+            onChange={onChangeValue}
             width="100%"
             height="56px"
             max={7}
@@ -284,6 +284,7 @@ const TermMsg = styled.div`
   margin-bottom: 22px;
   font-size: ${({ theme }) => theme.fonts.font16};
   line-height: 1.3;
+  color: ${({ theme }) => theme.colors.Black900};
   & > p {
     text-align: start;
     word-break: keep-all;

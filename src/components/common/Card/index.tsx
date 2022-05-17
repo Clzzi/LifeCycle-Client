@@ -4,6 +4,7 @@ import { ellipsisLine } from 'src/core/styles/styleMoudle';
 import { theme } from 'src/core/styles/theme';
 import { pxToRem } from 'src/core/utils/style';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 interface Props {
   thumbnail: string;
@@ -24,8 +25,9 @@ export const Card = ({
   title,
   idx,
 }: Props) => {
+  const { push } = useRouter();
   return (
-    <Wrapper tabIndex={0} href={`/resume/${idx}`}>
+    <Wrapper tabIndex={0} onClick={() => push(`/resume/${idx}`)}>
       <Image
         loader={() => thumbnail}
         blurDataURL={thumbnail}
@@ -78,7 +80,7 @@ export const Card = ({
   );
 };
 
-const Wrapper = styled.a`
+const Wrapper = styled.div`
   width: ${pxToRem(350)};
   height: 260px;
   border-radius: 12px;
