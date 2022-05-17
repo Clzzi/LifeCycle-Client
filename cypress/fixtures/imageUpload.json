@@ -1,0 +1,7 @@
+{
+  "status": 200,
+  "message": "이미지 업로드 성공",
+  "data": [
+    "https://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/035d7a29-2adc-4711-9a0e-0d6ed8f7b73f"
+  ]
+}

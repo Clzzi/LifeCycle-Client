@@ -68,7 +68,7 @@ const EditResume = () => {
         handleSetUploadLoading(isImage, true);
         const formData = new FormData();
         const optimizedFIle = await optimizeImage(e.target.files[0]);
-        formData.append('files', optimizedFIle!);
+        formData.append('files', isImage ? optimizedFIle! : e.target.files[0]);
         const { data } = await resumeApi.upload(formData);
         if (isImage) {
           setImagePreview(data[0]);

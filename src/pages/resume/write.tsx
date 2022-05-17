@@ -60,9 +60,7 @@ const ResumeWrite = () => {
     e: ChangeEvent<HTMLInputElement>,
   ): Promise<void> => {
     if (e.target.files?.length) {
-      console.log(e.target.files[0]);
       const isImage: boolean = e.target.files[0].type.startsWith('image');
-      console.log(isImage);
       try {
         handleSetUploadLoading(isImage, true);
         const formData = new FormData();
@@ -142,7 +140,7 @@ const ResumeWrite = () => {
         />
         {imagePreview.length ? (
           <PreviewDim onClick={onDeleteImage}>
-            <Preview url={imagePreview} />
+            <Preview url={imagePreview} data-cy="image-preview" />
           </PreviewDim>
         ) : (
           <ImageInput
@@ -242,6 +240,7 @@ const ResumeWrite = () => {
           <Button
             width="102px"
             height="38px"
+            name="resume-write-save"
             content="등록"
             fontSize={theme.fonts.font14}
             color={theme.colors.White900}
@@ -255,6 +254,7 @@ const ResumeWrite = () => {
           <Button
             width="102px"
             height="38px"
+            name="resume-write-back"
             content="뒤로"
             fontSize={theme.fonts.font14}
             color={theme.colors.White500}

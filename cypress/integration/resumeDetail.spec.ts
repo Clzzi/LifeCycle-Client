@@ -1,5 +1,10 @@
 describe('이력서 상세보기 페이지(이력서 X)', () => {
   beforeEach(() => {
+    cy.intercept({
+      method: 'POST',
+      url: 'http://34.125.196.189:8080/user/login',
+    }).as('Login');
+
     cy.visit('/login');
     cy.clearLocalStorage();
     cy.get('input[name=id]').type('test');
