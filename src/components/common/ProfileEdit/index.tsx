@@ -39,6 +39,7 @@ export const ProfileEdit = ({
       {children}
       <Buttons>
         <Button
+          name="profile-save"
           width="102px"
           height="38px"
           content="저장"
@@ -50,6 +51,7 @@ export const ProfileEdit = ({
           isLoading={isLoading}
         />
         <Button
+          name="profile-back"
           width="102px"
           height="38px"
           content="뒤로"

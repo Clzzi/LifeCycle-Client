@@ -24,10 +24,14 @@ export const ProfileInfo = ({ contents, title }: Props) => {
           <ContentBoard key={content.title}>
             <div>
               <ContentLeft>
-                <ContentTitle>{content.title}</ContentTitle>
-                <Content>{content.content}</Content>
+                <ContentTitle data-cy="profile-title">
+                  {content.title}
+                </ContentTitle>
+                <ContentData data-cy="profile-data">
+                  {content.content}
+                </ContentData>
               </ContentLeft>
-              <ContentRight>
+              <ContentRight data-cy="profile-link">
                 <Link onClick={() => router.push(content.link)}>
                   {content.linkTitle}
                 </Link>
@@ -115,7 +119,7 @@ const ContentTitle = styled.span`
   }
 `;
 
-const Content = styled.span`
+const ContentData = styled.span`
   width: 370px;
   text-align: start;
   color: ${({ theme }) => theme.colors.White600};
