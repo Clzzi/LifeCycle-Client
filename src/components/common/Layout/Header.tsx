@@ -1,5 +1,5 @@
 import { NextRouter, useRouter } from 'next/router';
-import { KeyboardEvent, useCallback, useEffect, useState } from 'react';
+import { KeyboardEvent, useCallback, useState } from 'react';
 import { handleProfileImg } from 'src/core/utils/style';
 import styled from '@emotion/styled';
 import { useGetInfo } from 'src/core/hooks/useGetInfo';
@@ -13,10 +13,6 @@ export const Header = ({ visible }: { visible: boolean }) => {
   const { userInfo, resetUserInfo } = useGetInfo();
   const [isVisibleModal, setIsVisibleModal] = useState<boolean>(false);
   const ref = useClickAway<HTMLDivElement>(() => setIsVisibleModal(false));
-
-  useEffect(() => {
-    console.log('HEADER');
-  }, []);
 
   const onClickSetting = useCallback((): void => {
     router.push('/profile');

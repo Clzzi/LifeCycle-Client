@@ -13,7 +13,7 @@ import { global } from 'src/core/styles/globalStyle';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
-
+  
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>

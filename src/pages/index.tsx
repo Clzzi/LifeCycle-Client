@@ -13,10 +13,6 @@ import { ChangeEvent, memo, useCallback, useState } from 'react';
 import ResumeUtil from 'src/core/utils/resume';
 import ResumeCard from 'src/components/Skeleton/ResumeCard';
 import dynamic from 'next/dynamic';
-// import ScrollTop from 'src/components/common/ScrollTop';
-// import Banner from 'src/components/Banner';
-// import Button from 'src/components/common/Button';
-// import SelectBox from 'src/components/common/SelectBox';
 import { Theme, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
@@ -266,6 +262,7 @@ const NoCard = styled.div`
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery('resumes', () => resumeApi.getResumes());
+
   return {
     props: {
       dehydratedState: dehydrate(queryClient),

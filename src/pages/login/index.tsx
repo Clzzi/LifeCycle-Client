@@ -20,9 +20,9 @@ import { Theme, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 const Login: NextPage = () => {
-  const router: NextRouter = useRouter();
   const { fireToast } = useToast();
   const theme: Theme = useTheme();
+  const router: NextRouter = useRouter();
   const setUserInfo = useSetRecoilState(infoAtom);
   const { isLoading, values, errors, setValues, handleSubmit } =
     useForm<LoginValues>({
