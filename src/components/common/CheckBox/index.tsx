@@ -17,6 +17,7 @@ export const CheckBox = ({ checked, onClick, ...props }: Props) => {
         {...props}
       />
       <LabelBox
+        data-cy="checkbox"
         onClick={onClick}
         checked={checked}
         tabIndex={0}

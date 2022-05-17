@@ -206,7 +206,7 @@ const Register = () => {
         {TERM_MESSAGE.map((term) => {
           return (
             <TermMsg key={term.title}>
-              <span>{term.title}</span>
+              <span data-cy="term-title">{term.title}</span>
               <p>{term.content}</p>
             </TermMsg>
           );

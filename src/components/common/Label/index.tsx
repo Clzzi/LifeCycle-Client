@@ -13,7 +13,7 @@ export const Label = ({ children, message, fontSize, customStyle }: Props) => {
   return (
     <Container style={customStyle}>
       {children}
-      <StyledText fontSize={fontSize} visible={message?.length !== 0}>
+      <StyledText fontSize={fontSize} visible={message?.length !== 0} data-cy="error-msg">
         {message}
       </StyledText>
     </Container>
