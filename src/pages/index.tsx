@@ -15,8 +15,7 @@ import ResumeCard from 'src/components/Skeleton/ResumeCard';
 import dynamic from 'next/dynamic';
 import { Theme, useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
-import { infoAtom } from 'src/core/store/auth.store';
+import { useGetInfo } from 'src/core/hooks/useGetInfo';
 
 const SelectBox = dynamic(() => import('src/components/common/SelectBox'));
 const Button = dynamic(() => import('src/components/common/Button'));
@@ -29,9 +28,9 @@ interface Filter {
 }
 
 const Main = (): JSX.Element => {
+  const { userInfo } = useGetInfo();
   const theme: Theme = useTheme();
   const router: NextRouter = useRouter();
-  const userInfo = useRecoilValue(infoAtom);
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
   const [filter, setFilter] = useState<Filter>({
     generationFilter: 0,
@@ -110,6 +109,7 @@ const Main = (): JSX.Element => {
             <Button
               width="126px"
               height="38px"
+              name="resume-button"
               content={userInfo.resume ? '내 이력서 보기' : '이력서 등록하기'}
               fontSize={theme.fonts.font14}
               color={theme.colors.White900}

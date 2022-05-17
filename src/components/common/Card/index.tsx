@@ -27,7 +27,7 @@ export const Card = ({
 }: Props) => {
   const { push } = useRouter();
   return (
-    <Wrapper tabIndex={0} onClick={() => push(`/resume/${idx}`)}>
+    <Wrapper tabIndex={0} onClick={() => push(`/resume/${idx}`)} data-cy="card">
       <Image
         loader={() => thumbnail}
         blurDataURL={thumbnail}

@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 const Banner = () => {
   return (
-    <StyledBanner>
+    <StyledBanner data-cy="banner">
       <Wrapper>
         <Title>
           💋 핫한 대소고인 <br />
