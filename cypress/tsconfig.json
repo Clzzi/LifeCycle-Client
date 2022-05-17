@@ -11,5 +11,5 @@
       "cypress-react-selector"
     ]
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "plugins/index.ts"]
 }
