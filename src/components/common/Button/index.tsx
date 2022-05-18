@@ -14,6 +14,7 @@ interface Props {
   customStyle?: CSSProperties;
   handleClick?: (e?: any) => void | Promise<void | boolean>;
   isLoading?: boolean;
+  name?: string;
 }
 
 const Button = ({
@@ -27,6 +28,7 @@ const Button = ({
   height,
   width,
   isLoading = false,
+  name,
 }: Props) => {
   const style: CSSProperties = {
     ...customStyle,
@@ -41,6 +43,7 @@ const Button = ({
     <StyledButton
       type="button"
       style={style}
+      name={name}
       onClick={isLoading ? () => null : handleClick}>
       {isLoading ? <Loader backgroundColor={backgroundColor} /> : content}
     </StyledButton>

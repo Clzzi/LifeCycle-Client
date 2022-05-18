@@ -68,7 +68,7 @@ const EditResume = () => {
         handleSetUploadLoading(isImage, true);
         const formData = new FormData();
         const optimizedFIle = await optimizeImage(e.target.files[0]);
-        formData.append('files', optimizedFIle!);
+        formData.append('files', isImage ? optimizedFIle! : e.target.files[0]);
         const { data } = await resumeApi.upload(formData);
         if (isImage) {
           setImagePreview(data[0]);
@@ -157,7 +157,7 @@ const EditResume = () => {
         />
         {imagePreview.length ? (
           <PreviewDim onClick={onDeleteImage}>
-            <Preview url={imagePreview} />
+            <Preview url={imagePreview} data-cy="image-preview" />
           </PreviewDim>
         ) : (
           <ImageInput
@@ -257,6 +257,7 @@ const EditResume = () => {
           <Button
             width="102px"
             height="38px"
+            name='resume-edit-save'
             content="수정"
             isLoading={isLoading}
             fontSize={theme.fonts.font14}

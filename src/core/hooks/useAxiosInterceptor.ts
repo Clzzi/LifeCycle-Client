@@ -16,7 +16,11 @@ export const useAxiosInterceptor = () => {
   const { fireToast } = useToast();
 
   const errorHandler = (error: Response): void => {
-    fireToast({ content: ` ${error.message} 🔥 `, duration: 2000 });
+    let msg = error.message;
+    if (error.message === '토큰이 전송되지 않았습니다') {
+      msg = '로그인 해주세요!';
+    }
+    fireToast({ content: ` ${msg} 🔥 `, duration: 2000 });
   };
 
   const responseHandler = (response: AxiosResponse): AxiosResponse => {

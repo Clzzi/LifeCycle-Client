@@ -15,7 +15,7 @@ export const ToastItem = (props: IToast) => {
   });
   return (
     <Wrapper>
-      <StyledToastItem bottom={bottom} isClosing={isClosing}>
+      <StyledToastItem bottom={bottom} isClosing={isClosing} data-cy="toast">
         {content}
       </StyledToastItem>
     </Wrapper>

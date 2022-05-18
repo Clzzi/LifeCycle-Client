@@ -1,0 +1,7 @@
+{
+  "status": 200,
+  "message": "파일 업로드 성공",
+  "data": [
+    "https://lifecycle-s3.s3.ap-northeast-2.amazonaws.com/2f8e2690-e768-4d1c-804b-3c7f738d3a13.pdf"
+  ]
+}

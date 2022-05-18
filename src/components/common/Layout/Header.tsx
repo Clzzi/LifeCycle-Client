@@ -30,6 +30,7 @@ export const Header = ({ visible }: { visible: boolean }) => {
     <Wrapper visible={visible}>
       <Container>
         <Logo
+          data-cy="logo"
           onClick={() => router.push('/')}
           tabIndex={0}
           onKeyPress={(e: KeyboardEvent<HTMLDivElement>) => {
@@ -40,6 +41,7 @@ export const Header = ({ visible }: { visible: boolean }) => {
           {userInfo.generation ? (
             <Profile
               tabIndex={0}
+              data-cy="profile"
               width="60px"
               height="60px"
               generation={userInfo.generation}
@@ -49,13 +51,17 @@ export const Header = ({ visible }: { visible: boolean }) => {
               }}
             />
           ) : (
-            <DefaultProfile onClick={() => router.push('/login')} />
+            <DefaultProfile
+              data-cy="default-profile"
+              onClick={() => router.push('/login')}
+            />
           )}
 
           {isVisibleModal && userInfo.name && (
             <Info>
               <InfoProfile>
                 <Profile
+                  data-cy="info-profile"
                   width="40px"
                   height="40px"
                   generation={userInfo.generation}

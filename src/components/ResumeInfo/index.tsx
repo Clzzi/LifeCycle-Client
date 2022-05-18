@@ -51,11 +51,11 @@ export const ResumeInfo = ({
     <>
       <Wrapper width={size.width}>
         <ProfileAndBtns>
-          <Profile generation={generation} />
+          <Profile generation={generation} data-cy="resume-detail-profile" />
           <Container>
-            <span>{title}</span>
+            <span data-cy="resume-detail-title">{title}</span>
             <GenerationAndBtns>
-              <div>{`${generation}기 ${name}`}</div>
+              <div data-cy="resume-detail-userInfo">{`${generation}기 ${name}`}</div>
               {isMyResume ? (
                 <Buttons>
                   <Button
@@ -65,6 +65,7 @@ export const ResumeInfo = ({
                     height={
                       ResumeUtil.calculateResumeInfoButtonWidth(size.width)[1]
                     }
+                    name="resume-detail-edit"
                     content="수정"
                     fontSize={theme.fonts.font14}
                     color={theme.colors.Black900}
@@ -79,6 +80,7 @@ export const ResumeInfo = ({
                     height={
                       ResumeUtil.calculateResumeInfoButtonWidth(size.width)[1]
                     }
+                    name="resume-detail-delete"
                     content="삭제"
                     fontSize={theme.fonts.font14}
                     color={theme.colors.Gray600}
@@ -96,6 +98,7 @@ export const ResumeInfo = ({
         </ProfileAndBtns>
         <Tags>
           <Tag
+            data-cy="resume-detail-generation"
             type="GENERATION"
             maxWidth="330px"
             height={ResumeUtil.calculateResumeInfoTagHeight(size.width)}
@@ -105,6 +108,7 @@ export const ResumeInfo = ({
             {generation}기
           </Tag>
           <Tag
+            data-cy="resume-detail-stack"
             type="STACK"
             maxWidth="330px"
             height={ResumeUtil.calculateResumeInfoTagHeight(size.width)}
@@ -114,6 +118,7 @@ export const ResumeInfo = ({
             {stack}
           </Tag>
           <Tag
+            data-cy="resume-detail-company"
             type="COMPANY"
             maxWidth="330px"
             height={ResumeUtil.calculateResumeInfoTagHeight(size.width)}
@@ -145,12 +150,14 @@ export const ResumeInfo = ({
                 border: `2px solid ${theme.colors.Gray900}`,
                 margin: '0px 12px 0px 0px',
               }}
+              name="resume-detail-modal-back"
               handleClick={() => setModalVisible(false)}
             />
             <Button
               width="102px"
               height="38px"
               content="삭제"
+              name="resume-detail-modal-delete"
               isLoading={deleteLoading}
               fontSize={theme.fonts.font14}
               color={theme.colors.White900}
@@ -192,6 +199,7 @@ const Title = styled.div`
 
 const Desc = styled.div`
   font-size: ${({ theme }) => theme.fonts.font18};
+  color: ${({ theme }) => theme.colors.Black900};
   margin-bottom: 26px;
 `;
 

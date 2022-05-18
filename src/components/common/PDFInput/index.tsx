@@ -59,6 +59,7 @@ export const PDFInput = ({
         style={style}
         htmlFor="pdf-input"
         tabIndex={0}
+        data-cy="pdf-input-label"
         onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === ' ') ref.current?.click();
         }}>

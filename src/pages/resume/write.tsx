@@ -65,7 +65,7 @@ const ResumeWrite = () => {
         handleSetUploadLoading(isImage, true);
         const formData = new FormData();
         const optimizedFIle = await optimizeImage(e.target.files[0]);
-        formData.append('files', optimizedFIle!);
+        formData.append('files', isImage ? optimizedFIle! : e.target.files[0]);
         const { data } = await resumeApi.upload(formData);
         if (isImage) {
           setImagePreview(data[0]);
@@ -140,7 +140,7 @@ const ResumeWrite = () => {
         />
         {imagePreview.length ? (
           <PreviewDim onClick={onDeleteImage}>
-            <Preview url={imagePreview} />
+            <Preview url={imagePreview} data-cy="image-preview" />
           </PreviewDim>
         ) : (
           <ImageInput
@@ -240,6 +240,7 @@ const ResumeWrite = () => {
           <Button
             width="102px"
             height="38px"
+            name="resume-write-save"
             content="등록"
             fontSize={theme.fonts.font14}
             color={theme.colors.White900}
@@ -253,6 +254,7 @@ const ResumeWrite = () => {
           <Button
             width="102px"
             height="38px"
+            name="resume-write-back"
             content="뒤로"
             fontSize={theme.fonts.font14}
             color={theme.colors.White500}

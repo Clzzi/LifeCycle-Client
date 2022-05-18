@@ -18,6 +18,6 @@
     "baseUrl": ".",
     "rootDir": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "cypress/plugins/index.js"],
   "exclude": ["node_modules"]
 }
