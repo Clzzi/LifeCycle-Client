@@ -1,8 +1,19 @@
 /** @type {import('next').NextConfig} */
 
+const intercept = require('intercept-stdout');
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+
+const interceptStdout = (text) => {
+  if (text.includes('Duplicate atom key')) {
+    return '';
+  }
+  return text;
+};
+
+intercept(interceptStdout);
 
 const nextConfig = {
   reactStrictMode: true,
