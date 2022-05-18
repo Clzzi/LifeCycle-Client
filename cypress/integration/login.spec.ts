@@ -1,5 +1,10 @@
 describe('로그인페이지', () => {
   beforeEach(() => {
+    cy.intercept({
+      method: 'POST',
+      url: 'http://34.125.196.189:8080/user/login',
+    }).as('Login');
+
     cy.visit('/login');
   });
 
