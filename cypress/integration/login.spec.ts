@@ -8,9 +8,11 @@ describe('로그인페이지', () => {
     cy.get('input[name=pw]').type('alswodakswod12@');
 
     cy.get('button').contains('로그인').click().as('Login');
-    cy.waitFor('@Login');
 
-    cy.get('[data-cy=toast]').should('contain', '안녕하세요');
+    cy.wait('@Login').then(() => {
+      cy.get('[data-cy=toast]').should('contain', '안녕하세요');
+    });
+
     cy.location().should((loc) => {
       expect(loc.href).to.eq('http://localhost:3000/');
     });

@@ -11,15 +11,9 @@ describe('이력서 상세보기 페이지(이력서 X)', () => {
     cy.get('input[name=pw]').type('test1234');
 
     cy.get('button').contains('로그인').click();
-    cy.waitFor('@Login');
-
-    cy.waitUntil(() =>
-      cy.location().should((loc) => {
-        expect(loc.href).to.eq('http://localhost:3000/');
-      }),
-    );
-
-    cy.get('div[data-cy=card]').first().click();
+    cy.wait('@Login').then(() => {
+      cy.get('div[data-cy=card]').first().click();
+    });
 
     cy.waitUntil(() =>
       cy.location().should((loc) => {
