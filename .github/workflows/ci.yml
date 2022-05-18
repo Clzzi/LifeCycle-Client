@@ -16,9 +16,3 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
-
-      - name: Check End To End TEST
-        uses: cypress-io/github-action@v2
-        with:
-          install: false
-          command: yarn e2e:headless
