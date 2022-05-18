@@ -32,7 +32,8 @@ describe('메인 페이지 로그인 X', () => {
   });
 
   it('로그인하지 않고(토큰X) 카드를 클릭하면 로그인 페이지로 이동된다.', () => {
-    cy.get('div[data-cy=card]').click({ multiple: true });
+    cy.clearLocalStorage;
+    cy.get('div[data-cy=card]').first().click();
     cy.location().should((loc) => {
       expect(loc.href).to.eq('http://localhost:3000/login');
     });
@@ -118,7 +119,7 @@ describe('메인 페이지 로그인 O', () => {
   });
 
   it('로그인한(토큰O) 유저가 카드를 클릭하면 해당 이력서 페이지로 이동한다.', () => {
-    cy.get('div[data-cy=card]').click({ multiple: true });
+    cy.get('div[data-cy=card]').first().click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.include('/resume');
     });

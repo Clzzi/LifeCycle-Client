@@ -19,7 +19,7 @@ describe('이력서 상세보기 페이지(이력서 X)', () => {
       }),
     );
 
-    cy.get('div[data-cy=card]').click({ multiple: true });
+    cy.get('div[data-cy=card]').first().click();
 
     cy.waitUntil(() =>
       cy.location().should((loc) => {
@@ -67,19 +67,21 @@ describe('이력서 상세보기 페이지 (이력서 O)', () => {
     cy.get('button').contains('로그인').click();
     cy.waitFor('@Login');
 
-    cy.waitUntil(() =>
-      cy.location().should((loc) => {
-        expect(loc.href).to.eq('http://localhost:3000/');
-      }),
+    cy.waitUntil(
+      () => cy.get('button[name=resume-button]').contains('내 이력서 보기'),
+      {
+        timeout: 20000,
+        interval: 500,
+      },
     );
 
-    cy.get('div[data-cy=card]').click({ multiple: true });
+    cy.get('button[name=resume-button]', { timeout: 10000 })
+      .contains('내 이력서 보기', { timeout: 10000 })
+      .click();
 
-    cy.waitUntil(() =>
-      cy.location().should((loc) => {
-        expect(loc.href).to.include('http://localhost:3000/resume');
-      }),
-    );
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.include('/resume');
+    });
   });
 
   it('자신이 쓴 이력서를 본다면 수정 버튼을 확인할 수 있다.', () => {
