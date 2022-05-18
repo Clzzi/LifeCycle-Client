@@ -1,7 +1,3 @@
-// TODO : 등록 및 수정 페이지 테스팅
-// TODO: 리팩토링 3차
-// TODO: 위 2가지 다하면 릴리즈
-
 describe('이력서 등록 페이지', () => {
   beforeEach(() => {
     cy.intercept({
@@ -96,8 +92,8 @@ describe('이력서 등록 페이지', () => {
     cy.get('select[name=stack]').select('웹').should('have.value', 1);
     cy.get('button[name=resume-write-save]').contains('등록').click();
 
-    cy.wait('@WriteResume').then((v) => {
-      expect(v.response.body.status).eq(200);
+    cy.wait('@WriteResume').then(() => {
+      cy.get('[data-cy=toast]').should('contain', '이력서 등록 성공');
     });
   });
 
