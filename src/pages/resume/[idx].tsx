@@ -13,7 +13,6 @@ import { infoAtom } from 'src/core/store/auth.store';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { ResumeDetailSkeleton } from 'src/components/Skeleton/ResumeDetail';
 import dynamic from 'next/dynamic';
-import DateUtil from 'src/core/utils/date';
 
 const PDF = dynamic(() => import('src/components/PDF'));
 const ScrollTop = dynamic(() => import('src/components/common/ScrollTop'));
