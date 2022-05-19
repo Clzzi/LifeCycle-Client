@@ -13,6 +13,7 @@ import { infoAtom } from 'src/core/store/auth.store';
 import { useCheckLogin } from 'src/core/hooks/useCheckLogin';
 import { ResumeDetailSkeleton } from 'src/components/Skeleton/ResumeDetail';
 import dynamic from 'next/dynamic';
+import DateUtil from 'src/core/utils/date';
 
 const PDF = dynamic(() => import('src/components/PDF'));
 const ScrollTop = dynamic(() => import('src/components/common/ScrollTop'));
@@ -33,16 +34,15 @@ const Resume = ({ idx }: { idx: number }) => {
     }
   }, [idx, router]);
 
-  const { isLoading, error, data } = useQuery<AResumeResponse, Error, IResume>(
-    'AResume',
-    () => resumeApi.getAResume({ idx }),
-    {
-      select: (data) => {
-        return data.data;
-      },
-      enabled: isIdx,
+  const { isLoading, isError, data } = useQuery<
+    AResumeResponse,
+    Error,
+    IResume
+  >(['AResume', idx], () => resumeApi.getAResume({ idx }), {
+    select: (data) => {
+      return data.data;
     },
-  );
+  });
 
   useEffect(() => {
     if (data?.user.userId === userInfo.userId) {
@@ -58,7 +58,10 @@ const Resume = ({ idx }: { idx: number }) => {
         <ResumeDetailSkeleton />
       </Wrapper>
     );
-  if (error) router.push('/404');
+
+  if (isError) {
+    router.push('/404');
+  }
 
   return (
     <Wrapper>
@@ -84,9 +87,8 @@ export default Resume;
 
 export const getStaticProps: GetStaticProps = async (context: any) => {
   const idx = Number(context.params.idx);
-
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery('AResume', () =>
+  await queryClient.prefetchQuery(['AResume', idx], () =>
     resumeApi.getAResume({ idx }),
   );
 
