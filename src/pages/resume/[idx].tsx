@@ -21,17 +21,8 @@ const Resume = ({ idx }: { idx: number }) => {
   useCheckLogin();
   const router: NextRouter = useRouter();
   const userInfo = useRecoilValue(infoAtom);
-  const [isIdx, setIsIdx] = useState<boolean>(false);
   const { showScrollVisible, onClickScrollTop } = useScrollTop();
   const [isMyResume, setIsMyResume] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (idx) {
-      setIsIdx(true);
-    } else {
-      setIsIdx(false);
-    }
-  }, [idx, router]);
 
   const { isLoading, isError, data } = useQuery<
     AResumeResponse,
