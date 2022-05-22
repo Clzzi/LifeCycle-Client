@@ -34,10 +34,10 @@ export const useAxiosInterceptor = () => {
     let usingRefreshToken: string = TokenUtil.get(REFRESH_TOKEN_KEY);
 
     if (accessToken && usingRefreshToken) {
-      const decode: any = TokenUtil.decode(ACCESS_TOKEN_KEY);
-      const nowDate: number = Date.now() / 1000;
+      const decodedToken: any = TokenUtil.decode(ACCESS_TOKEN_KEY);
+      const currentDate: number = Date.now() / 1000;
 
-      if (decode.exp < nowDate) {
+      if (decodedToken.exp < currentDate) {
         try {
           const data: TokenReissuanceResponse = await Auth.tokenReissuance({
             refreshToken: usingRefreshToken,
