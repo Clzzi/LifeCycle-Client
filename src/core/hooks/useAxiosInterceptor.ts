@@ -6,11 +6,11 @@ import {
 import { useEffect } from 'react';
 import { useToast } from './useToast';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import customAxios from '../libs/axios/customAxios';
 import TokenUtil from 'src/core/utils/token';
 import Auth from 'src/core/apis/auth/auth.api';
 import { Response } from 'src/types/common.type';
 import { TokenReissuanceResponse } from '../apis/auth/auth.param';
+import { customAxios } from '../utils/axios';
 
 export const useAxiosInterceptor = () => {
   const { fireToast } = useToast();

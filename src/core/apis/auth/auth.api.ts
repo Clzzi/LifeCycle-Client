@@ -1,4 +1,4 @@
-import customAxios from 'src/core/libs/axios/customAxios';
+import { customAxios } from 'src/core/utils/axios';
 import { Response } from 'src/types/common.type';
 import {
   LoginParam,
