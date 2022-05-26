@@ -3,15 +3,6 @@ const Favicon = () => {
     <>
       <meta name="apple-mobile-web-app-title" content="lifecycle" />
       <meta name="application-name" content="lifecycle" />
-      {/* <link
-          rel="preload"
-          as="style"
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
-          rel="stylesheet"
-        /> */}
       <link
         rel="apple-touch-icon"
         sizes="76x76"
