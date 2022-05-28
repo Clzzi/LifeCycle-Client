@@ -12,6 +12,7 @@
   <img alt="REACTQUERY" src="https://img.shields.io/badge/REACTQUERY-FF4154.svg?style=for-the-badge&logo=React Query&logoColor=ffffff" />
   <img alt="JENKINS" src="https://img.shields.io/badge/JENKINS-D24939.svg?style=for-the-badge&logo=Jenkins&logoColor=ffffff"/>
   <img alt="GITHUBACTIONS" src ="https://img.shields.io/badge/GitHub Actions-2088FF.svg?&style=for-the-badge&logo=GitHub Actions&logoColor=ffffff"/>
+  <img alt="DOCKER" src="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=ffffff" />
   <img alt="TYPESCRIPT" src ="https://img.shields.io/badge/TYPESCRIPT-3178C6.svg?&style=for-the-badge&logo=TypeScript&logoColor=ffffff"/>  
   <img alt="RECOIL" src ="https://img.shields.io/badge/RECOIL-3578E5.svg?&style=for-the-badge&logo=React&logoColor=ffffff"/>
   <img alt="CYPRESS" src="https://img.shields.io/badge/CYPRESS-17202C.svg?style=for-the-badge&logo=Cypress&logoColor=ffffff"/>
